@@ -1,0 +1,1461 @@
+<!DOCTYPE html>
+<html lang="fr" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Piscines du Rhin | Expert Pisciniste Bas-Rhin (67)</title>
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- AOS Animation Library -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    
+    <!-- Google Fonts - Plus Jakarta Sans -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Dancing+Script:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome 6.4.0 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    
+    <!-- EmailJS pour l'envoi d'emails -->
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: { 
+                        navy: '#011627', 
+                        accent: '#20E2D7',
+                        orange: '#E69B3F'
+                    },
+                    fontFamily: { 
+                        sans: ['"Plus Jakarta Sans"', 'sans-serif'] 
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Glassmorphism Header */
+        .premium-blur { 
+            backdrop-filter: blur(15px); 
+            -webkit-backdrop-filter: blur(15px);
+            background: rgba(1, 22, 39, 0.95); 
+        }
+        
+        /* 
+         * LOGO DESCRIPTION (pour référence future / création SVG minimaliste) :
+         * - Élément graphique abstrait en haut : forme arrondie/ovale avec bandes de couleur
+         *   * Bande orange (#E69B3F) en haut à gauche et bas à droite
+         *   * Bande bleue (#20E2D7) au centre, avec contour bleu vif
+         *   * Bande brune/gris foncé pour la profondeur
+         * - Texte en dessous : "Piscines Les du Rhin" en script/cursive élégant
+         *   * "Piscines" (ligne 1, plus grand)
+         *   * "— Les —" (ligne 2, plus petit, avec tirets)
+         *   * "du Rhin" (ligne 3, taille moyenne)
+         * - Couleurs principales : Orange #E69B3F, Bleu #20E2D7, Texte en script clair
+         */
+        
+        /* Logo HTML/CSS - Structure verticale */
+        .select-none {
+            user-select: none;
+        }
+        
+        /* Animation d'eau élégante et subtile au chargement */
+        .water-animation {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 9999;
+            pointer-events: none;
+            overflow: hidden;
+            animation: waterFadeOut 2s ease-out forwards;
+        }
+        
+        .water-particle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: rgba(32, 226, 215, 0.6);
+            border-radius: 50%;
+            animation: waterDrop 3s ease-out infinite;
+            box-shadow: 0 0 6px rgba(32, 226, 215, 0.8);
+        }
+        
+        .water-particle:nth-child(1) { left: 10%; animation-delay: 0s; }
+        .water-particle:nth-child(2) { left: 20%; animation-delay: 0.2s; }
+        .water-particle:nth-child(3) { left: 30%; animation-delay: 0.4s; }
+        .water-particle:nth-child(4) { left: 40%; animation-delay: 0.6s; }
+        .water-particle:nth-child(5) { left: 50%; animation-delay: 0.8s; }
+        .water-particle:nth-child(6) { left: 60%; animation-delay: 1s; }
+        .water-particle:nth-child(7) { left: 70%; animation-delay: 1.2s; }
+        .water-particle:nth-child(8) { left: 80%; animation-delay: 1.4s; }
+        .water-particle:nth-child(9) { left: 90%; animation-delay: 1.6s; }
+        
+        @keyframes waterDrop {
+            0% {
+                top: -10px;
+                opacity: 1;
+                transform: scale(1);
+            }
+            50% {
+                opacity: 0.8;
+                transform: scale(1.2);
+            }
+            100% {
+                top: 100%;
+                opacity: 0;
+                transform: scale(0.5);
+            }
+        }
+        
+        @keyframes waterFadeOut {
+            0% {
+                opacity: 1;
+            }
+            70% {
+                opacity: 1;
+            }
+            100% {
+                opacity: 0;
+                visibility: hidden;
+            }
+        }
+        
+        /* Hero Overlay */
+        .hero-overlay { 
+            background: radial-gradient(circle at center, rgba(1, 22, 39, 0.4) 0%, rgba(1, 22, 39, 1) 100%); 
+            z-index: 0; 
+        }
+        
+        /* Image Parallaxe - Se déplace avec la souris */
+        .parallax-image {
+            transition: transform 0.1s ease-out;
+            will-change: transform;
+        }
+        
+        /* Form Inputs - VISIBILITÉ OPTIMISÉE */
+        .input-premium { 
+            background: rgba(255, 255, 255, 0.1) !important; 
+            border: 2px solid rgba(255, 255, 255, 0.2) !important; 
+            color: #ffffff !important; 
+            transition: all 0.3s ease; 
+            width: 100%; 
+        }
+        .input-premium::placeholder {
+            color: rgba(255, 255, 255, 0.6) !important;
+        }
+        .input-premium:focus { 
+            border-color: #E69B3F !important; 
+            outline: none; 
+            background: rgba(255, 255, 255, 0.15) !important; 
+            box-shadow: 0 0 0 3px rgba(230, 155, 63, 0.2);
+        }
+        .input-premium.error {
+            border-color: #ef4444 !important;
+            border-width: 2px;
+            box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.2);
+        }
+        
+        /* Formulaire Container - FOND PLUS OPAQUE */
+        .form-container {
+            background: rgba(1, 22, 39, 0.98) !important;
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+        }
+        
+        
+        /* Barre de progression multi-étapes */
+        .progress-bar {
+            height: 4px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 2px;
+            overflow: hidden;
+            margin-bottom: 1.5rem;
+        }
+        .progress-fill {
+            height: 100%;
+            background: #E69B3F;
+            transition: width 0.5s ease;
+            border-radius: 2px;
+        }
+        
+        /* Étapes du formulaire */
+        .form-step {
+            display: none;
+            animation: fadeIn 0.4s ease-in;
+        }
+        .form-step.active {
+            display: block;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        /* Bouton Pulsant - Animation CTA */
+        .btn-pulse {
+            animation: pulseCTA 2s ease-in-out infinite;
+        }
+        @keyframes pulseCTA {
+            0%, 100% {
+                box-shadow: 0 0 0 0 rgba(32, 226, 215, 0.7);
+            }
+            50% {
+                box-shadow: 0 0 0 10px rgba(32, 226, 215, 0);
+            }
+        }
+        
+        /* Compteur animé - Orange du logo (#E69B3F) */
+        .counter-number {
+            font-size: 3rem;
+            font-weight: 800;
+            color: #E69B3F;
+        }
+        
+        /* Chatbot Styles */
+        #chat-window { 
+            display: none; 
+            flex-direction: column; 
+            position: fixed;
+            bottom: 100px; 
+            right: 25px; 
+            width: 350px; 
+            max-width: calc(100vw - 50px);
+            height: 480px; 
+            max-height: calc(100vh - 200px);
+            background: #011627; 
+            border: 1px solid rgba(32, 226, 215, 0.4); 
+            border-radius: 25px; 
+            box-shadow: 0 25px 50px rgba(0,0,0,0.5); 
+            z-index: 1000; 
+            overflow: hidden;
+            animation: slideInChat 0.3s ease-out;
+        }
+        
+        /* Responsive Chatbot - Mobile */
+        @media (max-width: 768px) {
+            #chat-window {
+                bottom: 90px;
+                right: 10px;
+                left: 10px;
+                width: auto;
+                height: 400px;
+                max-height: calc(100vh - 180px);
+            }
+            
+            /* S'assurer que le bouton chat ne cache pas le formulaire sur mobile */
+            .chat-trigger-btn {
+                bottom: 20px !important;
+                right: 20px !important;
+                width: 56px;
+                height: 56px;
+            }
+            
+            /* S'assurer que le formulaire reste accessible */
+            #devis {
+                margin-bottom: 80px;
+            }
+        }
+        
+        @keyframes slideInChat {
+            from {
+                transform: translateY(20px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+        
+        /* Notification visuelle pour l'ouverture automatique du chat */
+        .chat-notification {
+            position: fixed;
+            bottom: 200px;
+            right: 25px;
+            background: rgba(32, 226, 215, 0.95);
+            color: #011627;
+            padding: 12px 20px;
+            border-radius: 15px;
+            font-size: 12px;
+            font-weight: bold;
+            z-index: 2001;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            animation: bounceIn 0.5s ease-out;
+        }
+        
+        @keyframes bounceIn {
+            0% {
+                transform: scale(0.8);
+                opacity: 0;
+            }
+            50% {
+                transform: scale(1.1);
+            }
+            100% {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+        
+        /* Messages Styles */
+        .msg { 
+            padding: 12px 16px; 
+            border-radius: 15px; 
+            max-width: 85%; 
+            font-size: 13px; 
+            margin-bottom: 10px; 
+            line-height: 1.4; 
+            animation: fadeInChat 0.4s ease-out forwards;
+            opacity: 0;
+            transform: translateY(10px);
+        }
+        .msg-ai { 
+            background-color: #e0f7f5 !important;
+            color: #1e293b !important; 
+            border-bottom-left-radius: 2px; 
+        }
+        .msg-user { 
+            background: #011627; 
+            color: #ffffff; 
+            align-self: flex-end; 
+            border-bottom-right-radius: 2px; 
+            font-weight: bold; 
+        }
+        
+        /* Social Proof (FOMO) */
+        .social-proof { 
+            animation: slideIn 0.5s ease-out; 
+            position: fixed; 
+            top: 100px; 
+            right: 25px; 
+            z-index: 2000; 
+            pointer-events: none; 
+        }
+        @keyframes slideIn { 
+            from { transform: translateX(100%); opacity: 0; } 
+            to { transform: translateX(0); opacity: 1; } 
+        }
+
+        @keyframes fadeInChat {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Typing Dots Animation */
+        .typing-dots {
+            display: inline-flex;
+            gap: 4px;
+            align-items: center;
+        }
+        .typing-dots span {
+            width: 6px;
+            height: 6px;
+            background: #E69B3F;
+            border-radius: 50%;
+            animation: typingDot 1.4s infinite;
+        }
+        .typing-dots span:nth-child(2) { animation-delay: 0.2s; }
+        .typing-dots span:nth-child(3) { animation-delay: 0.4s; }
+
+        @keyframes typingDot {
+            0%, 80%, 100% { 
+                transform: scale(0);
+                opacity: 0.5;
+            }
+            40% { 
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        /* Button Hover Effects (CRO Optimized) - Avec touches Orange */
+        .btn-premium {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .btn-premium:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(230, 155, 63, 0.4), 0 0 20px rgba(230, 155, 63, 0.2);
+        }
+        .btn-submit:hover {
+            background: #E69B3F !important;
+            box-shadow: 0 10px 30px rgba(230, 155, 63, 0.4), 0 0 20px rgba(230, 155, 63, 0.3);
+        }
+        .btn-premium:active {
+            transform: translateY(0);
+        }
+        
+        /* Icônes avec touches Orange */
+        .icon-orange {
+            color: #E69B3F;
+        }
+        
+        /* Bordures actives avec Orange */
+        .border-active-orange {
+            border-color: #E69B3F;
+        }
+        
+        /* Amélioration visibilité texte formulaire */
+        select.input-premium {
+            color: #ffffff !important;
+        }
+        select.input-premium option {
+            background: #011627;
+            color: #ffffff;
+        }
+    </style>
+</head>
+<body class="bg-[#010B13] font-sans text-white antialiased" style="font-family: 'Plus Jakarta Sans', sans-serif;">
+    <!-- Animation d'eau élégante au chargement -->
+    <div class="water-animation">
+        <div class="water-particle"></div>
+        <div class="water-particle"></div>
+        <div class="water-particle"></div>
+        <div class="water-particle"></div>
+        <div class="water-particle"></div>
+        <div class="water-particle"></div>
+        <div class="water-particle"></div>
+        <div class="water-particle"></div>
+        <div class="water-particle"></div>
+    </div>
+
+    <!-- Header -->
+    <header class="fixed w-full z-[100] py-4 px-6 lg:px-10 border-b border-white/5 premium-blur">
+        <div class="max-w-7xl mx-auto flex justify-between items-center">
+            <div class="flex items-center gap-3">
+                <!-- Logo HTML/CSS selon structure verticale originale avec animation subtile -->
+                <div class="flex items-center gap-3 select-none hover:opacity-90 transition-opacity duration-300">
+                    <div class="flex flex-col gap-1.5 transform -rotate-12 hover:rotate-[-10deg] transition-transform duration-300">
+                        <div class="h-1.5 w-10 bg-[#E69B3F] rounded-full"></div>
+                        <div class="h-1.5 w-10 bg-[#2D9CDB] rounded-full"></div>
+                        <div class="h-1.5 w-10 bg-[#E69B3F] rounded-full"></div>
+                    </div>
+
+                    <div class="flex flex-col items-center">
+                        <span style="font-family: sans-serif; letter-spacing: 1px;" class="text-white font-black text-2xl leading-none uppercase">Piscines</span>
+                        
+                        <div class="flex items-center w-full my-0.5">
+                            <div class="h-[1px] flex-grow bg-white/40"></div>
+                            <span style="font-family: 'Brush Script MT', cursive;" class="text-[#E69B3F] text-xl px-2">Les</span>
+                            <div class="h-[1px] flex-grow bg-white/40"></div>
+                        </div>
+                        
+                        <span style="font-family: sans-serif; letter-spacing: 2px;" class="text-[#E69B3F] font-black text-2xl leading-none uppercase">du Rhin</span>
+                    </div>
+                </div>
+                <span class="text-[10px] font-bold text-orange uppercase tracking-[0.2em] hidden sm:inline-block ml-2">Bas-Rhin (67)</span>
+            </div>
+            <div class="bg-white/5 px-4 py-2 rounded-lg text-[10px] font-black text-white uppercase tracking-widest hover:bg-white/10 hover:border-orange/30 border border-transparent transition-all duration-300">
+                Réponse rapide <i class="fas fa-bolt text-orange animate-pulse"></i>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="relative min-h-screen flex items-center pt-32 md:pt-24 pb-12 overflow-hidden" id="hero-section">
+        <div class="absolute inset-0 z-0">
+            <img id="hero-image" src="assets/55337074-5a47-4443-8482-8d0269fe66c1-a25f61dc-d360-4d30-8ab6-ef2d193b24e8.png" 
+                 onerror="this.src='https://images.unsplash.com/photo-1576013551627-0cc20b96c2a7?auto=format&fit=crop&q=80&w=2000'" 
+                 class="w-full h-full object-cover opacity-30 parallax-image" alt="Piscine Bas-Rhin">
+            <div class="absolute inset-0 hero-overlay"></div>
+        </div>
+
+        <!-- Conteneur Social Proof (FOMO) -->
+        <div id="notif-container"></div>
+
+        <div class="container mx-auto px-6 relative z-10 grid lg:grid-cols-2 gap-12 items-center">
+            
+            <div data-aos="fade-right">
+                <div class="inline-flex items-center gap-2 px-4 py-1.5 bg-orange/10 border border-orange/30 rounded-full mb-8 backdrop-blur-md hover:bg-orange/15 hover:border-orange/50 transition-all duration-300 shadow-lg shadow-orange/20">
+                    <span class="w-2.5 h-2.5 bg-orange rounded-full animate-ping"></span>
+                    <span class="w-2.5 h-2.5 bg-orange rounded-full absolute animate-pulse"></span>
+                    <span class="text-xs font-black uppercase tracking-widest text-white">VOTRE EXPERT PISCINE DANS LE BAS-RHIN (67)</span>
+                </div>
+                
+                <h2 class="text-5xl md:text-7xl lg:text-8xl font-black mb-6 leading-[0.95] tracking-tighter text-white">
+                    Votre devis <br><span class="text-orange italic">sous 48h.</span>
+                </h2>
+                <p class="text-xl text-gray-300 mb-6 max-w-lg font-medium border-l-4 border-orange pl-6">
+                    Nouvelle piscine, Rénovation, Entretien et SAV. Obtenez un chiffrage précis et sans engagement pour votre piscine dans le Bas-Rhin (67).
+                </p>
+                
+                <!-- Points marketing élégants avec animations -->
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-2xl mb-10" data-aos="fade-up" data-aos-delay="200">
+                    <div class="flex flex-col items-center text-center p-4 bg-white/5 rounded-xl border border-white/10 hover:border-orange/50 hover:bg-white/10 hover:scale-105 transition-all duration-300 group cursor-pointer">
+                        <div class="w-12 h-12 bg-orange/20 rounded-full flex items-center justify-center mb-3 group-hover:bg-orange/30 group-hover:scale-110 transition-all duration-300">
+                            <i class="fas fa-tools text-orange text-xl group-hover:rotate-12 transition-transform duration-300"></i>
+                        </div>
+                        <span class="text-[10px] font-black text-white uppercase tracking-tight leading-tight group-hover:text-orange transition-colors" style="font-family: 'Plus Jakarta Sans', sans-serif;">SAV</span>
+                        <span class="text-[10px] text-gray-400 mt-1 group-hover:text-gray-300 transition-colors" style="font-family: 'Plus Jakarta Sans', sans-serif;">Dépannage</span>
+                    </div>
+                    <div class="flex flex-col items-center text-center p-4 bg-white/5 rounded-xl border border-white/10 hover:border-orange/50 hover:bg-white/10 hover:scale-105 transition-all duration-300 group cursor-pointer">
+                        <div class="w-12 h-12 bg-orange/20 rounded-full flex items-center justify-center mb-3 group-hover:bg-orange/30 group-hover:scale-110 transition-all duration-300">
+                            <i class="fas fa-swimming-pool text-orange text-base group-hover:scale-110 transition-transform duration-300"></i>
+                        </div>
+                        <span class="text-[10px] font-black text-white uppercase tracking-tight leading-tight group-hover:text-orange transition-colors" style="font-family: 'Plus Jakarta Sans', sans-serif;">Construction</span>
+                        <span class="text-[10px] text-gray-400 mt-1 group-hover:text-gray-300 transition-colors" style="font-family: 'Plus Jakarta Sans', sans-serif;">Béton</span>
+                    </div>
+                    <div class="flex flex-col items-center text-center p-4 bg-white/5 rounded-xl border border-white/10 hover:border-orange/50 hover:bg-white/10 hover:scale-105 transition-all duration-300 group cursor-pointer">
+                        <div class="w-12 h-12 bg-orange/20 rounded-full flex items-center justify-center mb-3 group-hover:bg-orange/30 group-hover:scale-110 transition-all duration-300">
+                            <i class="fas fa-sync-alt text-orange text-xl group-hover:rotate-180 transition-transform duration-500"></i>
+                        </div>
+                        <span class="text-[10px] font-black text-white uppercase tracking-tight leading-tight group-hover:text-orange transition-colors" style="font-family: 'Plus Jakarta Sans', sans-serif;">Rénovation</span>
+                        <span class="text-[10px] text-gray-400 mt-1 group-hover:text-gray-300 transition-colors" style="font-family: 'Plus Jakarta Sans', sans-serif;">Modernisation</span>
+                    </div>
+                    <div class="flex flex-col items-center text-center p-4 bg-white/5 rounded-xl border border-white/10 hover:border-orange/50 hover:bg-white/10 hover:scale-105 transition-all duration-300 group cursor-pointer">
+                        <div class="w-12 h-12 bg-orange/20 rounded-full flex items-center justify-center mb-3 group-hover:bg-orange/30 group-hover:scale-110 transition-all duration-300">
+                            <i class="fas fa-water text-orange text-xl group-hover:animate-pulse transition-all duration-300"></i>
+                        </div>
+                        <span class="text-[10px] font-black text-white uppercase tracking-tight leading-tight group-hover:text-orange transition-colors" style="font-family: 'Plus Jakarta Sans', sans-serif;">Entretien</span>
+                        <span class="text-[10px] text-gray-400 mt-1 group-hover:text-gray-300 transition-colors" style="font-family: 'Plus Jakarta Sans', sans-serif;">Maintenance</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Colonne Formulaire (Logique Métier + Technique) - VISIBILITÉ OPTIMISÉE -->
+            <div id="devis" class="form-container border-2 border-white/20 p-8 lg:p-10 rounded-[2.5rem] shadow-2xl relative z-20">
+                <div class="text-center mb-8">
+                    <h3 class="text-3xl font-black uppercase tracking-tighter text-white">Lancer ma demande</h3>
+                    <p class="text-orange text-[10px] font-bold uppercase tracking-widest mt-1">Réponse précise garantie sous 48h.</p>
+                </div>
+
+                <!-- Barre de progression multi-étapes -->
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progress-fill" style="width: 33.33%"></div>
+                </div>
+                <div class="flex justify-center gap-2 mb-6">
+                    <div class="flex items-center gap-2">
+                        <div class="w-8 h-8 rounded-full bg-orange text-navy font-black text-xs flex items-center justify-center" id="step-indicator-1">1</div>
+                        <span class="text-[10px] font-bold text-gray-300">Projet</span>
+                    </div>
+                    <div class="w-12 h-0.5 bg-gray-600"></div>
+                    <div class="flex items-center gap-2">
+                        <div class="w-8 h-8 rounded-full bg-gray-600 text-white font-black text-xs flex items-center justify-center" id="step-indicator-2">2</div>
+                        <span class="text-[10px] font-bold text-gray-400">Détails</span>
+                    </div>
+                    <div class="w-12 h-0.5 bg-gray-600"></div>
+                    <div class="flex items-center gap-2">
+                        <div class="w-8 h-8 rounded-full bg-gray-600 text-white font-black text-xs flex items-center justify-center" id="step-indicator-3">3</div>
+                        <span class="text-[10px] font-bold text-gray-400">Contact</span>
+                    </div>
+                </div>
+
+                <form id="devis-form" class="space-y-4" onsubmit="event.preventDefault(); validateAndSubmit();">
+                    
+                    <!-- ÉTAPE 1 : Choix du projet -->
+                    <div class="form-step active" id="step-1">
+                        <div class="space-y-2 mb-4">
+                            <label class="text-[10px] font-black text-gray-300 uppercase tracking-widest ml-2">Quel est votre projet ?</label>
+                            <select id="project-type" name="project_type" onchange="updateFormLogic()" class="input-premium w-full p-4 rounded-xl text-xs font-black uppercase cursor-pointer transition-colors" required>
+                                <option value="construction" style="background: #011627; color: #ffffff;">BÉTON</option>
+                                <option value="renovation" style="background: #011627; color: #ffffff;">RÉNOVATION</option>
+                                <option value="entretien" style="background: #011627; color: #ffffff;">ENTRETIEN / SAV</option>
+                            </select>
+                        </div>
+
+                        <div id="tech-fields" class="grid grid-cols-1 gap-4 mb-4">
+                            <div id="dims-field" class="space-y-2">
+                                <label class="text-[10px] font-bold text-gray-300 uppercase ml-2">Dimensions souhaitées (ex: 8x4m)</label>
+                                <input type="text" id="dims-input" name="dimensions" placeholder="TAILLE BASSIN" class="input-premium w-full p-4 rounded-xl text-xs font-bold uppercase">
+                            </div>
+                        </div>
+
+                        <button type="button" onclick="nextStep(2)" class="w-full bg-orange text-white py-4 rounded-2xl font-black text-xs uppercase tracking-widest btn-premium shadow-xl shadow-orange/30 hover:bg-orange/90 hover:text-white transition-all mt-6">
+                            Suivant <i class="fas fa-arrow-right ml-2"></i>
+                        </button>
+                    </div>
+
+                    <!-- ÉTAPE 2 : Détails techniques -->
+                    <div class="form-step" id="step-2">
+                        <div class="space-y-4">
+                            <textarea id="dynamic-message" name="message_detail" placeholder="Dites-nous en plus sur votre projet..." rows="4" class="input-premium w-full p-4 rounded-xl text-xs font-bold uppercase resize-none placeholder:text-gray-400"></textarea>
+
+                            <div class="flex items-center gap-4 bg-white/5 p-4 rounded-xl border border-white/10 hover:border-orange transition-all">
+                                <i class="fas fa-camera text-xl" style="color: #E69B3F;"></i>
+                                <div class="flex-grow">
+                                    <label class="block text-[9px] font-black text-gray-300 uppercase mb-1">Ajouter une photo (Terrain ou Plan)</label>
+                                    <input type="file" id="file-upload" class="block w-full text-[10px] text-gray-400 file:mr-4 file:py-2 file:px-3 file:rounded-full file:border-0 file:text-[9px] file:font-bold file:bg-white file:text-navy cursor-pointer">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="flex gap-4 mt-6">
+                            <button type="button" onclick="prevStep(1)" class="flex-1 bg-white/5 text-white py-4 rounded-2xl font-black text-xs uppercase tracking-widest btn-premium border border-white/10 hover:bg-white/10">
+                                <i class="fas fa-arrow-left mr-2"></i> Retour
+                            </button>
+                            <button type="button" onclick="nextStep(3)" class="flex-1 bg-orange text-white py-4 rounded-2xl font-black text-xs uppercase tracking-widest btn-premium shadow-xl shadow-orange/30 hover:bg-orange/90 hover:text-white transition-all">
+                                Suivant <i class="fas fa-arrow-right ml-2"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- ÉTAPE 3 : Coordonnées et envoi -->
+                    <div class="form-step" id="step-3">
+                        <div class="space-y-4">
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                <input type="text" id="nom-complet" name="nom" placeholder="NOM COMPLET" required class="input-premium w-full p-4 rounded-xl text-xs font-bold uppercase">
+                                <input type="text" id="ville" name="ville" placeholder="Ville ou Code Postal (ex: 67500)" required class="input-premium w-full p-4 rounded-xl text-xs font-bold uppercase">
+                            </div>
+                            
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                <input type="email" id="email" name="email" placeholder="VOTRE ADRESSE E-MAIL" required class="input-premium w-full p-4 rounded-xl text-xs font-bold uppercase">
+                                <input type="tel" id="telephone" name="telephone" placeholder="TÉLÉPHONE (FACULTATIF)" class="input-premium w-full p-4 rounded-xl text-xs font-bold uppercase">
+                            </div>
+                            
+                            <!-- Champs cachés pour FormSubmit -->
+                            <input type="hidden" name="project_type" id="hidden-project-type">
+                            <input type="hidden" name="dimensions" id="hidden-dimensions">
+                            <input type="hidden" name="message" id="hidden-message">
+
+                            <div class="flex items-center justify-center gap-2 text-[9px] text-gray-300">
+                                <i class="fas fa-shield-alt text-orange"></i>
+                                <span>Données sécurisées et confidentielles</span>
+                            </div>
+                        </div>
+
+                        <div class="flex gap-4 mt-6">
+                            <button type="button" onclick="prevStep(2)" class="flex-1 bg-white/5 text-white py-4 rounded-2xl font-black text-xs uppercase tracking-widest btn-premium border border-white/10 hover:bg-white/10">
+                                <i class="fas fa-arrow-left mr-2"></i> Retour
+                            </button>
+                            <button type="submit" class="flex-1 bg-orange text-white py-4 rounded-2xl font-black text-sm uppercase tracking-widest btn-premium btn-submit btn-pulse shadow-xl shadow-orange/40 hover:bg-orange/90 hover:text-white transition-all">
+                                Envoyer ma demande
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section Compteurs de Succès (Stats) -->
+    <section class="py-16 bg-[#020D17] border-t border-white/5" id="stats-section">
+        <div class="container mx-auto px-6">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Compteur 1 -->
+                <div class="text-center" data-aos="fade-up">
+                    <div class="counter-number mb-2" id="counter-1" data-target="21">0</div>
+                    <p class="text-sm font-bold text-gray-300 uppercase tracking-widest">21 ans d'expérience</p>
+                </div>
+                <!-- Compteur 2 -->
+                <div class="text-center" data-aos="fade-up" data-aos-delay="100">
+                    <div class="counter-number mb-2" id="counter-2" data-target="850">0</div>
+                    <p class="text-sm font-bold text-gray-300 uppercase tracking-widest">Piscines installées</p>
+                </div>
+                <!-- Compteur 3 -->
+                <div class="text-center" data-aos="fade-up" data-aos-delay="200">
+                    <div class="counter-number mb-2" id="counter-3" data-target="48" style="color: #E69B3F; white-space: nowrap;">48H</div>
+                    <p class="text-sm font-bold text-gray-300 uppercase tracking-widest">Temps de réponse moyen</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section Réalisations -->
+    <section class="py-24 bg-[#020D17] border-t border-white/5">
+        <div class="container mx-auto px-6">
+            <h3 class="text-center text-4xl font-black uppercase tracking-widest mb-16 text-white">
+                Nos projets <span class="text-orange italic">Réalisés.</span>
+            </h3>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Projet 1 - Strasbourg -->
+                <a href="https://www.lespiscinesdurhin.com/galerie/nos-realisations-3/" target="_blank" rel="noopener noreferrer" class="group relative aspect-[4/3] rounded-[2rem] overflow-hidden border border-white/5 hover:border-orange/50 transition-all block cursor-pointer" data-aos="fade-up">
+                    <img src="assets/55337074-5a47-4443-8482-8d0269fe66c1-a25f61dc-d360-4d30-8ab6-ef2d193b24e8.png" 
+                         onerror="this.src='https://images.unsplash.com/photo-1562133567-b6a0a9c7e6eb?auto=format&fit=crop&w=800'"
+                         class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" alt="Piscine moderne avec terrasse">
+                    <div class="absolute inset-0 bg-gradient-to-t from-navy to-transparent"></div>
+                    <div class="absolute bottom-6 left-6">
+                        <p class="text-xs font-black text-orange uppercase mb-1">Strasbourg</p>
+                        <p class="text-lg font-black text-white">Piscine sur mesure</p>
+                    </div>
+                </a>
+                <!-- Projet 2 - Haguenau -->
+                <a href="https://www.lespiscinesdurhin.com/galerie/nos-realisations-3/" target="_blank" rel="noopener noreferrer" class="group relative aspect-[4/3] rounded-[2rem] overflow-hidden border border-white/5 hover:border-orange/50 transition-all block cursor-pointer" data-aos="fade-up" data-aos-delay="100">
+                    <img src="assets/c6bab003-6c17-4cf0-a85f-c2e05df9f677-25021f3a-3e43-48d1-971e-0fbe30968b3e.png" 
+                         onerror="this.src='https://images.unsplash.com/photo-1558223126-670554f67623?auto=format&fit=crop&w=800'"
+                         class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" alt="Piscine rénovée">
+                    <div class="absolute inset-0 bg-gradient-to-t from-navy to-transparent"></div>
+                    <div class="absolute bottom-6 left-6">
+                        <p class="text-xs font-black text-orange uppercase mb-1">Haguenau</p>
+                        <p class="text-lg font-black text-white">Rénovation</p>
+                    </div>
+                </a>
+                <!-- Projet 3 - Saverne -->
+                <a href="https://www.lespiscinesdurhin.com/galerie/nos-realisations-3/" target="_blank" rel="noopener noreferrer" class="group relative aspect-[4/3] rounded-[2rem] overflow-hidden border border-white/5 hover:border-orange/50 transition-all block cursor-pointer" data-aos="fade-up" data-aos-delay="200">
+                    <img src="assets/2bdba317-2436-477c-8794-c0a046a09dff-d82e6935-3103-4cc9-aaf2-859e29d3df31.png" 
+                         onerror="this.src='https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=800'"
+                         class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" alt="Piscine avec jardin">
+                    <div class="absolute inset-0 bg-gradient-to-t from-navy to-transparent"></div>
+                    <div class="absolute bottom-6 left-6">
+                        <p class="text-xs font-black text-orange uppercase mb-1">Saverne</p>
+                        <p class="text-lg font-black text-white">Piscine sur mesure</p>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-navy py-16 border-t border-white/5 text-center relative overflow-hidden">
+        <!-- Texture Fond -->
+        <div class="absolute top-0 left-0 w-full h-full bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-5"></div>
+        
+        <div class="container mx-auto px-6 relative z-10">
+            <div class="flex flex-col items-center gap-6 mb-6">
+                <div class="flex items-center gap-3">
+                    <div class="bg-orange/20 p-3 rounded-lg">
+                        <i class="fas fa-water text-orange text-xl"></i>
+                    </div>
+                    <span class="font-black text-2xl tracking-tight uppercase text-white">Piscines du Rhin</span>
+                </div>
+                <p class="text-gray-400 text-sm font-medium mb-4">Bureau technique</p>
+            </div>
+            
+            <div class="flex flex-col md:flex-row justify-center items-center gap-4 md:gap-8 text-xs font-bold text-gray-300 uppercase tracking-widest mb-8">
+                <a href="https://www.google.com/maps/search/?api=1&query=Piscines+du+Rhin+Bas-Rhin" target="_blank" rel="noopener noreferrer" class="flex items-center gap-2 text-white hover:text-orange transition-colors cursor-pointer">
+                    <i class="fas fa-map-marker-alt text-orange"></i>
+                    <span class="font-black">Bas-Rhin (67)</span>
+                </a>
+                <p class="flex items-center gap-2">
+                    <i class="fas fa-id-card text-orange"></i>
+                    Siret : 505 111 864
+                </p>
+                <p class="flex items-center gap-2">
+                    <i class="fas fa-shield-alt text-orange"></i>
+                    Garantie Décennale
+                </p>
+            </div>
+            
+            <div class="h-px w-full bg-white/10 mb-4"></div>
+            <p class="text-[10px] text-gray-500 uppercase tracking-widest">
+                &copy; 2023 Piscines du Rhin. Tous droits réservés.
+            </p>
+        </div>
+    </footer>
+
+    <!-- Chatbot Widget -->
+    <div class="fixed bottom-10 right-10 z-[1000] md:bottom-10 md:right-10">
+        <!-- Fenêtre Chat -->
+        <div id="chat-window" class="flex flex-col z-[1001] w-[360px] h-[480px] bg-white rounded-[30px] shadow-2xl border border-white/10 backdrop-blur-xl overflow-hidden">
+            <!-- Header Chat -->
+            <div class="bg-orange p-4 flex justify-between items-center">
+                <div class="flex items-center gap-2">
+                    <div class="w-2 h-2 bg-navy rounded-full animate-pulse"></div>
+                    <span class="text-[10px] font-black uppercase text-navy tracking-widest">Assistant</span>
+                </div>
+                <button id="close-chat" class="text-navy hover:text-white transition-colors"><i class="fas fa-times"></i></button>
+            </div>
+            <!-- Zone Messages -->
+            <div id="chat-msgs" class="flex-grow p-4 overflow-y-auto flex flex-col bg-gray-50">
+                <div class="msg msg-ai" id="welcome-message" style="display: none; opacity: 1;">
+                    Bonjour ! 👋 Besoin d'un conseil pour votre piscine dans le Bas-Rhin ? Je suis là pour vous !
+                </div>
+            </div>
+            <!-- Footer Chat -->
+            <div class="p-4 bg-navy border-t border-white/10 flex gap-2">
+                <input type="text" id="chat-input" placeholder="Écrivez ici..." class="flex-grow bg-white/5 border border-white/10 rounded-lg px-3 py-2 text-xs focus:outline-none focus:border-orange text-white" onkeypress="handleChatKeyPress(event)">
+                <button onclick="sendMsg()" class="bg-orange text-white w-12 h-12 rounded-lg flex items-center justify-center transition-transform hover:scale-105 btn-premium">
+                    <i class="fas fa-paper-plane text-sm"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Bouton Trigger -->
+        <button onclick="toggleChat()" class="fixed bottom-10 right-10 md:bottom-10 md:right-10 w-16 h-16 bg-orange rounded-[30px] flex items-center justify-center shadow-2xl z-[1001] hover:scale-110 transition-transform border-2 border-white/20 btn-premium chat-trigger-btn">
+            <i class="fas fa-comment-alt text-navy text-2xl"></i>
+        </button>
+    </div>
+
+    <!-- Scripts -->
+    <script>
+        // ============================================
+        // INITIALISATION AOS (Animations au scroll)
+        // ============================================
+        if (typeof AOS !== 'undefined') {
+            AOS.init({ 
+                once: true, 
+                duration: 1000,
+                offset: 50
+            });
+        }
+
+        // ============================================
+        // 1. EFFET PARALLAXE SUR L'IMAGE DU HERO
+        // L'image se déplace légèrement selon la position de la souris
+        // ============================================
+        const heroImage = document.getElementById('hero-image');
+        const heroSection = document.getElementById('hero-section');
+        
+        if (heroSection && heroImage) {
+            heroSection.addEventListener('mousemove', (e) => {
+                // Calculer la position de la souris relative à la section
+                const rect = heroSection.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                
+                // Calculer le pourcentage de position (0 à 100%)
+                const xPercent = (x / rect.width) * 100;
+                const yPercent = (y / rect.height) * 100;
+                
+                // Appliquer un déplacement subtil (max 2% dans chaque direction)
+                const moveX = (xPercent - 50) * 0.02;
+                const moveY = (yPercent - 50) * 0.02;
+                
+                heroImage.style.transform = `translate(${moveX}%, ${moveY}%) scale(1.05)`;
+            });
+            
+            // Réinitialiser la position quand la souris quitte la section
+            heroSection.addEventListener('mouseleave', () => {
+                heroImage.style.transform = 'translate(0, 0) scale(1)';
+            });
+        }
+
+        // ============================================
+        // 2. FORMULAIRE MULTI-ÉTAPES
+        // Gère la navigation entre les 3 étapes du formulaire
+        // ============================================
+        let currentStep = 1;
+        const totalSteps = 3;
+
+        // Fonction pour passer à l'étape suivante
+        function nextStep(step) {
+            if (step > currentStep && step <= totalSteps) {
+                // Masquer l'étape actuelle
+                document.getElementById(`step-${currentStep}`).classList.remove('active');
+                
+                // Afficher la nouvelle étape
+                currentStep = step;
+                document.getElementById(`step-${step}`).classList.add('active');
+                
+                // Mettre à jour la barre de progression
+                updateProgressBar(step);
+                updateStepIndicators(step);
+                
+                // Scroll vers le haut du formulaire
+                document.getElementById('devis').scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+        }
+
+        // Fonction pour revenir à l'étape précédente
+        function prevStep(step) {
+            if (step < currentStep && step >= 1) {
+                // Masquer l'étape actuelle
+                document.getElementById(`step-${currentStep}`).classList.remove('active');
+                
+                // Afficher l'étape précédente
+                currentStep = step;
+                document.getElementById(`step-${step}`).classList.add('active');
+                
+                // Mettre à jour la barre de progression
+                updateProgressBar(step);
+                updateStepIndicators(step);
+            }
+        }
+
+        // Mettre à jour la barre de progression visuelle
+        function updateProgressBar(step) {
+            const progress = (step / totalSteps) * 100;
+            document.getElementById('progress-fill').style.width = progress + '%';
+        }
+
+        // Mettre à jour les indicateurs d'étapes (cercles numérotés) - Avec Orange
+        function updateStepIndicators(step) {
+            for (let i = 1; i <= totalSteps; i++) {
+                const indicator = document.getElementById(`step-indicator-${i}`);
+                if (i <= step) {
+                    indicator.classList.remove('bg-gray-600');
+                    indicator.classList.add('bg-orange', 'text-navy');
+                } else {
+                    indicator.classList.remove('bg-orange', 'text-navy');
+                    indicator.classList.add('bg-gray-600', 'text-white');
+                }
+            }
+        }
+
+        // ============================================
+        // 3. COMPTEURS ANIMÉS (Stats)
+        // Animation de 0 à la valeur cible quand on scrolle dessus
+        // ============================================
+        let countersAnimated = false;
+
+        function animateCounter(element, target, suffix = '') {
+            // Si le suffixe est 'H' et que l'élément contient déjà "48H", ne pas animer
+            if (suffix === 'H' && element.textContent.includes('H')) {
+                return; // Ne pas animer, garder "48H" tel quel
+            }
+            
+            let current = 0;
+            const increment = target / 50; // 50 frames pour l'animation
+            const duration = 2000; // 2 secondes
+            const stepTime = duration / 50;
+
+            const timer = setInterval(() => {
+                current += increment;
+                if (current >= target) {
+                    element.textContent = target + suffix;
+                    clearInterval(timer);
+                } else {
+                    element.textContent = Math.floor(current) + suffix;
+                }
+            }, stepTime);
+        }
+
+        // Observer pour déclencher l'animation au scroll
+        const statsObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting && !countersAnimated) {
+                    countersAnimated = true;
+                    
+                    // Animer chaque compteur
+                    const counter1 = document.getElementById('counter-1');
+                    const counter2 = document.getElementById('counter-2');
+                    const counter3 = document.getElementById('counter-3');
+                    
+                    animateCounter(counter1, 21, '+');
+                    animateCounter(counter2, 850, '+');
+                    animateCounter(counter3, 48, 'H');
+                }
+            });
+        }, { threshold: 0.5 });
+
+        // Observer la section des stats
+        document.addEventListener('DOMContentLoaded', () => {
+            const statsSection = document.getElementById('stats-section');
+            if (statsSection) {
+                statsObserver.observe(statsSection);
+            }
+        });
+
+        // ============================================
+        // 4. GESTION DU CHATBOT (Refonte - Ouverture automatique)
+        // ============================================
+        let chatAutoOpened = false;
+        let chatTimer = null;
+
+        // Fonction pour ouvrir le chat instantanément (sans délai)
+        function openChat() {
+            const chat = document.getElementById('chat-window');
+            const welcomeMsg = document.getElementById('welcome-message');
+            
+            if (chat && chat.style.display !== 'flex') {
+                chat.style.display = 'flex';
+                
+                // Afficher le message d'accroche avec un contraste parfait
+                if (welcomeMsg) {
+                    welcomeMsg.style.display = 'block';
+                    welcomeMsg.style.opacity = '1';
+                    // Scroll vers le message de bienvenue
+                    setTimeout(() => {
+                        welcomeMsg.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                    }, 100);
+                }
+                
+                // Focus immédiat sur l'input
+                const chatInput = document.getElementById('chat-input');
+                if (chatInput) {
+                    setTimeout(() => {
+                        chatInput.focus();
+                    }, 200);
+                }
+            }
+        }
+
+        // Fonction pour fermer le chat
+        function closeChat() {
+            const chat = document.getElementById('chat-window');
+            if (chat) {
+                chat.style.display = 'none';
+            }
+        }
+
+        // Fonction toggle (pour le bouton manuel)
+        function toggleChat() {
+            const chat = document.getElementById('chat-window');
+            if (chat.style.display === 'flex' || chat.style.display === '') {
+                closeChat();
+            } else {
+                openChat();
+            }
+        }
+
+        // Fonction pour jouer un son discret (notification audio)
+        function playNotificationSound() {
+            try {
+                // Créer un contexte audio pour un son discret
+                const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+                const oscillator = audioContext.createOscillator();
+                const gainNode = audioContext.createGain();
+                
+                oscillator.connect(gainNode);
+                gainNode.connect(audioContext.destination);
+                
+                // Son discret (fréquence douce, volume faible)
+                oscillator.frequency.value = 800; // Fréquence douce
+                oscillator.type = 'sine'; // Onde sinusoïdale (douce)
+                
+                gainNode.gain.setValueAtTime(0.1, audioContext.currentTime); // Volume très faible
+                gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.2);
+                
+                oscillator.start(audioContext.currentTime);
+                oscillator.stop(audioContext.currentTime + 0.2);
+            } catch (e) {
+                // Si l'audio n'est pas disponible, on continue sans son
+                console.log('Audio notification non disponible');
+            }
+        }
+
+        // Fonction pour afficher une notification visuelle
+        function showChatNotification() {
+            const notification = document.createElement('div');
+            notification.className = 'chat-notification';
+            notification.innerHTML = '<i class="fas fa-comment-alt mr-2"></i> Nouveau message disponible !';
+            document.body.appendChild(notification);
+            
+            // Supprimer la notification après 3 secondes
+            setTimeout(() => {
+                notification.style.opacity = '0';
+                notification.style.transition = 'opacity 0.3s ease-out';
+                setTimeout(() => {
+                    if (notification.parentNode) {
+                        notification.remove();
+                    }
+                }, 300);
+            }, 3000);
+        }
+
+        // Ouverture automatique après 30 secondes de navigation
+        document.addEventListener('DOMContentLoaded', function() {
+            const closeBtn = document.getElementById('close-chat');
+            if (closeBtn) {
+                closeBtn.addEventListener('click', closeChat);
+            }
+            
+            // Démarrer le timer pour l'ouverture automatique (30 secondes)
+            // Cela laisse le temps au visiteur de découvrir les réalisations
+            chatTimer = setTimeout(() => {
+                if (!chatAutoOpened) {
+                    chatAutoOpened = true;
+                    
+                    // Jouer un son discret
+                    playNotificationSound();
+                    
+                    // Afficher une notification visuelle
+                    showChatNotification();
+                    
+                    // Ouvrir le chat automatiquement
+                    setTimeout(() => {
+                        openChat();
+                    }, 500); // Petit délai pour que l'utilisateur voie la notification
+                }
+            }, 30000); // 30 secondes - laisse le temps de découvrir les réalisations
+        });
+
+        // ============================================
+        // 5. LOGIQUE DE MISE À JOUR DU FORMULAIRE
+        // ============================================
+        function updateFormLogic() {
+            const type = document.getElementById('project-type').value;
+            const dimsField = document.getElementById('dims-field');
+            const messageTextarea = document.getElementById('dynamic-message');
+            
+            // Cacher le champ dimensions uniquement si Entretien/SAV
+            if (type === 'entretien') {
+                if (dimsField) dimsField.style.display = 'none';
+            } else {
+                if (dimsField) dimsField.style.display = 'block';
+            }
+
+            // Mise à jour du placeholder selon le type de projet
+            const placeholders = {
+                'construction': 'Dites-nous en plus sur votre projet de nouvelle piscine (équipements, style...)',
+                'renovation': 'Décrivez votre projet de rénovation (changement de liner, rénovation de la structure, modernisation...)',
+                'entretien': 'Précisez vos besoins en entretien (contrat annuel, intervention ponctuelle, type de piscine...)'
+            };
+            
+            messageTextarea.placeholder = placeholders[type] || placeholders['construction'];
+        }
+
+        // Initialisation au chargement
+        document.addEventListener('DOMContentLoaded', function() {
+            updateFormLogic();
+        });
+
+        // ============================================
+        // 6. VALIDATION ET SOUMISSION DU FORMULAIRE
+        // ============================================
+        function validateAndSubmit() {
+            const form = document.getElementById('devis-form');
+            const requiredFields = form.querySelectorAll('[required]');
+            let isValid = true;
+
+            // Retirer toutes les classes d'erreur
+            requiredFields.forEach(field => {
+                field.classList.remove('error');
+            });
+
+            // Valider chaque champ obligatoire
+            requiredFields.forEach(field => {
+                if (!field.value.trim()) {
+                    field.classList.add('error');
+                    isValid = false;
+                } else {
+                    // Validation email
+                    if (field.type === 'email' && !isValidEmail(field.value)) {
+                        field.classList.add('error');
+                        isValid = false;
+                    }
+                }
+            });
+
+            if (isValid) {
+                // Récupérer toutes les données du formulaire
+                const formData = {
+                    projectType: document.getElementById('project-type').value,
+                    dimensions: document.getElementById('dims-input')?.value || 'Non renseigné',
+                    message: document.getElementById('dynamic-message').value,
+                    name: document.getElementById('nom-complet').value,
+                    phone: document.getElementById('telephone').value || 'Non renseigné',
+                    email: document.getElementById('email').value,
+                    city: document.getElementById('ville').value,
+                    file: document.getElementById('file-upload')?.files[0]?.name || 'Aucun fichier'
+                };
+                
+                // Envoyer l'email automatiquement via l'API FormSubmit
+                sendEmailAutomatic(formData);
+            } else {
+                // Scroll vers le premier champ en erreur
+                const firstError = form.querySelector('.error');
+                if (firstError) {
+                    firstError.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    firstError.focus();
+                }
+            }
+        }
+
+        function isValidEmail(email) {
+            return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+        }
+
+        // ============================================
+        // ENVOI D'EMAIL AUTOMATIQUE VIA API
+        // ============================================
+        function sendEmailAutomatic(formData) {
+            // Afficher un message de chargement
+            const submitBtn = document.querySelector('button[type="submit"]');
+            const originalText = submitBtn.innerHTML;
+            submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i> Envoi en cours...';
+            submitBtn.disabled = true;
+            
+            // Préparer le contenu de l'email formaté
+            const emailBody = `
+Nouvelle demande de devis - Piscines du Rhin
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+TYPE DE PROJET: ${formData.projectType}
+DIMENSIONS: ${formData.dimensions}
+
+MESSAGE:
+${formData.message}
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+COORDONNÉES:
+• Nom: ${formData.name}
+• Téléphone: ${formData.phone}
+• Email: ${formData.email}
+• Ville: ${formData.city}
+• Fichier joint: ${formData.file}
+
+Date: ${new Date().toLocaleString('fr-FR')}
+            `;
+            
+            // Préparer les données pour l'API FormSubmit
+            const emailData = {
+                name: formData.name,
+                email: formData.email,
+                phone: formData.phone,
+                city: formData.city,
+                project_type: formData.projectType,
+                dimensions: formData.dimensions,
+                message: formData.message,
+                file_name: formData.file,
+                _subject: `Nouvelle demande de devis - ${formData.projectType}`,
+                _to: 'contact@lespiscinesdurhin.com',
+                _template: 'box',
+                _captcha: 'false'
+            };
+            
+            // Envoyer l'email via l'API FormSubmit (envoi automatique sans ouvrir le client email)
+            fetch('https://formsubmit.co/ajax/contact@lespiscinesdurhin.com', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json'
+                },
+                body: JSON.stringify(emailData)
+            })
+            .then(response => {
+                if (response.ok) {
+                    return response.json();
+                }
+                throw new Error('Erreur lors de l\'envoi');
+            })
+            .then(data => {
+                console.log('Email envoyé avec succès!', data);
+                showSuccessMessage();
+                resetForm();
+            })
+            .catch(error => {
+                console.error('Erreur:', error);
+                // Si l'API ne fonctionne pas, essayer avec EmailJS
+                tryEmailJS(formData);
+            });
+        }
+        
+        // Fonction alternative avec EmailJS (si FormSubmit ne fonctionne pas)
+        function tryEmailJS(formData) {
+            if (typeof emailjs !== 'undefined') {
+                try {
+                    emailjs.init("YOUR_PUBLIC_KEY");
+                    
+                    const emailParams = {
+                        to_email: 'contact@lespiscinesdurhin.com',
+                        from_name: formData.name,
+                        from_email: formData.email,
+                        subject: `Nouvelle demande de devis - ${formData.projectType}`,
+                        message: `
+Type de projet: ${formData.projectType}
+Dimensions: ${formData.dimensions}
+Message: ${formData.message}
+
+Coordonnées:
+- Nom: ${formData.name}
+- Téléphone: ${formData.phone}
+- Email: ${formData.email}
+- Ville: ${formData.city}
+- Fichier joint: ${formData.file}
+
+Date: ${new Date().toLocaleString('fr-FR')}
+                        `,
+                        phone: formData.phone,
+                        city: formData.city
+                    };
+                    
+                    emailjs.send('YOUR_SERVICE_ID', 'YOUR_TEMPLATE_ID', emailParams)
+                        .then(function(response) {
+                            console.log('Email envoyé via EmailJS!', response.status);
+                            showSuccessMessage();
+                            resetForm();
+                        }, function(error) {
+                            console.error('Erreur EmailJS:', error);
+                            showErrorMessage();
+                        });
+                } catch (e) {
+                    console.error('EmailJS non configuré:', e);
+                    showErrorMessage();
+                }
+            } else {
+                showErrorMessage();
+            }
+        }
+        
+        // Afficher le message de succès
+        function showSuccessMessage() {
+            const submitBtn = document.querySelector('button[type="submit"]');
+            submitBtn.innerHTML = '<i class="fas fa-check mr-2"></i>Email envoyé !';
+            submitBtn.classList.remove('bg-orange');
+            submitBtn.classList.add('bg-green-500');
+            
+            setTimeout(() => {
+                alert('✅ Votre demande de devis a bien été envoyée à contact@lespiscinesdurhin.com\n\nNous vous répondrons sous 48h.');
+            }, 500);
+        }
+        
+        // Afficher un message d'erreur
+        function showErrorMessage() {
+            const submitBtn = document.querySelector('button[type="submit"]');
+            const originalText = submitBtn.innerHTML;
+            submitBtn.innerHTML = '<i class="fas fa-exclamation-triangle mr-2"></i>Erreur d\'envoi';
+            submitBtn.classList.remove('bg-orange');
+            submitBtn.classList.add('bg-red-500');
+            
+            alert('⚠️ Une erreur est survenue lors de l\'envoi. Veuillez réessayer ou nous contacter directement à contact@lespiscinesdurhin.com');
+            
+            setTimeout(() => {
+                submitBtn.innerHTML = originalText;
+                submitBtn.classList.remove('bg-red-500');
+                submitBtn.classList.add('bg-orange');
+                submitBtn.disabled = false;
+            }, 3000);
+        }
+        
+        // Réinitialiser le formulaire
+        function resetForm() {
+            const submitBtn = document.querySelector('button[type="submit"]');
+            const originalText = submitBtn.innerHTML;
+            
+            // Réinitialiser le formulaire
+            document.getElementById('devis-form').reset();
+            updateFormLogic();
+            currentStep = 1;
+            document.querySelectorAll('.form-step').forEach(step => step.classList.remove('active'));
+            document.getElementById('step-1').classList.add('active');
+            updateProgressBar(1);
+            updateStepIndicators(1);
+            document.getElementById('step-indicator-1').classList.remove('bg-gray-600', 'text-white');
+            document.getElementById('step-indicator-1').classList.add('bg-orange', 'text-navy');
+            
+            // Restaurer le bouton après 2 secondes
+            setTimeout(() => {
+                submitBtn.innerHTML = originalText;
+                submitBtn.classList.remove('bg-green-500');
+                submitBtn.classList.add('bg-orange');
+                submitBtn.disabled = false;
+            }, 2000);
+        }
+
+        // ============================================
+        // 7. GESTION DU CHAT
+        // ============================================
+        function handleChatKeyPress(event) {
+            if (event.key === 'Enter' && !event.shiftKey) {
+                event.preventDefault();
+                sendMsg();
+            }
+        }
+
+        function sendMsg() {
+            const input = document.getElementById('chat-input');
+            const box = document.getElementById('chat-msgs');
+            if(!input.value.trim()) return;
+
+            // Message utilisateur
+            const userMsg = document.createElement('div');
+            userMsg.className = 'msg msg-user';
+            userMsg.textContent = input.value;
+            box.appendChild(userMsg);
+            
+            const userText = input.value.toLowerCase();
+            input.value = "";
+            box.scrollTop = box.scrollHeight;
+
+            // Animation "Typing"
+            const typingBlock = document.createElement('div');
+            typingBlock.className = 'msg msg-ai';
+            typingBlock.innerHTML = `
+                <div class="typing-dots">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            `;
+            box.appendChild(typingBlock);
+            box.scrollTop = box.scrollHeight;
+
+            setTimeout(() => {
+                let r = "C'est noté. Pour vous donner un devis précis sous 48h, le mieux est d'utiliser le formulaire de devis sur la page ou de me laisser votre numéro ici.";
+                
+                if(userText.includes("prix") || userText.includes("devis") || userText.includes("coût")) {
+                    r = "Un projet complet se situe autour de 20 000€ selon les options. Souhaitez-vous une étude détaillée ?";
+                } else if(userText.includes("bas-rhin") || userText.includes("67")) {
+                    r = "Nous intervenons rapidement dans tout le Bas-Rhin (67). Dites-moi votre besoin.";
+                } else if(userText.includes("construction") || userText.includes("nouvelle")) {
+                    r = "Pour une nouvelle piscine, nous créons des piscines sur mesure adaptées à votre terrain. Quel style vous intéresse ?";
+                } else if(userText.includes("rénovation") || userText.includes("renovation") || userText.includes("liner")) {
+                    r = "Nous réalisons tous types de rénovations : changement de liner, réparation de structure, modernisation. Quel est votre besoin ?";
+                } else if(userText.includes("entretien") || userText.includes("maintenance")) {
+                    r = "Nous proposons des contrats d'entretien annuels ou des interventions ponctuelles. Que préférez-vous ?";
+                } else if(userText.includes("sav") || userText.includes("panne") || userText.includes("dépannage") || userText.includes("entretien")) {
+                    r = "Pour un dépannage urgent ou un contrat d'entretien, appelez-nous au 07 61 32 91 84. Nous intervenons rapidement dans le Bas-Rhin (67).";
+                }
+
+                typingBlock.remove();
+                
+                const aiMsg = document.createElement('div');
+                aiMsg.className = 'msg msg-ai';
+                aiMsg.textContent = r;
+                box.appendChild(aiMsg);
+                
+                box.scrollTop = box.scrollHeight;
+            }, 1500);
+        }
+
+        // ============================================
+        // 8. SOCIAL PROOF (FOMO - Notifications)
+        // ============================================
+        const events = [
+            { city: "Strasbourg", project: "Nouvelle piscine", action: "Devis envoyé" },
+            { city: "Haguenau", project: "Diagnostic fuite", action: "Devis envoyé" },
+            { city: "Molsheim", project: "Entretien annuel", action: "Devis envoyé" },
+            { city: "Obernai", project: "Changement Liner", action: "Devis envoyé" },
+            { city: "Saverne", project: "Rénovation complète", action: "Devis envoyé" },
+            { city: "Sélestat", project: "Projet 8x4m", action: "Devis envoyé" },
+            { city: "Brumath", project: "Nouvelle piscine", action: "Devis envoyé" },
+            { city: "Geispolsheim", project: "Nouvelle piscine", action: "Devis envoyé" }
+        ];
+        
+        let activeNotifications = 0;
+        let notificationInterval;
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            // Une notification toutes les 60 secondes (moins fréquent)
+            notificationInterval = setInterval(() => {
+                const container = document.getElementById('notif-container');
+                if (!container) return;
+                
+                // Une seule notification à la fois
+                if (activeNotifications >= 1) return;
+                
+                // Utiliser des notifications plus anciennes/variées
+                const evt = events[Math.floor(Math.random() * events.length)];
+                
+                const div = document.createElement('div');
+                div.className = "social-proof bg-navy/95 backdrop-blur-md flex items-center gap-3 p-4 rounded-2xl shadow-2xl border border-orange/30";
+                
+                div.innerHTML = `
+                    <div class="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
+                    <div>
+                        <p class="text-[10px] font-black uppercase tracking-widest text-white">${evt.action} à ${evt.city}</p>
+                        <p class="text-[9px] text-gray-400 mt-0.5">${evt.project}</p>
+                    </div>
+                `;
+                container.appendChild(div);
+                activeNotifications++;
+                
+                setTimeout(() => {
+                    div.style.opacity = '0';
+                    div.style.transition = 'opacity 0.4s ease-out, transform 0.4s ease-out';
+                    div.style.transform = 'translateX(100%)';
+                    setTimeout(() => {
+                        if (div.parentNode) {
+                            div.remove();
+                            activeNotifications--;
+                        }
+                    }, 400);
+                }, 4000);
+            }, 60000); // 60 secondes entre chaque notification (moins fréquent)
+        });
+
+        // Nettoyage au déchargement
+        window.addEventListener('beforeunload', () => {
+            if (notificationInterval) {
+                clearInterval(notificationInterval);
+            }
+            if (chatTimer) {
+                clearTimeout(chatTimer);
+            }
+        });
+    </script>
+</body>
+</html>

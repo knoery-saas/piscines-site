@@ -1,0 +1,23 @@
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Fichiers temporaires
+*.tmp
+*.log
+*.cache
+
+# Éditeurs
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Node (si vous ajoutez Node plus tard)
+node_modules/
+npm-debug.log
+package-lock.json
+
+# Vercel
+.vercel
