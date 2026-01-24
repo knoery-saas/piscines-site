@@ -2,14 +2,13 @@
   "name": "piscines",
   "version": "1.0.0",
   "description": "Site web pour Piscines du Rhin, spécialiste des piscines dans le Bas-Rhin (67).",
-  "main": "index.js",
+  "main": "index.html",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "echo 'No build step required for static site'"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "type": "commonjs",
   "devDependencies": {
     "vercel": "^50.5.0"
   }
