@@ -205,11 +205,6 @@
             background: rgba(255, 255, 255, 0.15) !important; 
             box-shadow: 0 0 0 3px rgba(230, 155, 63, 0.2);
         }
-        .input-premium.error {
-            border-color: #ef4444 !important;
-            border-width: 2px;
-            box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.2);
-        }
         
         /* Formulaire Container - FOND PLUS OPAQUE */
         .form-container {
@@ -427,6 +422,40 @@
             }
         }
 
+        /* Styles pour les messages d'erreur */
+        .error-message {
+            color: #ef4444;
+            font-size: 11px;
+            font-weight: bold;
+            margin-top: 4px;
+            margin-left: 4px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            animation: shake 0.3s ease-in-out;
+        }
+        
+        .error-message i {
+            font-size: 10px;
+        }
+        
+        .input-premium.error {
+            border: 2px solid #ef4444 !important;
+            background: rgba(239, 68, 68, 0.1) !important;
+            animation: shake 0.3s ease-in-out;
+        }
+        
+        .input-premium.error:focus {
+            border-color: #ef4444 !important;
+            box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.2) !important;
+        }
+        
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-5px); }
+            75% { transform: translateX(5px); }
+        }
+        
         /* Button Hover Effects (CRO Optimized) - Avec touches Orange */
         .btn-premium {
             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
@@ -1162,27 +1191,69 @@
         // ============================================
         function validateAndSubmit() {
             const form = document.getElementById('devis-form');
-            const requiredFields = form.querySelectorAll('[required]');
             let isValid = true;
 
-            // Retirer toutes les classes d'erreur
-            requiredFields.forEach(field => {
-                field.classList.remove('error');
-            });
+            // Supprimer tous les messages d'erreur existants
+            document.querySelectorAll('.error-message').forEach(msg => msg.remove());
+            document.querySelectorAll('.error').forEach(field => field.classList.remove('error'));
 
-            // Valider chaque champ obligatoire
-            requiredFields.forEach(field => {
-                if (!field.value.trim()) {
-                    field.classList.add('error');
-                    isValid = false;
-                } else {
-                    // Validation email
-                    if (field.type === 'email' && !isValidEmail(field.value)) {
-                        field.classList.add('error');
+            // Validation du nom complet
+            const nomComplet = document.getElementById('nom-complet');
+            if (!nomComplet.value.trim()) {
+                showFieldError(nomComplet, '⚠️ Le nom complet est obligatoire');
+                isValid = false;
+            } else if (nomComplet.value.trim().length < 2) {
+                showFieldError(nomComplet, '⚠️ Le nom doit contenir au moins 2 caractères');
+                isValid = false;
+            }
+
+            // Validation de la ville/code postal
+            const ville = document.getElementById('ville');
+            if (!ville.value.trim()) {
+                showFieldError(ville, '⚠️ La ville ou le code postal est obligatoire');
+                isValid = false;
+            } else if (ville.value.trim().length < 2) {
+                showFieldError(ville, '⚠️ Veuillez entrer une ville valide (minimum 2 caractères)');
+                isValid = false;
+            }
+
+            // Validation de l'email
+            const email = document.getElementById('email');
+            if (!email.value.trim()) {
+                showFieldError(email, '⚠️ L\'adresse email est obligatoire');
+                isValid = false;
+            } else if (!isValidEmail(email.value)) {
+                showFieldError(email, '⚠️ Format d\'email invalide (ex: nom@exemple.fr)');
+                isValid = false;
+            }
+
+            // Validation du téléphone (facultatif mais doit être valide si renseigné)
+            const telephone = document.getElementById('telephone');
+            if (telephone.value.trim() && !isValidPhone(telephone.value)) {
+                showFieldError(telephone, '⚠️ Format de téléphone invalide (ex: 06 12 34 56 78 ou 0612345678)');
+                isValid = false;
+            }
+
+            // Validation des dimensions (si le champ est visible)
+            const dimsField = document.getElementById('dims-field');
+            const dimsInput = document.getElementById('dims-input');
+            const projectType = document.getElementById('project-type').value;
+            
+            if (projectType !== 'entretien' && dimsField && dimsField.style.display !== 'none') {
+                if (dimsInput.value.trim()) {
+                    if (!isValidDimensions(dimsInput.value)) {
+                        showFieldError(dimsInput, '⚠️ Format invalide. Utilisez: 8x4m, 8x4, 10x5m, etc.');
                         isValid = false;
                     }
                 }
-            });
+            }
+
+            // Validation du message (facultatif mais recommandé)
+            const message = document.getElementById('dynamic-message');
+            if (message.value.trim() && message.value.trim().length < 10) {
+                showFieldError(message, '⚠️ Le message est trop court (minimum 10 caractères)');
+                isValid = false;
+            }
 
             if (isValid) {
                 // Récupérer toutes les données du formulaire
@@ -1190,27 +1261,152 @@
                     projectType: document.getElementById('project-type').value,
                     dimensions: document.getElementById('dims-input')?.value || 'Non renseigné',
                     message: document.getElementById('dynamic-message').value,
-                    name: document.getElementById('nom-complet').value,
-                    phone: document.getElementById('telephone').value || 'Non renseigné',
-                    email: document.getElementById('email').value,
-                    city: document.getElementById('ville').value,
+                    name: document.getElementById('nom-complet').value.trim(),
+                    phone: document.getElementById('telephone').value.trim() || 'Non renseigné',
+                    email: document.getElementById('email').value.trim(),
+                    city: document.getElementById('ville').value.trim(),
                     file: document.getElementById('file-upload')?.files[0]?.name || 'Aucun fichier'
                 };
                 
-                // Envoyer l'email automatiquement via l'API FormSubmit
+                // Envoyer l'email automatiquement via EmailJS
                 sendEmailAutomatic(formData);
             } else {
                 // Scroll vers le premier champ en erreur
                 const firstError = form.querySelector('.error');
                 if (firstError) {
                     firstError.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                    firstError.focus();
+                    setTimeout(() => firstError.focus(), 300);
                 }
             }
         }
 
+        // Afficher un message d'erreur sous un champ
+        function showFieldError(field, message) {
+            field.classList.add('error');
+            // Supprimer l'ancien message d'erreur s'il existe
+            const existingError = field.parentElement.querySelector('.error-message');
+            if (existingError) {
+                existingError.remove();
+            }
+            const errorMsg = document.createElement('div');
+            errorMsg.className = 'error-message';
+            errorMsg.innerHTML = `<i class="fas fa-exclamation-circle"></i> ${message}`;
+            field.parentElement.appendChild(errorMsg);
+        }
+
+        // Validation en temps réel pour améliorer l'UX
+        document.addEventListener('DOMContentLoaded', function() {
+            // Validation email en temps réel
+            const emailField = document.getElementById('email');
+            if (emailField) {
+                emailField.addEventListener('blur', function() {
+                    if (this.value.trim()) {
+                        if (!isValidEmail(this.value)) {
+                            showFieldError(this, '⚠️ Format d\'email invalide (ex: nom@exemple.fr)');
+                        } else {
+                            this.classList.remove('error');
+                            const errorMsg = this.parentElement.querySelector('.error-message');
+                            if (errorMsg) errorMsg.remove();
+                        }
+                    }
+                });
+            }
+
+            // Validation téléphone en temps réel
+            const phoneField = document.getElementById('telephone');
+            if (phoneField) {
+                phoneField.addEventListener('blur', function() {
+                    if (this.value.trim() && !isValidPhone(this.value)) {
+                        showFieldError(this, '⚠️ Format invalide (ex: 06 12 34 56 78 ou 0612345678)');
+                    } else if (this.value.trim()) {
+                        this.classList.remove('error');
+                        const errorMsg = this.parentElement.querySelector('.error-message');
+                        if (errorMsg) errorMsg.remove();
+                    }
+                });
+            }
+
+            // Validation dimensions en temps réel
+            const dimsInput = document.getElementById('dims-input');
+            if (dimsInput) {
+                dimsInput.addEventListener('blur', function() {
+                    const projectType = document.getElementById('project-type').value;
+                    const dimsField = document.getElementById('dims-field');
+                    
+                    if (projectType !== 'entretien' && dimsField && dimsField.style.display !== 'none') {
+                        if (this.value.trim() && !isValidDimensions(this.value)) {
+                            showFieldError(this, '⚠️ Format invalide. Utilisez: 8x4m, 8x4, 10x5m, etc.');
+                        } else if (this.value.trim()) {
+                            this.classList.remove('error');
+                            const errorMsg = this.parentElement.querySelector('.error-message');
+                            if (errorMsg) errorMsg.remove();
+                        }
+                    }
+                });
+            }
+
+            // Validation nom en temps réel
+            const nomField = document.getElementById('nom-complet');
+            if (nomField) {
+                nomField.addEventListener('blur', function() {
+                    if (this.value.trim() && this.value.trim().length < 2) {
+                        showFieldError(this, '⚠️ Le nom doit contenir au moins 2 caractères');
+                    } else if (this.value.trim()) {
+                        this.classList.remove('error');
+                        const errorMsg = this.parentElement.querySelector('.error-message');
+                        if (errorMsg) errorMsg.remove();
+                    }
+                });
+            }
+
+            // Validation ville en temps réel
+            const villeField = document.getElementById('ville');
+            if (villeField) {
+                villeField.addEventListener('blur', function() {
+                    if (this.value.trim() && this.value.trim().length < 2) {
+                        showFieldError(this, '⚠️ Veuillez entrer une ville valide (minimum 2 caractères)');
+                    } else if (this.value.trim()) {
+                        this.classList.remove('error');
+                        const errorMsg = this.parentElement.querySelector('.error-message');
+                        if (errorMsg) errorMsg.remove();
+                    }
+                });
+            }
+
+            // Validation message en temps réel
+            const messageField = document.getElementById('dynamic-message');
+            if (messageField) {
+                messageField.addEventListener('blur', function() {
+                    if (this.value.trim() && this.value.trim().length < 10) {
+                        showFieldError(this, '⚠️ Le message est trop court (minimum 10 caractères)');
+                    } else if (this.value.trim()) {
+                        this.classList.remove('error');
+                        const errorMsg = this.parentElement.querySelector('.error-message');
+                        if (errorMsg) errorMsg.remove();
+                    }
+                });
+            }
+        });
+
+        // Validation email
         function isValidEmail(email) {
-            return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            return emailRegex.test(email);
+        }
+
+        // Validation téléphone français
+        function isValidPhone(phone) {
+            // Accepte: 0612345678, 06 12 34 56 78, +33612345678, 0033612345678
+            const phoneRegex = /^(?:(?:\+|00)33|0)[1-9](?:[.\s-]?[0-9]{2}){4}$/;
+            const cleaned = phone.replace(/[\s.-]/g, '');
+            return phoneRegex.test(cleaned) || /^0[1-9][0-9]{8}$/.test(cleaned);
+        }
+
+        // Validation dimensions (format: 8x4m, 8x4, 10x5m, etc.)
+        function isValidDimensions(dimensions) {
+            // Accepte: 8x4m, 8x4, 10x5m, 12.5x6m, etc.
+            const dimsRegex = /^\d+([.,]\d+)?\s*[xX×]\s*\d+([.,]\d+)?\s*[mM]?$/;
+            return dimsRegex.test(dimensions.trim());
         }
 
         // ============================================
