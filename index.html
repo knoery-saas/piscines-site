@@ -528,16 +528,29 @@
         }
         
         @media (max-width: 768px) {
+            /* Galerie mobile - 1 colonne verticale */
             .projets-grid { 
-                display: block !important; 
+                display: grid !important;
+                grid-template-columns: 1fr !important;
             }
             .projet-card { 
                 width: 100% !important; 
                 margin-bottom: 20px !important; 
             }
-            /* ============================================
-               1. CHATBOT MOBILE - 50px comme demandé
-               ============================================ */
+            
+            /* Chatbot mobile - 60px max, à droite */
+            .chat-trigger-btn {
+                width: 60px !important;
+                height: 60px !important;
+                max-width: 60px !important;
+                max-height: 60px !important;
+                bottom: 20px !important;
+                right: 20px !important;
+            }
+            
+            .chat-trigger-btn i {
+                font-size: 1.2rem !important;
+            }
             .chat-trigger-btn {
                 width: 50px !important;
                 height: 50px !important;
@@ -1332,18 +1345,6 @@
                     <div class="absolute bottom-6 left-6 z-10 pointer-events-none">
                         <p class="text-xs font-black text-orange uppercase mb-1">Saverne</p>
                         <p class="text-lg font-black text-white">Piscine sur mesure</p>
-                    </div>
-                </div>
-                <!-- Projet 4 - Bas-Rhin -->
-                <div class="projet-card group relative aspect-[4/3] rounded-[2rem] overflow-hidden border border-white/5 hover:border-orange/50 transition-all block cursor-pointer project-card-float" data-aos="fade-up" data-aos-delay="300">
-                    <div class="relative w-full h-full overflow-hidden">
-                        <img src="assets/IMG_9294-3407e17f-614c-4ed4-ba7a-3171fd28621e.png" 
-                             class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" alt="Piscine Bas-Rhin">
-                    </div>
-                    <div class="absolute inset-0 bg-gradient-to-t from-navy to-transparent pointer-events-none"></div>
-                    <div class="absolute bottom-6 left-6 z-10 pointer-events-none">
-                        <p class="text-xs font-black text-orange uppercase mb-1">Bas-Rhin</p>
-                        <p class="text-lg font-black text-white">Installation complète</p>
                     </div>
                 </div>
             </div>
