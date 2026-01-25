@@ -135,8 +135,8 @@
             }
         }
         
-        /* Animation de confettis pour la soumission du formulaire */
-        .confetti-container {
+        /* Animation festive pour la soumission du formulaire */
+        .celebration-container {
             position: fixed;
             top: 0;
             left: 0;
@@ -149,10 +149,11 @@
         
         .confetti {
             position: absolute;
-            width: 10px;
-            height: 10px;
-            background: #E69B3F;
-            animation: confettiFall 3s ease-out forwards;
+            width: 12px;
+            height: 12px;
+            background: #2D9CDB;
+            animation: confettiFall 4s ease-out forwards;
+            border-radius: 50%;
         }
         
         .confetti.blue {
@@ -163,17 +164,172 @@
             background: #20E2D7;
         }
         
+        .balloon {
+            position: absolute;
+            width: 40px;
+            height: 50px;
+            background: linear-gradient(135deg, #2D9CDB, #20E2D7);
+            border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+            animation: balloonFloat 5s ease-out forwards;
+            box-shadow: 0 0 10px rgba(45, 156, 219, 0.5);
+        }
+        
+        .balloon::before {
+            content: '';
+            position: absolute;
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 2px;
+            height: 30px;
+            background: rgba(255, 255, 255, 0.3);
+        }
+        
+        .floatie {
+            position: absolute;
+            width: 35px;
+            height: 35px;
+            background: #E69B3F;
+            border-radius: 50% 50% 50% 50% / 40% 40% 60% 60%;
+            animation: floatieFloat 6s ease-out forwards;
+            box-shadow: 0 0 15px rgba(230, 155, 63, 0.6);
+        }
+        
+        .floatie::after {
+            content: '🏊';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 20px;
+        }
+        
+        .success-message {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: linear-gradient(135deg, rgba(1, 22, 39, 0.98), rgba(1, 22, 39, 0.95));
+            color: white;
+            padding: 40px 60px;
+            border-radius: 30px;
+            text-align: center;
+            z-index: 10001;
+            border: 3px solid #20E2D7;
+            box-shadow: 0 20px 60px rgba(32, 226, 215, 0.4);
+            animation: successPopIn 0.5s ease-out;
+        }
+        
+        .success-message h2 {
+            font-size: 2.5rem;
+            font-weight: 900;
+            margin-bottom: 10px;
+            background: linear-gradient(135deg, #20E2D7, #E69B3F);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .success-message p {
+            font-size: 1.1rem;
+            color: rgba(255, 255, 255, 0.9);
+        }
+        
         @keyframes confettiFall {
             0% {
                 top: -10px;
                 opacity: 1;
-                transform: rotate(0deg) translateX(0);
+                transform: rotate(0deg) translateX(0) scale(1);
             }
             100% {
                 top: 110%;
                 opacity: 0;
-                transform: rotate(720deg) translateX(100px);
+                transform: rotate(720deg) translateX(150px) scale(0.5);
             }
+        }
+        
+        @keyframes balloonFloat {
+            0% {
+                bottom: -60px;
+                opacity: 1;
+                transform: translateX(0) scale(0.8);
+            }
+            50% {
+                opacity: 1;
+                transform: translateX(30px) scale(1);
+            }
+            100% {
+                bottom: 110%;
+                opacity: 0;
+                transform: translateX(-20px) scale(0.6);
+            }
+        }
+        
+        @keyframes floatieFloat {
+            0% {
+                bottom: -40px;
+                opacity: 1;
+                transform: translateX(0) rotate(0deg);
+            }
+            50% {
+                opacity: 1;
+                transform: translateX(-40px) rotate(180deg);
+            }
+            100% {
+                bottom: 110%;
+                opacity: 0;
+                transform: translateX(40px) rotate(360deg);
+            }
+        }
+        
+        @keyframes successPopIn {
+            0% {
+                transform: translate(-50%, -50%) scale(0.5);
+                opacity: 0;
+            }
+            50% {
+                transform: translate(-50%, -50%) scale(1.1);
+            }
+            100% {
+                transform: translate(-50%, -50%) scale(1);
+                opacity: 1;
+            }
+        }
+        
+        /* Effet de vague sur le header */
+        .wave-effect {
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .wave-effect::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(32, 226, 215, 0.1), transparent);
+            animation: wave 3s ease-in-out infinite;
+        }
+        
+        @keyframes wave {
+            0% {
+                left: -100%;
+            }
+            100% {
+                left: 100%;
+            }
+        }
+        
+        /* Animation de flottement pour les cartes projets */
+        .project-card-float {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .project-card-float:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 20px 40px rgba(32, 226, 215, 0.3);
         }
         
         /* Hero Overlay */
@@ -756,7 +912,7 @@
             
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
                 <!-- Projet 1 - Strasbourg -->
-                <a href="https://www.lespiscinesdurhin.com/galerie/nos-realisations-3/" target="_blank" rel="noopener noreferrer" class="group relative aspect-[4/3] rounded-[2rem] overflow-hidden border border-white/5 hover:border-orange/50 transition-all block cursor-pointer" data-aos="fade-up">
+                <a href="https://www.lespiscinesdurhin.com/galerie/nos-realisations-3/" target="_blank" rel="noopener noreferrer" class="group relative aspect-[4/3] rounded-[2rem] overflow-hidden border border-white/5 hover:border-orange/50 transition-all block cursor-pointer project-card-float" data-aos="fade-up">
                     <div class="relative w-full h-full overflow-hidden">
                         <img src="assets/55337074-5a47-4443-8482-8d0269fe66c1-7a973488-86d5-46e3-af6a-08d191b0fbcb.png" 
                              onerror="this.src='assets/55337074-5a47-4443-8482-8d0269fe66c1-a25f61dc-d360-4d30-8ab6-ef2d193b24e8.png'"
@@ -769,7 +925,7 @@
                     </div>
                 </a>
                 <!-- Projet 2 - Haguenau -->
-                <a href="https://www.lespiscinesdurhin.com/galerie/nos-realisations-3/" target="_blank" rel="noopener noreferrer" class="group relative aspect-[4/3] rounded-[2rem] overflow-hidden border border-white/5 hover:border-orange/50 transition-all block cursor-pointer" data-aos="fade-up" data-aos-delay="100">
+                <a href="https://www.lespiscinesdurhin.com/galerie/nos-realisations-3/" target="_blank" rel="noopener noreferrer" class="group relative aspect-[4/3] rounded-[2rem] overflow-hidden border border-white/5 hover:border-orange/50 transition-all block cursor-pointer project-card-float" data-aos="fade-up" data-aos-delay="100">
                     <div class="relative w-full h-full overflow-hidden">
                         <img src="assets/6c5189f8-947a-4149-bcd3-767820712a0d-5d9b63e8-b1f4-4c9c-b6c1-93352005551f.png" 
                              onerror="this.src='assets/c6bab003-6c17-4cf0-a85f-c2e05df9f677-25021f3a-3e43-48d1-971e-0fbe30968b3e.png'"
@@ -782,7 +938,7 @@
                     </div>
                 </a>
                 <!-- Projet 3 - Saverne -->
-                <a href="https://www.lespiscinesdurhin.com/galerie/nos-realisations-3/" target="_blank" rel="noopener noreferrer" class="group relative aspect-[4/3] rounded-[2rem] overflow-hidden border border-white/5 hover:border-orange/50 transition-all block cursor-pointer" data-aos="fade-up" data-aos-delay="200">
+                <a href="https://www.lespiscinesdurhin.com/galerie/nos-realisations-3/" target="_blank" rel="noopener noreferrer" class="group relative aspect-[4/3] rounded-[2rem] overflow-hidden border border-white/5 hover:border-orange/50 transition-all block cursor-pointer project-card-float" data-aos="fade-up" data-aos-delay="200">
                     <div class="relative w-full h-full overflow-hidden">
                         <img src="assets/2bdba317-2436-477c-8794-c0a046a09dff_2-6b51be6d-5fa7-4374-8a43-6e8885ea58c4.png" 
                              onerror="this.src='assets/2bdba317-2436-477c-8794-c0a046a09dff-d82e6935-3103-4cc9-aaf2-859e29d3df31.png'"
@@ -850,7 +1006,10 @@
             </div>
             <!-- Zone Messages -->
             <div id="chat-msgs" class="flex-grow p-4 overflow-y-auto flex flex-col bg-gray-50">
-                <!-- Pas de message automatique - l'utilisateur doit écrire en premier -->
+                <!-- Message de bienvenue automatique -->
+                <div class="msg msg-ai" id="welcome-message" style="display: none;">
+                    Bonjour ! 👋 Je suis l'assistant des Piscines du Rhin. Comment puis-je vous aider ?
+                </div>
             </div>
             <!-- Footer Chat -->
             <div class="p-4 bg-navy border-t border-white/10 flex gap-2">
@@ -1073,6 +1232,7 @@
         function openChat() {
             const chat = document.getElementById('chat-window');
             const chatButton = document.querySelector('.chat-trigger-btn');
+            const welcomeMsg = document.getElementById('welcome-message');
             
             if (chat && chat.style.display !== 'flex') {
                 chat.style.display = 'flex';
@@ -1091,12 +1251,22 @@
                     chat.style.right = (window.innerWidth - buttonRect.right) + 'px';
                 }
                 
+                // Afficher le message de bienvenue automatiquement
+                if (welcomeMsg && welcomeMsg.style.display === 'none') {
+                    welcomeMsg.style.display = 'block';
+                    welcomeMsg.style.opacity = '0';
+                    setTimeout(() => {
+                        welcomeMsg.style.transition = 'opacity 0.5s ease-in';
+                        welcomeMsg.style.opacity = '1';
+                    }, 100);
+                }
+                
                 // Focus immédiat sur l'input
                 const chatInput = document.getElementById('chat-input');
                 if (chatInput) {
                     setTimeout(() => {
                         chatInput.focus();
-                    }, 200);
+                    }, 300);
                 }
             }
         }
@@ -1599,36 +1769,61 @@ Date: ${new Date().toLocaleString('fr-FR')}
                 submitBtn.style.cursor = 'pointer';
             }
             
-            // Animation de confettis
+            // Animation festive (confettis bleus, ballons, bouées)
             createConfetti();
-            
-            setTimeout(() => {
-                alert('✅ Votre demande de devis a bien été envoyée à contact@lespiscinesdurhin.fr\n\nNous vous répondrons sous 48h.');
-            }, 500);
         }
         
-        // Créer l'animation de confettis
+        // Créer l'animation festive (confettis bleus, ballons, bouées)
         function createConfetti() {
-            const confettiContainer = document.createElement('div');
-            confettiContainer.className = 'confetti-container';
-            document.body.appendChild(confettiContainer);
+            const celebrationContainer = document.createElement('div');
+            celebrationContainer.className = 'celebration-container';
+            document.body.appendChild(celebrationContainer);
             
-            const colors = ['orange', 'blue', 'turquoise'];
-            const confettiCount = 50;
-            
-            for (let i = 0; i < confettiCount; i++) {
+            // Confettis bleus
+            for (let i = 0; i < 80; i++) {
                 const confetti = document.createElement('div');
-                confetti.className = `confetti ${colors[Math.floor(Math.random() * colors.length)]}`;
+                confetti.className = 'confetti blue';
                 confetti.style.left = Math.random() * 100 + '%';
-                confetti.style.animationDelay = Math.random() * 0.5 + 's';
-                confetti.style.animationDuration = (Math.random() * 2 + 2) + 's';
-                confettiContainer.appendChild(confetti);
+                confetti.style.animationDelay = Math.random() * 1 + 's';
+                confetti.style.animationDuration = (Math.random() * 2 + 3) + 's';
+                celebrationContainer.appendChild(confetti);
             }
             
-            // Supprimer les confettis après l'animation
+            // Ballons d'eau bleus
+            for (let i = 0; i < 15; i++) {
+                const balloon = document.createElement('div');
+                balloon.className = 'balloon';
+                balloon.style.left = Math.random() * 100 + '%';
+                balloon.style.animationDelay = Math.random() * 0.5 + 's';
+                balloon.style.animationDuration = (Math.random() * 2 + 4) + 's';
+                celebrationContainer.appendChild(balloon);
+            }
+            
+            // Bouées
+            for (let i = 0; i < 10; i++) {
+                const floatie = document.createElement('div');
+                floatie.className = 'floatie';
+                floatie.style.left = Math.random() * 100 + '%';
+                floatie.style.animationDelay = Math.random() * 0.8 + 's';
+                floatie.style.animationDuration = (Math.random() * 2 + 5) + 's';
+                celebrationContainer.appendChild(floatie);
+            }
+            
+            // Message de succès stylé
+            const successMsg = document.createElement('div');
+            successMsg.className = 'success-message';
+            successMsg.innerHTML = '<h2>🏊 Plongeon réussi !</h2><p>Votre demande est bien arrivée.<br>Nous vous répondrons sous 48h.</p>';
+            document.body.appendChild(successMsg);
+            
+            // Supprimer tout après l'animation
             setTimeout(() => {
-                confettiContainer.remove();
-            }, 3000);
+                successMsg.style.opacity = '0';
+                successMsg.style.transition = 'opacity 0.5s ease-out';
+                setTimeout(() => {
+                    successMsg.remove();
+                    celebrationContainer.remove();
+                }, 500);
+            }, 4000);
         }
         
         // Afficher un message d'erreur
