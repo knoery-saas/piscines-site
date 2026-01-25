@@ -496,6 +496,28 @@
             #devis {
                 margin-bottom: 80px;
             }
+            
+            /* Centrage des éléments sur mobile */
+            .text-center {
+                text-align: center !important;
+            }
+            
+            h3.text-center,
+            section h3 {
+                text-align: center !important;
+            }
+            
+            .container {
+                text-align: center;
+            }
+            
+            .container > * {
+                text-align: left;
+            }
+            
+            .container h3 {
+                text-align: center !important;
+            }
         }
         
         @keyframes slideInChat {
@@ -877,7 +899,7 @@
                         <div class="space-y-4">
                             <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                                 <input type="text" id="nom-complet" name="nom" placeholder="NOM COMPLET" required class="input-premium w-full p-4 rounded-xl text-xs font-bold uppercase">
-                                <input type="text" id="ville" name="ville" placeholder="Ville ou Code Postal (ex: 67500)" required class="input-premium w-full p-4 rounded-xl text-xs font-bold uppercase">
+                                <input type="text" id="ville" name="ville" placeholder="ADRESSE" required class="input-premium w-full p-4 rounded-xl text-xs font-bold uppercase">
                             </div>
                             
                             <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -1746,7 +1768,7 @@ Coordonnées:
 - Nom: ${formData.name}
 - Téléphone: ${formData.phone}
 - Email: ${formData.email}
-- Ville: ${formData.city}
+- Adresse: ${formData.city}
 - Fichier joint: ${formData.file}
 
 Date: ${new Date().toLocaleString('fr-FR')}
