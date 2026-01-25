@@ -507,19 +507,7 @@
         /* ============================================
            RESPONSIVE MOBILE - SIMPLE ET PROPRE
            ============================================ */
-        /* Garantir visibilité de TOUTES les sections et textes */
-        section, header, #hero-section, #devis, #projets-realises, #stats-section, footer {
-            display: block !important;
-            visibility: visible !important;
-            opacity: 1 !important;
-        }
-        
-        /* Garantir visibilité de tous les textes */
-        h1, h2, h3, h4, p, span, div, label, button, a {
-            color: inherit !important;
-        }
-        
-        /* Garantir visibilité de la section projets */
+        /* Garantir visibilité de la section projets uniquement */
         section#projets-realises {
             display: block !important;
             visibility: visible !important;
@@ -539,60 +527,27 @@
             opacity: 1 !important;
         }
         
-        /* Garantir visibilité du hero et formulaire */
-        #hero-section, #hero-section * {
-            display: block !important;
-            visibility: visible !important;
-            opacity: 1 !important;
-        }
-        
-        #devis, #devis * {
-            display: block !important;
-            visibility: visible !important;
-        }
-        
-        .form-container, .form-container * {
-            display: block !important;
-            visibility: visible !important;
-        }
-        
         @media (max-width: 768px) {
-            /* Galerie mobile - 1 colonne verticale */
-            .projets-grid { 
-                display: grid !important;
-                grid-template-columns: 1fr !important;
-            }
-            .projet-card { 
-                width: 100% !important; 
-                margin-bottom: 20px !important; 
+            /* Hero section - padding réduit */
+            #hero-section {
+                padding: 20px !important;
             }
             
-            /* Titre projets centré sur mobile */
-            section#projets-realises h3 {
-                text-align: center !important;
+            /* Titres - taille réduite */
+            h1 {
+                font-size: 28px !important;
             }
             
-            /* Texte des projets ne dépasse pas */
-            .projet-card .absolute.bottom-6 {
-                bottom: 1rem !important;
-                left: 1rem !important;
-                right: 1rem !important;
-            }
-            
-            .projet-card p {
-                font-size: 0.75rem !important;
-                word-wrap: break-word !important;
-            }
-            
-            /* Header - Logo et bouton ne se chevauchent pas */
-            header .max-w-7xl {
-                flex-wrap: wrap !important;
-                gap: 0.5rem !important;
-            }
-            
-            header .flex.justify-between {
+            /* Galerie mobile - colonne unique */
+            .projets-grid {
+                display: flex !important;
                 flex-direction: column !important;
-                align-items: flex-start !important;
+                gap: 20px !important;
+            }
+            
+            /* Formulaire - largeur adaptée */
+            .form-container {
+                width: 95% !important;
             }
             
             /* Chatbot mobile - 60px max, à droite */
