@@ -1191,13 +1191,13 @@ Date: ${new Date().toLocaleString('fr-FR')}
                 message: formData.message,
                 file_name: formData.file,
                 _subject: `Nouvelle demande de devis - ${formData.projectType}`,
-                _to: 'contact@lespiscinesdurhin.com',
+                _to: 'contact@lespiscinesdurhin.fr',
                 _template: 'box',
                 _captcha: 'false'
             };
             
             // Envoyer l'email via l'API FormSubmit (envoi automatique sans ouvrir le client email)
-            fetch('https://formsubmit.co/ajax/contact@lespiscinesdurhin.com', {
+            fetch('https://formsubmit.co/ajax/contact@lespiscinesdurhin.fr', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -1230,7 +1230,7 @@ Date: ${new Date().toLocaleString('fr-FR')}
                     emailjs.init("YOUR_PUBLIC_KEY");
                     
                     const emailParams = {
-                        to_email: 'contact@lespiscinesdurhin.com',
+                        to_email: 'contact@lespiscinesdurhin.fr',
                         from_name: formData.name,
                         from_email: formData.email,
                         subject: `Nouvelle demande de devis - ${formData.projectType}`,
@@ -1278,7 +1278,7 @@ Date: ${new Date().toLocaleString('fr-FR')}
             submitBtn.classList.add('bg-green-500');
             
             setTimeout(() => {
-                alert('✅ Votre demande de devis a bien été envoyée à contact@lespiscinesdurhin.com\n\nNous vous répondrons sous 48h.');
+                alert('✅ Votre demande de devis a bien été envoyée à contact@lespiscinesdurhin.fr\n\nNous vous répondrons sous 48h.');
             }, 500);
         }
         
@@ -1290,7 +1290,7 @@ Date: ${new Date().toLocaleString('fr-FR')}
             submitBtn.classList.remove('bg-orange');
             submitBtn.classList.add('bg-red-500');
             
-            alert('⚠️ Une erreur est survenue lors de l\'envoi. Veuillez réessayer ou nous contacter directement à contact@lespiscinesdurhin.com');
+            alert('⚠️ Une erreur est survenue lors de l\'envoi. Veuillez réessayer ou nous contacter directement à contact@lespiscinesdurhin.fr');
             
             setTimeout(() => {
                 submitBtn.innerHTML = originalText;
