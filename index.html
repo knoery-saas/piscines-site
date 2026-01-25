@@ -233,6 +233,46 @@
         .success-message p {
             font-size: 1.1rem;
             color: rgba(255, 255, 255, 0.9);
+            margin-bottom: 25px;
+        }
+        
+        /* Bouton post-envoi pour découvrir les réalisations */
+        .btn-discover-projects {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 16px 32px;
+            background: linear-gradient(135deg, #20E2D7, #2D9CDB);
+            color: white;
+            font-size: 1rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            border-radius: 15px;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 30px rgba(32, 226, 215, 0.4);
+            animation: pulseGlow 2s ease-in-out infinite;
+            text-decoration: none;
+        }
+        
+        .btn-discover-projects:hover {
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 15px 40px rgba(32, 226, 215, 0.6);
+            background: linear-gradient(135deg, #2D9CDB, #20E2D7);
+        }
+        
+        .btn-discover-projects:active {
+            transform: translateY(-1px) scale(1.02);
+        }
+        
+        @keyframes pulseGlow {
+            0%, 100% {
+                box-shadow: 0 10px 30px rgba(32, 226, 215, 0.4), 0 0 20px rgba(32, 226, 215, 0.2);
+            }
+            50% {
+                box-shadow: 0 10px 40px rgba(32, 226, 215, 0.6), 0 0 30px rgba(32, 226, 215, 0.4);
+            }
         }
         
         @keyframes confettiFall {
@@ -904,7 +944,7 @@
     </section>
 
     <!-- Section Réalisations -->
-    <section class="py-24 bg-[#020D17] border-t border-white/5">
+    <section id="projets-realises" class="py-24 bg-[#020D17] border-t border-white/5">
         <div class="container mx-auto px-6">
             <h3 class="text-center text-4xl font-black uppercase tracking-widest mb-16 text-white">
                 Nos projets <span class="text-orange italic">Réalisés.</span>
@@ -1800,13 +1840,19 @@ Date: ${new Date().toLocaleString('fr-FR')}
                 celebrationContainer.appendChild(floatie);
             }
             
-            // Message de succès stylé
+            // Message de succès stylé avec bouton
             const successMsg = document.createElement('div');
             successMsg.className = 'success-message';
-            successMsg.innerHTML = '<h2>🏊 Plongeon réussi !</h2><p>Votre demande est bien arrivée.<br>Nous vous répondrons sous 48h.</p>';
+            successMsg.innerHTML = `
+                <h2>🏊 Plongeon réussi !</h2>
+                <p>Votre demande est bien arrivée.<br>Nous vous répondrons sous 48h.</p>
+                <button class="btn-discover-projects" onclick="scrollToProjects()">
+                    <i class="fas fa-images mr-2"></i>Découvrir nos réalisations en images
+                </button>
+            `;
             document.body.appendChild(successMsg);
             
-            // Supprimer tout après l'animation
+            // Supprimer tout après l'animation (mais garder le message plus longtemps pour permettre le clic)
             setTimeout(() => {
                 successMsg.style.opacity = '0';
                 successMsg.style.transition = 'opacity 0.5s ease-out';
@@ -1814,7 +1860,44 @@ Date: ${new Date().toLocaleString('fr-FR')}
                     successMsg.remove();
                     celebrationContainer.remove();
                 }, 500);
-            }, 4000);
+            }, 8000); // Augmenté à 8 secondes pour laisser le temps de cliquer
+        }
+        
+        // Fonction pour scroller vers la section projets réalisés
+        function scrollToProjects() {
+            // Utiliser l'ID de la section
+            const projectsSection = document.getElementById('projets-realises');
+            
+            if (projectsSection) {
+                // Calculer la position avec offset pour le header fixe
+                const headerOffset = 100;
+                const elementPosition = projectsSection.getBoundingClientRect().top;
+                const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+                
+                // Scroll fluide vers la section
+                window.scrollTo({
+                    top: offsetPosition,
+                    behavior: 'smooth'
+                });
+                
+                // Fermer le message de succès après le scroll
+                setTimeout(() => {
+                    const successMsg = document.querySelector('.success-message');
+                    if (successMsg) {
+                        successMsg.style.opacity = '0';
+                        successMsg.style.transition = 'opacity 0.5s ease-out';
+                        setTimeout(() => {
+                            successMsg.remove();
+                            const celebrationContainer = document.querySelector('.celebration-container');
+                            if (celebrationContainer) {
+                                celebrationContainer.remove();
+                            }
+                        }, 500);
+                    }
+                }, 800);
+            } else {
+                console.warn('⚠️ Section projets non trouvée');
+            }
         }
         
         // Afficher un message d'erreur
