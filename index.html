@@ -753,8 +753,8 @@
                 <!-- Projet 1 - Strasbourg -->
                 <a href="https://www.lespiscinesdurhin.com/galerie/nos-realisations-3/" target="_blank" rel="noopener noreferrer" class="group relative aspect-[4/3] rounded-[2rem] overflow-hidden border border-white/5 hover:border-orange/50 transition-all block cursor-pointer" data-aos="fade-up">
                     <div class="relative w-full h-full overflow-hidden">
-                        <img src="assets/55337074-5a47-4443-8482-8d0269fe66c1-7a973488-86d5-46e3-af6a-08d191b0fbcb.png" 
-                             onerror="this.src='assets/55337074-5a47-4443-8482-8d0269fe66c1-a25f61dc-d360-4d30-8ab6-ef2d193b24e8.png'"
+                        <img src="assets/IMG_0493-60c98fc6-ff89-4c34-861b-9162abdc9007.png" 
+                             onerror="this.src='assets/55337074-5a47-4443-8482-8d0269fe66c1-7a973488-86d5-46e3-af6a-08d191b0fbcb.png'"
                              class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" alt="Piscine moderne avec terrasse">
                     </div>
                     <div class="absolute inset-0 bg-gradient-to-t from-navy to-transparent pointer-events-none"></div>
@@ -861,8 +861,8 @@
         <!-- Bouton Trigger -->
         <button onclick="toggleChat()" class="fixed bottom-10 right-10 md:bottom-10 md:right-10 w-16 h-16 bg-orange rounded-[30px] flex items-center justify-center shadow-2xl z-[1001] hover:scale-110 transition-transform border-2 border-white/20 btn-premium chat-trigger-btn relative">
             <i class="fas fa-comment-alt text-navy text-2xl"></i>
-            <!-- Badge notification discret -->
-            <span id="chat-notification-badge" class="absolute top-0 right-0 w-3 h-3 bg-red-500 rounded-full border-2 border-orange hidden"></span>
+            <!-- Badge notification très discret -->
+            <span id="chat-notification-badge" class="absolute -top-0.5 -right-0.5 text-[8px] font-bold text-red-500 opacity-60 hidden">+1</span>
         </button>
     </div>
 
@@ -1585,18 +1585,22 @@ Date: ${new Date().toLocaleString('fr-FR')}
         // Afficher un message d'erreur
         function showErrorMessage() {
             const submitBtn = document.querySelector('button[type="submit"]');
+            if (!submitBtn) return;
+            
             const originalText = submitBtn.innerHTML;
             submitBtn.innerHTML = '<i class="fas fa-exclamation-triangle mr-2"></i>Erreur d\'envoi';
             submitBtn.classList.remove('bg-orange');
             submitBtn.classList.add('bg-red-500');
+            submitBtn.disabled = false;
+            submitBtn.style.opacity = '1';
+            submitBtn.style.cursor = 'pointer';
             
-            alert('⚠️ Une erreur est survenue lors de l\'envoi. Veuillez réessayer ou nous contacter directement à contact@lespiscinesdurhin.fr');
+            alert('⚠️ Une erreur est survenue lors de l\'envoi.\n\nVeuillez nous contacter directement à :\ncontact@lespiscinesdurhin.fr');
             
             setTimeout(() => {
                 submitBtn.innerHTML = originalText;
                 submitBtn.classList.remove('bg-red-500');
                 submitBtn.classList.add('bg-orange');
-                submitBtn.disabled = false;
             }, 3000);
         }
         
