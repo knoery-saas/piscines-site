@@ -753,8 +753,8 @@
                 <!-- Projet 1 - Strasbourg -->
                 <a href="https://www.lespiscinesdurhin.com/galerie/nos-realisations-3/" target="_blank" rel="noopener noreferrer" class="group relative aspect-[4/3] rounded-[2rem] overflow-hidden border border-white/5 hover:border-orange/50 transition-all block cursor-pointer" data-aos="fade-up">
                     <div class="relative w-full h-full overflow-hidden">
-                        <img src="assets/IMG_0493-60c98fc6-ff89-4c34-861b-9162abdc9007.png" 
-                             onerror="this.src='assets/55337074-5a47-4443-8482-8d0269fe66c1-7a973488-86d5-46e3-af6a-08d191b0fbcb.png'"
+                        <img src="assets/55337074-5a47-4443-8482-8d0269fe66c1-7a973488-86d5-46e3-af6a-08d191b0fbcb.png" 
+                             onerror="this.src='assets/55337074-5a47-4443-8482-8d0269fe66c1-a25f61dc-d360-4d30-8ab6-ef2d193b24e8.png'"
                              class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" alt="Piscine moderne avec terrasse">
                     </div>
                     <div class="absolute inset-0 bg-gradient-to-t from-navy to-transparent pointer-events-none"></div>
@@ -845,9 +845,7 @@
             </div>
             <!-- Zone Messages -->
             <div id="chat-msgs" class="flex-grow p-4 overflow-y-auto flex flex-col bg-gray-50">
-                <div class="msg msg-ai" id="welcome-message" style="display: none; opacity: 1;">
-                    Bonjour ! 👋 Besoin d'un conseil pour votre piscine dans le Bas-Rhin ? Je suis là pour vous !
-                </div>
+                <!-- Pas de message automatique - l'utilisateur doit écrire en premier -->
             </div>
             <!-- Footer Chat -->
             <div class="p-4 bg-navy border-t border-white/10 flex gap-2">
@@ -1035,19 +1033,14 @@
         // Fonction pour ouvrir le chat instantanément (sans délai)
         function openChat() {
             const chat = document.getElementById('chat-window');
-            const welcomeMsg = document.getElementById('welcome-message');
             
             if (chat && chat.style.display !== 'flex') {
                 chat.style.display = 'flex';
                 
-                // Afficher le message d'accroche avec un contraste parfait
-                if (welcomeMsg) {
-                    welcomeMsg.style.display = 'block';
-                    welcomeMsg.style.opacity = '1';
-                    // Scroll vers le message de bienvenue
-                    setTimeout(() => {
-                        welcomeMsg.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-                    }, 100);
+                // Masquer le badge quand on ouvre le chat
+                const badge = document.getElementById('chat-notification-badge');
+                if (badge) {
+                    badge.classList.add('hidden');
                 }
                 
                 // Focus immédiat sur l'input
@@ -1112,40 +1105,8 @@
 
         // Fonction pour afficher une notification visuelle
         function showChatNotification() {
-            const notification = document.createElement('div');
-            notification.className = 'chat-notification';
-            notification.innerHTML = '<i class="fas fa-comment-dots mr-2"></i> <span>Nouveau message disponible</span>';
-            notification.style.cursor = 'pointer';
-            notification.style.transition = 'all 0.3s ease';
-            
-            // Ouvrir le chat au clic sur la notification
-            notification.addEventListener('click', () => {
-                openChat();
-                notification.remove();
-            });
-            
-            // Effet hover
-            notification.addEventListener('mouseenter', () => {
-                notification.style.transform = 'scale(1.08)';
-                notification.style.boxShadow = '0 12px 35px rgba(230, 155, 63, 0.6)';
-            });
-            notification.addEventListener('mouseleave', () => {
-                notification.style.transform = 'scale(1)';
-                notification.style.boxShadow = '0 8px 25px rgba(230, 155, 63, 0.5)';
-            });
-            
-            document.body.appendChild(notification);
-            
-            // Supprimer la notification après 10 secondes
-            setTimeout(() => {
-                notification.style.opacity = '0';
-                notification.style.transition = 'opacity 0.3s ease-out';
-                setTimeout(() => {
-                    if (notification.parentNode) {
-                        notification.remove();
-                    }
-                }, 300);
-            }, 10000);
+            // NE PAS afficher de notification popup - juste le badge "+1" sur le bouton
+            // Le badge est déjà géré par le setTimeout de 1 minute
         }
 
         // Notification du chatbot après 1 minute
@@ -1155,23 +1116,8 @@
                 closeBtn.addEventListener('click', closeChat);
             }
             
-            // Démarrer le timer pour la notification du chatbot (30 secondes)
-            // Le chatbot n'apparaît pas automatiquement, juste une notification
-            chatTimer = setTimeout(() => {
-                if (!chatAutoOpened) {
-                    chatAutoOpened = true;
-                    
-                    // Jouer un son discret
-                    playNotificationSound();
-                    
-                    // Afficher une notification visuelle (sans ouvrir le chat)
-                    showChatNotification();
-                    
-                    // NE PAS ouvrir le chat automatiquement - l'utilisateur doit cliquer
-                }
-            }, 30000); // 30 secondes - laisse le temps de découvrir les réalisations
-            
-            // Afficher le badge discret sur le bouton après 1 minute
+            // Afficher le badge discret "+1" sur le bouton après 1 minute
+            // PAS de notification popup, PAS de message automatique, juste le badge
             setTimeout(() => {
                 const badge = document.getElementById('chat-notification-badge');
                 if (badge) {
@@ -1463,8 +1409,23 @@
                 submitBtn.innerHTML = originalText;
             };
             
+            // Vérifier que EmailJS est chargé
+            if (typeof emailjs === 'undefined') {
+                console.error('❌ EmailJS n\'est pas chargé');
+                restoreButton();
+                showErrorMessage();
+                return;
+            }
+            
             // Initialiser EmailJS avec votre Public Key
-            emailjs.init("8telvjUX6HvdMtK5");
+            try {
+                emailjs.init("8telvjUX6HvdMtK5");
+            } catch (e) {
+                console.error('❌ Erreur initialisation EmailJS:', e);
+                restoreButton();
+                showErrorMessage();
+                return;
+            }
             
             // Préparer les paramètres pour EmailJS (toutes les variables nécessaires)
             const emailParams = {
@@ -1485,6 +1446,7 @@
                     resetForm();
                 }, function(error) {
                     console.error('❌ Erreur EmailJS:', error);
+                    console.error('Détails:', JSON.stringify(error, null, 2));
                     // Réactiver le bouton en cas d'erreur
                     restoreButton();
                     showErrorMessage();
