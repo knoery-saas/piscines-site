@@ -1008,7 +1008,7 @@
             <div id="chat-msgs" class="flex-grow p-4 overflow-y-auto flex flex-col bg-gray-50">
                 <!-- Message de bienvenue automatique -->
                 <div class="msg msg-ai" id="welcome-message" style="display: none; opacity: 0;">
-                    Bonjour ! 👋 Je suis l'assistant des Piscines du Rhin. Comment puis-je vous aider ?
+                    Bienvenue chez les Piscines du Rhin ! 👋 Je suis votre assistant, comment puis-je vous aider ?
                 </div>
             </div>
             <!-- Footer Chat -->
@@ -1377,12 +1377,13 @@
         // ============================================
         // 6. VALIDATION ET SOUMISSION DU FORMULAIRE
         // ============================================
+        // Fonction globale pour le bouton (accessible depuis onclick)
         function validateAndSubmit() {
             console.log('🔵 validateAndSubmit appelé');
             const form = document.getElementById('devis-form');
             if (!form) {
                 console.error('❌ Formulaire non trouvé');
-                alert('❌ Erreur: Formulaire non trouvé');
+                alert('❌ Erreur: Formulaire non trouvé. Veuillez recharger la page.');
                 return;
             }
             
@@ -1759,17 +1760,7 @@ Date: ${new Date().toLocaleString('fr-FR')}
         
         // Afficher le message de succès
         function showSuccessMessage() {
-            const submitBtn = document.querySelector('button[type="submit"]');
-            if (submitBtn) {
-                submitBtn.innerHTML = '<i class="fas fa-check mr-2"></i>Email envoyé !';
-                submitBtn.classList.remove('bg-orange');
-                submitBtn.classList.add('bg-green-500');
-                submitBtn.disabled = false;
-                submitBtn.style.opacity = '1';
-                submitBtn.style.cursor = 'pointer';
-            }
-            
-            // Animation festive (confettis bleus, ballons, bouées)
+            // Animation festive (confettis bleus, ballons, bouées) - SANS popup blanche
             createConfetti();
         }
         
@@ -1828,35 +1819,19 @@ Date: ${new Date().toLocaleString('fr-FR')}
         
         // Afficher un message d'erreur
         function showErrorMessage() {
-            const submitBtn = document.querySelector('button[type="submit"]');
-            if (!submitBtn) return;
-            
-            const originalText = submitBtn.innerHTML;
-            submitBtn.innerHTML = '<i class="fas fa-exclamation-triangle mr-2"></i>Erreur d\'envoi';
-            submitBtn.classList.remove('bg-orange');
-            submitBtn.classList.add('bg-red-500');
-            submitBtn.disabled = false;
-            submitBtn.style.opacity = '1';
-            submitBtn.style.cursor = 'pointer';
-            
-            alert('⚠️ Une erreur est survenue lors de l\'envoi.\n\nVeuillez nous contacter directement à :\ncontact@lespiscinesdurhin.fr');
-            
-            setTimeout(() => {
-                submitBtn.innerHTML = originalText;
-                submitBtn.classList.remove('bg-red-500');
-                submitBtn.classList.add('bg-orange');
-            }, 3000);
+            // Le bouton est déjà restauré dans sendEmailAutomatic en cas d'erreur
+            // Cette fonction est appelée pour logging/feedback supplémentaire si nécessaire
+            console.error('❌ Erreur lors de l\'envoi du formulaire');
         }
         
         // Réinitialiser le formulaire
         function resetForm() {
-            const submitBtn = document.querySelector('button[type="submit"]');
-            const originalText = submitBtn.innerHTML;
-            
             // Réinitialiser le formulaire
-            document.getElementById('devis-form').reset();
-            updateFormLogic();
-            currentStep = 1;
+            const form = document.getElementById('devis-form');
+            if (form) {
+                form.reset();
+                updateFormLogic();
+                currentStep = 1;
             document.querySelectorAll('.form-step').forEach(step => step.classList.remove('active'));
             document.getElementById('step-1').classList.add('active');
             updateProgressBar(1);
