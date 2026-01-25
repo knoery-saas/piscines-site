@@ -864,8 +864,8 @@
         <!-- Bouton Trigger -->
         <button onclick="toggleChat()" class="fixed bottom-6 right-6 md:bottom-6 md:right-6 w-16 h-16 bg-orange rounded-[30px] flex items-center justify-center shadow-2xl z-[1000] hover:scale-110 transition-transform border-2 border-white/20 btn-premium chat-trigger-btn relative">
             <i class="fas fa-comment-alt text-navy text-2xl"></i>
-            <!-- Badge notification positionné au-dessus du bouton, pas devant -->
-            <span id="chat-notification-badge" class="absolute -top-2 right-0 text-[10px] font-black text-white bg-red-500 rounded-full w-5 h-5 flex items-center justify-center shadow-lg border-2 border-orange hidden">+1</span>
+            <!-- Badge notification positionné à gauche du bouton pour ne pas gêner le chat -->
+            <span id="chat-notification-badge" class="absolute top-0 -left-2 text-[10px] font-black text-white bg-red-500 rounded-full w-5 h-5 flex items-center justify-center shadow-lg border-2 border-orange hidden">+1</span>
         </button>
     </div>
 
@@ -1468,13 +1468,19 @@
             submitBtn.style.opacity = '0.7';
             submitBtn.style.cursor = 'not-allowed';
             
-            // Fonction pour restaurer le bouton
+            // Fonction pour restaurer le bouton (toujours accessible)
             const restoreButton = function() {
-                submitBtn.disabled = originalDisabled;
+                submitBtn.disabled = false;
                 submitBtn.style.opacity = '1';
                 submitBtn.style.cursor = 'pointer';
                 submitBtn.innerHTML = originalText;
             };
+            
+            // Timeout de sécurité : réactiver le bouton après 30 secondes maximum
+            const safetyTimeout = setTimeout(() => {
+                console.warn('⚠️ Timeout de sécurité : réactivation du bouton après 30s');
+                restoreButton();
+            }, 30000);
             
             // Vérifier que EmailJS est chargé
             if (typeof emailjs === 'undefined') {
@@ -1511,21 +1517,23 @@
             };
             
             console.log('📧 Paramètres EmailJS:', emailParams);
-            console.log('📧 Envoi via service_fg3ra0l, template_sx46c1i...');
+            console.log('📧 Envoi via service_zhwwfso, template_sx46c1i...');
             
             // Envoyer l'email via EmailJS (envoi automatique direct)
-            // Utilisation du service EmailJS configuré (pas Gmail direct)
-            emailjs.send('service_fg3ra0l', 'template_sx46c1i', emailParams)
+            // Utilisation du service EmailJS configuré (service_zhwwfso)
+            emailjs.send('service_zhwwfso', 'template_sx46c1i', emailParams)
                 .then(function(response) {
+                    clearTimeout(safetyTimeout);
                     console.log('✅ Email envoyé avec succès via EmailJS!', response.status, response.text);
                     showSuccessMessage();
                     resetForm();
                 }, function(error) {
+                    clearTimeout(safetyTimeout);
                     console.error('❌ Erreur EmailJS:', error);
                     console.error('Détails complets:', JSON.stringify(error, null, 2));
-                    alert('❌ Erreur lors de l\'envoi.\n\nVeuillez nous contacter directement à :\ncontact@lespiscinesdurhin.fr\n\nErreur: ' + (error.text || error.message || 'Erreur inconnue'));
-                    // Réactiver le bouton en cas d'erreur
+                    // Réactiver le bouton IMMÉDIATEMENT en cas d'erreur
                     restoreButton();
+                    alert('❌ Erreur lors de l\'envoi.\n\nVeuillez nous contacter directement à :\ncontact@lespiscinesdurhin.fr\n\nErreur: ' + (error.text || error.message || 'Erreur inconnue'));
                     showErrorMessage();
                 });
         }
