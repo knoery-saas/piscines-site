@@ -1445,7 +1445,7 @@
             // Validation de la ville/code postal
             const ville = document.getElementById('ville');
             if (!ville.value.trim()) {
-                showFieldError(ville, '⚠️ La ville ou le code postal est obligatoire');
+                showFieldError(ville, '⚠️ L\'adresse est obligatoire');
                 isValid = false;
             } else if (ville.value.trim().length < 2) {
                 showFieldError(ville, '⚠️ Veuillez entrer une adresse valide (minimum 2 caractères)');
