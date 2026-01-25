@@ -267,8 +267,8 @@
             display: none; 
             flex-direction: column; 
             position: fixed;
-            bottom: 100px; 
-            right: 25px; 
+            bottom: 90px; 
+            right: 20px; 
             width: 350px; 
             max-width: calc(100vw - 50px);
             height: 480px; 
@@ -295,10 +295,15 @@
             
             /* S'assurer que le bouton chat ne cache pas le formulaire sur mobile */
             .chat-trigger-btn {
-                bottom: 20px !important;
-                right: 20px !important;
+                bottom: 16px !important;
+                right: 16px !important;
                 width: 56px;
                 height: 56px;
+            }
+            
+            #chat-window {
+                bottom: 80px !important;
+                right: 16px !important;
             }
             
             /* S'assurer que le formulaire reste accessible */
@@ -709,7 +714,7 @@
                             <button type="button" onclick="prevStep(2)" class="flex-1 bg-white/5 text-white py-4 rounded-2xl font-black text-xs uppercase tracking-widest btn-premium border border-white/10 hover:bg-white/10">
                                 <i class="fas fa-arrow-left mr-2"></i> Retour
                             </button>
-                            <button type="submit" onclick="event.preventDefault(); validateAndSubmit();" class="flex-1 bg-orange text-white py-4 rounded-2xl font-black text-sm uppercase tracking-widest btn-premium btn-submit btn-pulse shadow-xl shadow-orange/40 hover:bg-orange/90 hover:text-white transition-all">
+                            <button type="button" onclick="validateAndSubmit();" class="flex-1 bg-orange text-white py-4 rounded-2xl font-black text-sm uppercase tracking-widest btn-premium btn-submit btn-pulse shadow-xl shadow-orange/40 hover:bg-orange/90 hover:text-white transition-all">
                                 Envoyer ma demande
                             </button>
                         </div>
@@ -753,8 +758,8 @@
                 <!-- Projet 1 - Strasbourg -->
                 <a href="https://www.lespiscinesdurhin.com/galerie/nos-realisations-3/" target="_blank" rel="noopener noreferrer" class="group relative aspect-[4/3] rounded-[2rem] overflow-hidden border border-white/5 hover:border-orange/50 transition-all block cursor-pointer" data-aos="fade-up">
                     <div class="relative w-full h-full overflow-hidden">
-                        <img src="assets/55337074-5a47-4443-8482-8d0269fe66c1-7a973488-86d5-46e3-af6a-08d191b0fbcb.png" 
-                             onerror="this.src='assets/55337074-5a47-4443-8482-8d0269fe66c1-a25f61dc-d360-4d30-8ab6-ef2d193b24e8.png'"
+                        <img src="assets/IMG_0495-e8892f0d-f4f4-4986-85c5-2d41be24f97a.png" 
+                             onerror="this.src='assets/55337074-5a47-4443-8482-8d0269fe66c1-7a973488-86d5-46e3-af6a-08d191b0fbcb.png'"
                              class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" alt="Piscine moderne avec terrasse">
                     </div>
                     <div class="absolute inset-0 bg-gradient-to-t from-navy to-transparent pointer-events-none"></div>
@@ -766,8 +771,8 @@
                 <!-- Projet 2 - Haguenau -->
                 <a href="https://www.lespiscinesdurhin.com/galerie/nos-realisations-3/" target="_blank" rel="noopener noreferrer" class="group relative aspect-[4/3] rounded-[2rem] overflow-hidden border border-white/5 hover:border-orange/50 transition-all block cursor-pointer" data-aos="fade-up" data-aos-delay="100">
                     <div class="relative w-full h-full overflow-hidden">
-                        <img src="assets/6c5189f8-947a-4149-bcd3-767820712a0d-5d9b63e8-b1f4-4c9c-b6c1-93352005551f.png" 
-                             onerror="this.src='assets/c6bab003-6c17-4cf0-a85f-c2e05df9f677-25021f3a-3e43-48d1-971e-0fbe30968b3e.png'"
+                        <img src="assets/IMG_0496-a0747d16-c52b-45fd-975e-b2307e41e88c.png" 
+                             onerror="this.src='assets/6c5189f8-947a-4149-bcd3-767820712a0d-5d9b63e8-b1f4-4c9c-b6c1-93352005551f.png'"
                              class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" alt="Piscine rénovée">
                     </div>
                     <div class="absolute inset-0 bg-gradient-to-t from-navy to-transparent pointer-events-none"></div>
@@ -857,10 +862,10 @@
         </div>
 
         <!-- Bouton Trigger -->
-        <button onclick="toggleChat()" class="fixed bottom-10 right-10 md:bottom-10 md:right-10 w-16 h-16 bg-orange rounded-[30px] flex items-center justify-center shadow-2xl z-[1001] hover:scale-110 transition-transform border-2 border-white/20 btn-premium chat-trigger-btn relative">
+        <button onclick="toggleChat()" class="fixed bottom-6 right-6 md:bottom-6 md:right-6 w-16 h-16 bg-orange rounded-[30px] flex items-center justify-center shadow-2xl z-[1001] hover:scale-110 transition-transform border-2 border-white/20 btn-premium chat-trigger-btn relative">
             <i class="fas fa-comment-alt text-navy text-2xl"></i>
-            <!-- Badge notification très discret -->
-            <span id="chat-notification-badge" class="absolute -top-0.5 -right-0.5 text-[8px] font-bold text-red-500 opacity-60 hidden">+1</span>
+            <!-- Badge notification plus visible -->
+            <span id="chat-notification-badge" class="absolute top-1 right-1 text-[10px] font-black text-white bg-red-500 rounded-full w-5 h-5 flex items-center justify-center shadow-lg hidden">+1</span>
         </button>
     </div>
 
@@ -915,9 +920,43 @@
         let currentStep = 1;
         const totalSteps = 3;
 
+        // Fonction pour valider l'étape actuelle
+        function validateCurrentStep(step) {
+            if (step === 1) {
+                // Valider étape 1 : projet et dimensions
+                const projectType = document.getElementById('project-type').value;
+                if (!projectType) {
+                    alert('⚠️ Veuillez sélectionner un type de projet');
+                    return false;
+                }
+                
+                // Valider dimensions si nécessaire (pas pour entretien)
+                if (projectType !== 'entretien') {
+                    const dimsInput = document.getElementById('dims-input');
+                    const dimsField = document.getElementById('dims-field');
+                    if (dimsField && dimsField.style.display !== 'none' && dimsInput.value.trim()) {
+                        if (!isValidDimensions(dimsInput.value)) {
+                            alert('⚠️ Format de dimensions invalide. Utilisez: 8x4m, 8x4, 10x5m, etc.');
+                            return false;
+                        }
+                    }
+                }
+                return true;
+            } else if (step === 2) {
+                // Étape 2 : détails (facultatif, pas de validation stricte)
+                return true;
+            }
+            return true;
+        }
+
         // Fonction pour passer à l'étape suivante
         function nextStep(step) {
             if (step > currentStep && step <= totalSteps) {
+                // Valider l'étape actuelle avant de passer à la suivante
+                if (!validateCurrentStep(currentStep)) {
+                    return; // Ne pas passer à l'étape suivante si validation échoue
+                }
+                
                 // Masquer l'étape actuelle
                 document.getElementById(`step-${currentStep}`).classList.remove('active');
                 
@@ -1160,12 +1199,21 @@
         // 6. VALIDATION ET SOUMISSION DU FORMULAIRE
         // ============================================
         function validateAndSubmit() {
+            console.log('🔵 validateAndSubmit appelé');
             const form = document.getElementById('devis-form');
+            if (!form) {
+                console.error('❌ Formulaire non trouvé');
+                alert('❌ Erreur: Formulaire non trouvé');
+                return;
+            }
+            
             let isValid = true;
 
             // Supprimer tous les messages d'erreur existants
             document.querySelectorAll('.error-message').forEach(msg => msg.remove());
             document.querySelectorAll('.error').forEach(field => field.classList.remove('error'));
+            
+            console.log('🔵 Validation des champs...');
 
             // Validation du nom complet
             const nomComplet = document.getElementById('nom-complet');
@@ -1226,6 +1274,7 @@
             }
 
             if (isValid) {
+                console.log('✅ Validation réussie, préparation des données...');
                 // Récupérer toutes les données du formulaire
                 const formData = {
                     projectType: document.getElementById('project-type').value,
@@ -1238,14 +1287,19 @@
                     file: document.getElementById('file-upload')?.files[0]?.name || 'Aucun fichier'
                 };
                 
+                console.log('📧 Données du formulaire:', formData);
+                
                 // Envoyer l'email automatiquement via EmailJS
                 sendEmailAutomatic(formData);
             } else {
+                console.log('❌ Validation échouée');
                 // Scroll vers le premier champ en erreur
                 const firstError = form.querySelector('.error');
                 if (firstError) {
                     firstError.scrollIntoView({ behavior: 'smooth', block: 'center' });
                     setTimeout(() => firstError.focus(), 300);
+                } else {
+                    alert('⚠️ Veuillez remplir tous les champs obligatoires correctement');
                 }
             }
         }
@@ -1383,13 +1437,17 @@
         // ENVOI D'EMAIL AUTOMATIQUE VIA API
         // ============================================
         function sendEmailAutomatic(formData) {
+            console.log('📧 sendEmailAutomatic appelé avec:', formData);
+            
             // Afficher un message de chargement IMMÉDIATEMENT
-            const submitBtn = document.querySelector('button[type="submit"]');
+            const submitBtn = document.querySelector('button[type="button"][onclick*="validateAndSubmit"]') || document.querySelector('.btn-submit');
             if (!submitBtn) {
-                console.error('Bouton submit non trouvé');
+                console.error('❌ Bouton submit non trouvé');
                 showErrorMessage();
                 return;
             }
+            
+            console.log('✅ Bouton trouvé, changement de l\'état...');
             
             // Sauvegarder le texte original
             const originalText = submitBtn.innerHTML;
@@ -1411,17 +1469,22 @@
             
             // Vérifier que EmailJS est chargé
             if (typeof emailjs === 'undefined') {
-                console.error('❌ EmailJS n\'est pas chargé');
+                console.error('❌ EmailJS n\'est pas chargé - vérifiez que le script CDN est présent');
+                alert('❌ Erreur: EmailJS n\'est pas chargé. Veuillez recharger la page.');
                 restoreButton();
                 showErrorMessage();
                 return;
             }
             
+            console.log('✅ EmailJS est chargé');
+            
             // Initialiser EmailJS avec votre Public Key
             try {
                 emailjs.init("8telvjUX6HvdMtK5");
+                console.log('✅ EmailJS initialisé');
             } catch (e) {
                 console.error('❌ Erreur initialisation EmailJS:', e);
+                alert('❌ Erreur d\'initialisation EmailJS. Veuillez nous contacter directement à contact@lespiscinesdurhin.fr');
                 restoreButton();
                 showErrorMessage();
                 return;
@@ -1438,6 +1501,9 @@
                 message: formData.message
             };
             
+            console.log('📧 Paramètres EmailJS:', emailParams);
+            console.log('📧 Envoi via service_fg3ra0l, template_sx46c1i...');
+            
             // Envoyer l'email via EmailJS (envoi automatique direct)
             emailjs.send('service_fg3ra0l', 'template_sx46c1i', emailParams)
                 .then(function(response) {
@@ -1446,7 +1512,8 @@
                     resetForm();
                 }, function(error) {
                     console.error('❌ Erreur EmailJS:', error);
-                    console.error('Détails:', JSON.stringify(error, null, 2));
+                    console.error('Détails complets:', JSON.stringify(error, null, 2));
+                    alert('❌ Erreur lors de l\'envoi.\n\nVeuillez nous contacter directement à :\ncontact@lespiscinesdurhin.fr\n\nErreur: ' + (error.text || error.message || 'Erreur inconnue'));
                     // Réactiver le bouton en cas d'erreur
                     restoreButton();
                     showErrorMessage();
