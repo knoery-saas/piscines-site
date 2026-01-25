@@ -321,18 +321,20 @@
         /* Notification visuelle pour l'ouverture automatique du chat */
         .chat-notification {
             position: fixed;
-            bottom: 200px;
+            bottom: 100px;
             right: 25px;
-            background: linear-gradient(135deg, rgba(230, 155, 63, 0.95), rgba(32, 226, 215, 0.95));
+            background: linear-gradient(135deg, rgba(230, 155, 63, 0.98), rgba(32, 226, 215, 0.98));
             color: #011627;
-            padding: 14px 22px;
-            border-radius: 15px;
-            font-size: 13px;
+            padding: 10px 16px;
+            border-radius: 12px;
+            font-size: 11px;
             font-weight: bold;
             z-index: 2001;
-            box-shadow: 0 10px 30px rgba(230, 155, 63, 0.4);
+            box-shadow: 0 8px 25px rgba(230, 155, 63, 0.5);
             animation: bounceIn 0.5s ease-out;
-            border: 2px solid rgba(230, 155, 63, 0.3);
+            border: 2px solid rgba(230, 155, 63, 0.4);
+            max-width: 200px;
+            backdrop-filter: blur(10px);
         }
         
         @keyframes bounceIn {
@@ -750,8 +752,8 @@
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
                 <!-- Projet 1 - Strasbourg -->
                 <a href="https://www.lespiscinesdurhin.com/galerie/nos-realisations-3/" target="_blank" rel="noopener noreferrer" class="group relative aspect-[4/3] rounded-[2rem] overflow-hidden border border-white/5 hover:border-orange/50 transition-all block cursor-pointer" data-aos="fade-up">
-                    <img src="assets/55337074-5a47-4443-8482-8d0269fe66c1-a25f61dc-d360-4d30-8ab6-ef2d193b24e8.png" 
-                         onerror="this.src='https://images.unsplash.com/photo-1562133567-b6a0a9c7e6eb?auto=format&fit=crop&w=800'"
+                    <img src="assets/55337074-5a47-4443-8482-8d0269fe66c1-7a973488-86d5-46e3-af6a-08d191b0fbcb.png" 
+                         onerror="this.src='assets/55337074-5a47-4443-8482-8d0269fe66c1-a25f61dc-d360-4d30-8ab6-ef2d193b24e8.png'"
                          class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" alt="Piscine moderne avec terrasse">
                     <div class="absolute inset-0 bg-gradient-to-t from-navy to-transparent"></div>
                     <div class="absolute bottom-6 left-6">
@@ -761,8 +763,8 @@
                 </a>
                 <!-- Projet 2 - Haguenau -->
                 <a href="https://www.lespiscinesdurhin.com/galerie/nos-realisations-3/" target="_blank" rel="noopener noreferrer" class="group relative aspect-[4/3] rounded-[2rem] overflow-hidden border border-white/5 hover:border-orange/50 transition-all block cursor-pointer" data-aos="fade-up" data-aos-delay="100">
-                    <img src="assets/c6bab003-6c17-4cf0-a85f-c2e05df9f677-25021f3a-3e43-48d1-971e-0fbe30968b3e.png" 
-                         onerror="this.src='https://images.unsplash.com/photo-1558223126-670554f67623?auto=format&fit=crop&w=800'"
+                    <img src="assets/6c5189f8-947a-4149-bcd3-767820712a0d-5d9b63e8-b1f4-4c9c-b6c1-93352005551f.png" 
+                         onerror="this.src='assets/c6bab003-6c17-4cf0-a85f-c2e05df9f677-25021f3a-3e43-48d1-971e-0fbe30968b3e.png'"
                          class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" alt="Piscine rénovée">
                     <div class="absolute inset-0 bg-gradient-to-t from-navy to-transparent"></div>
                     <div class="absolute bottom-6 left-6">
@@ -772,8 +774,8 @@
                 </a>
                 <!-- Projet 3 - Saverne -->
                 <a href="https://www.lespiscinesdurhin.com/galerie/nos-realisations-3/" target="_blank" rel="noopener noreferrer" class="group relative aspect-[4/3] rounded-[2rem] overflow-hidden border border-white/5 hover:border-orange/50 transition-all block cursor-pointer" data-aos="fade-up" data-aos-delay="200">
-                    <img src="assets/2bdba317-2436-477c-8794-c0a046a09dff-d82e6935-3103-4cc9-aaf2-859e29d3df31.png" 
-                         onerror="this.src='https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=800'"
+                    <img src="assets/2bdba317-2436-477c-8794-c0a046a09dff_2-6b51be6d-5fa7-4374-8a43-6e8885ea58c4.png" 
+                         onerror="this.src='assets/2bdba317-2436-477c-8794-c0a046a09dff-d82e6935-3103-4cc9-aaf2-859e29d3df31.png'"
                          class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" alt="Piscine avec jardin">
                     <div class="absolute inset-0 bg-gradient-to-t from-navy to-transparent"></div>
                     <div class="absolute bottom-6 left-6">
@@ -1098,7 +1100,7 @@
         function showChatNotification() {
             const notification = document.createElement('div');
             notification.className = 'chat-notification';
-            notification.innerHTML = '<i class="fas fa-comment-alt mr-2"></i> Nouveau message de l\'Assistant !';
+            notification.innerHTML = '<i class="fas fa-comment-dots mr-2"></i> <span>Nouveau message disponible</span>';
             notification.style.cursor = 'pointer';
             notification.style.transition = 'all 0.3s ease';
             
@@ -1110,17 +1112,17 @@
             
             // Effet hover
             notification.addEventListener('mouseenter', () => {
-                notification.style.transform = 'scale(1.05)';
-                notification.style.boxShadow = '0 15px 40px rgba(32, 226, 215, 0.5)';
+                notification.style.transform = 'scale(1.08)';
+                notification.style.boxShadow = '0 12px 35px rgba(230, 155, 63, 0.6)';
             });
             notification.addEventListener('mouseleave', () => {
                 notification.style.transform = 'scale(1)';
-                notification.style.boxShadow = '0 10px 30px rgba(0,0,0,0.3)';
+                notification.style.boxShadow = '0 8px 25px rgba(230, 155, 63, 0.5)';
             });
             
             document.body.appendChild(notification);
             
-            // Supprimer la notification après 8 secondes (plus de temps pour voir et cliquer)
+            // Supprimer la notification après 10 secondes
             setTimeout(() => {
                 notification.style.opacity = '0';
                 notification.style.transition = 'opacity 0.3s ease-out';
@@ -1129,7 +1131,7 @@
                         notification.remove();
                     }
                 }, 300);
-            }, 8000);
+            }, 10000);
         }
 
         // Ouverture automatique après 30 secondes de navigation
