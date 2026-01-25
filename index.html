@@ -512,14 +512,26 @@
                 text-align: center !important;
             }
             
-            #hero-section p {
-                text-align: center !important;
+            #hero-section .inline-flex {
+                justify-content: center !important;
                 margin-left: auto !important;
                 margin-right: auto !important;
             }
             
+            #hero-section p {
+                text-align: center !important;
+                margin-left: auto !important;
+                margin-right: auto !important;
+                border-left: none !important;
+                padding-left: 0 !important;
+            }
+            
             /* Centrer le formulaire et son contenu */
             .form-container {
+                text-align: center !important;
+            }
+            
+            .form-container > div {
                 text-align: center !important;
             }
             
@@ -531,25 +543,26 @@
                 text-align: center !important;
             }
             
-            .form-container .text-center {
-                text-align: center !important;
-            }
-            
-            /* Centrer les labels et inputs du formulaire */
+            /* Centrer les labels du formulaire */
             .form-step label {
                 text-align: center !important;
                 display: block !important;
+                width: 100% !important;
             }
             
             .form-step .space-y-2,
             .form-step .space-y-4 {
                 text-align: center !important;
+                display: flex !important;
+                flex-direction: column !important;
+                align-items: center !important;
             }
             
             /* Centrer les boutons du formulaire */
             .form-step button {
                 margin-left: auto !important;
                 margin-right: auto !important;
+                display: block !important;
             }
             
             /* Centrer la barre de progression */
@@ -562,12 +575,25 @@
                 text-align: center !important;
             }
             
-            .container > * {
+            /* Centrer le grid du hero sur mobile */
+            #hero-section .grid {
+                display: flex !important;
+                flex-direction: column !important;
+                align-items: center !important;
+            }
+            
+            #hero-section .grid > div {
+                width: 100% !important;
                 text-align: center !important;
             }
             
             /* Exception : les inputs gardent leur alignement interne */
             .input-premium {
+                text-align: left !important;
+            }
+            
+            /* Centrer les selects */
+            select.input-premium {
                 text-align: left !important;
             }
         }
