@@ -135,7 +135,7 @@
             }
         }
         
-        /* Animation festive pour la soumission du formulaire */
+        /* Animation festive pour la soumission du formulaire - Pluie ballons, bouées, confettis */
         .celebration-container {
             position: fixed;
             top: 0;
@@ -149,60 +149,86 @@
         
         .confetti {
             position: absolute;
-            width: 12px;
-            height: 12px;
             background: #2D9CDB;
             animation: confettiFall 4s ease-out forwards;
+        }
+        
+        .confetti.blue { background: #2D9CDB; }
+        .confetti.turquoise { background: #20E2D7; }
+        .confetti.light { background: #5DD3E8; }
+        
+        .confetti.round {
+            width: 12px;
+            height: 12px;
             border-radius: 50%;
         }
         
-        .confetti.blue {
-            background: #2D9CDB;
+        .confetti.square {
+            width: 10px;
+            height: 10px;
+            border-radius: 2px;
         }
         
-        .confetti.turquoise {
-            background: #20E2D7;
+        .confetti.strip {
+            width: 6px;
+            height: 18px;
+            border-radius: 1px;
         }
         
+        /* Ballons d'eau bleus */
         .balloon {
             position: absolute;
-            width: 40px;
-            height: 50px;
-            background: linear-gradient(135deg, #2D9CDB, #20E2D7);
+            width: 36px;
+            height: 48px;
+            background: linear-gradient(145deg, #1e88e5, #20E2D7);
             border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
             animation: balloonFloat 5s ease-out forwards;
-            box-shadow: 0 0 10px rgba(45, 156, 219, 0.5);
+            box-shadow: inset -4px -4px 12px rgba(0,0,0,0.15), 0 0 14px rgba(32, 226, 215, 0.5);
         }
         
         .balloon::before {
             content: '';
             position: absolute;
-            bottom: -15px;
+            bottom: -12px;
             left: 50%;
             transform: translateX(-50%);
             width: 2px;
-            height: 30px;
-            background: rgba(255, 255, 255, 0.3);
+            height: 24px;
+            background: rgba(255, 255, 255, 0.4);
         }
         
+        /* Bouées (flotteurs) - bleu et turquoise */
         .floatie {
             position: absolute;
-            width: 35px;
-            height: 35px;
-            background: #E69B3F;
-            border-radius: 50% 50% 50% 50% / 40% 40% 60% 60%;
+            width: 38px;
+            height: 38px;
+            border: 4px solid #20E2D7;
+            background: rgba(45, 156, 219, 0.5);
+            border-radius: 50%;
             animation: floatieFloat 6s ease-out forwards;
-            box-shadow: 0 0 15px rgba(230, 155, 63, 0.6);
+            box-shadow: 0 0 12px rgba(32, 226, 215, 0.5);
         }
         
         .floatie::after {
-            content: '🏊';
+            content: '';
             position: absolute;
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            font-size: 20px;
+            width: 12px;
+            height: 12px;
+            border: 2px solid #20E2D7;
+            border-radius: 50%;
+            background: transparent;
         }
+        
+        .floatie.orange {
+            border-color: #E69B3F;
+            background: rgba(230, 155, 63, 0.4);
+            box-shadow: 0 0 12px rgba(230, 155, 63, 0.5);
+        }
+        
+        .floatie.orange::after { border-color: #E69B3F; }
         
         .success-message {
             position: fixed;
@@ -564,22 +590,19 @@
             }
             
             /* ============================================
-               2. GRILLE PHOTOS - FORCER 1 COLONNE + MARGES PROPRES
+               2. GRILLE PHOTOS - 1 COLONNE, 100% LARGEUR, PAS MASQUÉ
                ============================================ */
-            /* Section "Nos projets réalisés" - Force 1 colonne */
             section#projets-realises .grid,
-            section:has(h3:contains("Nos projets")) .grid,
-            .grid.grid-cols-1.md\:grid-cols-3 {
+            section#projets-realises .grid.grid-cols-1.md\:grid-cols-3 {
                 display: grid !important;
                 grid-template-columns: 1fr !important;
                 gap: 1.5rem !important;
                 width: 100% !important;
+                max-width: 100% !important;
             }
             
-            /* Photos projets - Pleine largeur avec marges propres */
-            .project-card-float,
-            section#projets-realises a,
-            section:has(h3:contains("Nos projets")) a {
+            section#projets-realises .project-card-float,
+            section#projets-realises a[href*="galerie"] {
                 width: 100% !important;
                 max-width: 100% !important;
                 aspect-ratio: 4/3 !important;
@@ -587,20 +610,18 @@
                 display: block !important;
             }
             
-            .project-card-float img,
-            section#projets-realises img,
-            section:has(h3:contains("Nos projets")) img {
+            section#projets-realises .project-card-float img,
+            section#projets-realises img {
                 width: 100% !important;
                 height: 100% !important;
                 object-fit: cover !important;
                 display: block !important;
             }
             
-            /* Container galerie - Padding mobile */
-            section#projets-realises .container,
-            section:has(h3:contains("Nos projets")) .container {
+            section#projets-realises .container {
                 padding-left: 1rem !important;
                 padding-right: 1rem !important;
+                max-width: 100% !important;
             }
             
             /* ============================================
@@ -632,8 +653,7 @@
             
             /* Bouton "ENVOYER MA DEMANDE" - 100% largeur + Facile à cliquer */
             button[onclick*="validateAndSubmit"],
-            .btn-submit,
-            button:contains("Envoyer ma demande") {
+            .btn-submit {
                 width: 100% !important;
                 max-width: 100% !important;
                 padding: 18px 24px !important;
@@ -754,12 +774,11 @@
             }
             
             /* ============================================
-               6. GALERIE PHOTO - CENTRAGE PROPRE
+               6. GALERIE PHOTO - 1 COLONNE, CHATBOT NE CACHE PAS
                ============================================ */
-            /* Section projets - Centrage et espacement */
             section#projets-realises {
                 padding-top: 2rem !important;
-                padding-bottom: 2rem !important;
+                padding-bottom: 7rem !important; /* Espace pour que le chatbot ne masque pas les photos */
             }
             
             section#projets-realises .container {
@@ -770,6 +789,13 @@
             
             section#projets-realises h3 {
                 margin-bottom: 1.5rem !important;
+            }
+            
+            /* Galerie : pas d’overflow qui masque les images (assets/) */
+            section#projets-realises,
+            section#projets-realises .container,
+            section#projets-realises .grid {
+                overflow: visible !important;
             }
             
             /* ============================================
@@ -2107,24 +2133,28 @@ Date: ${new Date().toLocaleString('fr-FR')}
             createConfetti();
         }
         
-        // Créer l'animation festive (confettis bleus, ballons, bouées)
+        // Créer l'animation festive : pluie de ballons d'eau bleus, bouées, confettis (dès que le succès s'affiche)
         function createConfetti() {
             const celebrationContainer = document.createElement('div');
             celebrationContainer.className = 'celebration-container';
             document.body.appendChild(celebrationContainer);
             
-            // Confettis bleus
-            for (let i = 0; i < 80; i++) {
+            const confettiShapes = ['round', 'square', 'strip'];
+            const confettiColors = ['blue', 'turquoise', 'light'];
+            
+            // Confettis (bleus, turquoise) – pluie dense
+            for (let i = 0; i < 120; i++) {
                 const confetti = document.createElement('div');
-                confetti.className = 'confetti blue';
+                confetti.className = 'confetti ' + confettiColors[i % 3] + ' ' + confettiShapes[i % 3];
                 confetti.style.left = Math.random() * 100 + '%';
-                confetti.style.animationDelay = Math.random() * 1 + 's';
+                confetti.style.animationDelay = Math.random() * 1.2 + 's';
                 confetti.style.animationDuration = (Math.random() * 2 + 3) + 's';
+                confetti.style.transform = 'rotate(' + (Math.random() * 360) + 'deg)';
                 celebrationContainer.appendChild(confetti);
             }
             
             // Ballons d'eau bleus
-            for (let i = 0; i < 15; i++) {
+            for (let i = 0; i < 25; i++) {
                 const balloon = document.createElement('div');
                 balloon.className = 'balloon';
                 balloon.style.left = Math.random() * 100 + '%';
@@ -2133,29 +2163,29 @@ Date: ${new Date().toLocaleString('fr-FR')}
                 celebrationContainer.appendChild(balloon);
             }
             
-            // Bouées
-            for (let i = 0; i < 10; i++) {
+            // Bouées (bleues + quelques orange)
+            for (let i = 0; i < 18; i++) {
                 const floatie = document.createElement('div');
-                floatie.className = 'floatie';
+                floatie.className = 'floatie' + (i % 4 === 0 ? ' orange' : '');
                 floatie.style.left = Math.random() * 100 + '%';
                 floatie.style.animationDelay = Math.random() * 0.8 + 's';
                 floatie.style.animationDuration = (Math.random() * 2 + 5) + 's';
                 celebrationContainer.appendChild(floatie);
             }
             
-            // Message de succès stylé avec bouton
+            // Message de succès (affiché en premier) puis pluie déclenchée
             const successMsg = document.createElement('div');
             successMsg.className = 'success-message';
             successMsg.innerHTML = `
                 <h2>🏊 Plongeon réussi !</h2>
                 <p>Votre demande est bien arrivée.<br>Nous vous répondrons sous 48h.</p>
-                <button class="btn-discover-projects" onclick="scrollToProjects()">
-                    <i class="fas fa-images mr-2"></i>Découvrir nos réalisations en images
+                <button type="button" class="btn-discover-projects" onclick="scrollToProjects()">
+                    <i class="fas fa-images mr-2"></i>Découvrir nos réalisations
                 </button>
             `;
             document.body.appendChild(successMsg);
             
-            // Supprimer tout après l'animation (mais garder le message plus longtemps pour permettre le clic)
+            // Supprimer tout après l'animation (garder le message assez longtemps pour cliquer)
             setTimeout(() => {
                 successMsg.style.opacity = '0';
                 successMsg.style.transition = 'opacity 0.5s ease-out';
@@ -2163,7 +2193,7 @@ Date: ${new Date().toLocaleString('fr-FR')}
                     successMsg.remove();
                     celebrationContainer.remove();
                 }, 500);
-            }, 8000); // Augmenté à 8 secondes pour laisser le temps de cliquer
+            }, 8500);
         }
         
         // Fonction pour scroller vers la section projets réalisés
