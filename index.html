@@ -135,8 +135,8 @@
             }
         }
         
-        /* Animation de confettis pour la soumission du formulaire */
-        .confetti-container {
+        /* Animation festive pour la soumission du formulaire - Pluie ballons, bouées, confettis */
+        .celebration-container {
             position: fixed;
             top: 0;
             left: 0;
@@ -149,30 +149,216 @@
         
         .confetti {
             position: absolute;
+            background: #2D9CDB;
+            animation: confettiFall 4s ease-out forwards;
+        }
+        
+        .confetti.blue { background: #2D9CDB; }
+        .confetti.turquoise { background: #20E2D7; }
+        .confetti.light { background: #5DD3E8; }
+        
+        .confetti.round {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+        }
+        
+        .confetti.square {
             width: 10px;
             height: 10px;
-            background: #E69B3F;
-            animation: confettiFall 3s ease-out forwards;
+            border-radius: 2px;
         }
         
-        .confetti.blue {
-            background: #2D9CDB;
+        .confetti.strip {
+            width: 6px;
+            height: 18px;
+            border-radius: 1px;
         }
         
-        .confetti.turquoise {
-            background: #20E2D7;
+        /* Ballons d'eau bleus */
+        .balloon {
+            position: absolute;
+            width: 36px;
+            height: 48px;
+            background: linear-gradient(145deg, #1e88e5, #20E2D7);
+            border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+            animation: balloonFloat 5s ease-out forwards;
+            box-shadow: inset -4px -4px 12px rgba(0,0,0,0.15), 0 0 14px rgba(32, 226, 215, 0.5);
+        }
+        
+        .balloon::before {
+            content: '';
+            position: absolute;
+            bottom: -12px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 2px;
+            height: 24px;
+            background: rgba(255, 255, 255, 0.4);
+        }
+        
+        /* Bouées (flotteurs) - bleu et turquoise */
+        .floatie {
+            position: absolute;
+            width: 38px;
+            height: 38px;
+            border: 4px solid #20E2D7;
+            background: rgba(45, 156, 219, 0.5);
+            border-radius: 50%;
+            animation: floatieFloat 6s ease-out forwards;
+            box-shadow: 0 0 12px rgba(32, 226, 215, 0.5);
+        }
+        
+        .floatie::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 12px;
+            height: 12px;
+            border: 2px solid #20E2D7;
+            border-radius: 50%;
+            background: transparent;
+        }
+        
+        .floatie.orange {
+            border-color: #E69B3F;
+            background: rgba(230, 155, 63, 0.4);
+            box-shadow: 0 0 12px rgba(230, 155, 63, 0.5);
+        }
+        
+        .floatie.orange::after { border-color: #E69B3F; }
+        
+        .success-message {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: linear-gradient(135deg, rgba(1, 22, 39, 0.98), rgba(1, 22, 39, 0.95));
+            color: white;
+            padding: 40px 60px;
+            border-radius: 30px;
+            text-align: center;
+            z-index: 10001;
+            border: 3px solid #20E2D7;
+            box-shadow: 0 20px 60px rgba(32, 226, 215, 0.4);
+            animation: successPopIn 0.5s ease-out;
+        }
+        
+        .success-message h2 {
+            font-size: 2.5rem;
+            font-weight: 900;
+            margin-bottom: 10px;
+            background: linear-gradient(135deg, #20E2D7, #E69B3F);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .success-message p {
+            font-size: 1.1rem;
+            color: rgba(255, 255, 255, 0.9);
+            margin-bottom: 25px;
+        }
+        
+        /* Bouton post-envoi pour découvrir les réalisations */
+        .btn-discover-projects {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 16px 32px;
+            background: linear-gradient(135deg, #20E2D7, #2D9CDB);
+            color: white;
+            font-size: 1rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            border-radius: 15px;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 30px rgba(32, 226, 215, 0.4);
+            animation: pulseGlow 2s ease-in-out infinite;
+            text-decoration: none;
+        }
+        
+        .btn-discover-projects:hover {
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 15px 40px rgba(32, 226, 215, 0.6);
+            background: linear-gradient(135deg, #2D9CDB, #20E2D7);
+        }
+        
+        .btn-discover-projects:active {
+            transform: translateY(-1px) scale(1.02);
+        }
+        
+        @keyframes pulseGlow {
+            0%, 100% {
+                box-shadow: 0 10px 30px rgba(32, 226, 215, 0.4), 0 0 20px rgba(32, 226, 215, 0.2);
+            }
+            50% {
+                box-shadow: 0 10px 40px rgba(32, 226, 215, 0.6), 0 0 30px rgba(32, 226, 215, 0.4);
+            }
         }
         
         @keyframes confettiFall {
             0% {
                 top: -10px;
                 opacity: 1;
-                transform: rotate(0deg) translateX(0);
+                transform: rotate(0deg) translateX(0) scale(1);
             }
             100% {
                 top: 110%;
                 opacity: 0;
-                transform: rotate(720deg) translateX(100px);
+                transform: rotate(720deg) translateX(150px) scale(0.5);
+            }
+        }
+        
+        @keyframes balloonFloat {
+            0% {
+                bottom: -60px;
+                opacity: 1;
+                transform: translateX(0) scale(0.8);
+            }
+            50% {
+                opacity: 1;
+                transform: translateX(30px) scale(1);
+            }
+            100% {
+                bottom: 110%;
+                opacity: 0;
+                transform: translateX(-20px) scale(0.6);
+            }
+        }
+        
+        @keyframes floatieFloat {
+            0% {
+                bottom: -40px;
+                opacity: 1;
+                transform: translateX(0) rotate(0deg);
+            }
+            50% {
+                opacity: 1;
+                transform: translateX(-40px) rotate(180deg);
+            }
+            100% {
+                bottom: 110%;
+                opacity: 0;
+                transform: translateX(40px) rotate(360deg);
+            }
+        }
+        
+        @keyframes successPopIn {
+            0% {
+                transform: translate(-50%, -50%) scale(0.5);
+                opacity: 0;
+            }
+            50% {
+                transform: translate(-50%, -50%) scale(1.1);
+            }
+            100% {
+                transform: translate(-50%, -50%) scale(1);
+                opacity: 1;
             }
         }
         
@@ -748,7 +934,7 @@
     </section>
 
     <!-- Section Réalisations -->
-    <section class="py-24 bg-[#020D17] border-t border-white/5">
+    <section id="projets-realises" class="py-24 bg-[#020D17] border-t border-white/5">
         <div class="container mx-auto px-6">
             <h3 class="text-center text-4xl font-black uppercase tracking-widest mb-16 text-white">
                 Nos projets <span class="text-orange italic">Réalisés.</span>
@@ -1589,46 +1775,108 @@ Date: ${new Date().toLocaleString('fr-FR')}
         
         // Afficher le message de succès
         function showSuccessMessage() {
-            const submitBtn = document.querySelector('button[type="submit"]');
-            if (submitBtn) {
-                submitBtn.innerHTML = '<i class="fas fa-check mr-2"></i>Email envoyé !';
-                submitBtn.classList.remove('bg-orange');
-                submitBtn.classList.add('bg-green-500');
-                submitBtn.disabled = false;
-                submitBtn.style.opacity = '1';
-                submitBtn.style.cursor = 'pointer';
-            }
-            
-            // Animation de confettis
+            // Animation festive (confettis bleus, ballons, bouées) - SANS popup blanche
             createConfetti();
-            
-            setTimeout(() => {
-                alert('✅ Votre demande de devis a bien été envoyée à contact@lespiscinesdurhin.fr\n\nNous vous répondrons sous 48h.');
-            }, 500);
         }
         
-        // Créer l'animation de confettis
+        // Créer l'animation festive : pluie de ballons d'eau bleus, bouées, confettis (dès que le succès s'affiche)
         function createConfetti() {
-            const confettiContainer = document.createElement('div');
-            confettiContainer.className = 'confetti-container';
-            document.body.appendChild(confettiContainer);
+            const celebrationContainer = document.createElement('div');
+            celebrationContainer.className = 'celebration-container';
+            document.body.appendChild(celebrationContainer);
             
-            const colors = ['orange', 'blue', 'turquoise'];
-            const confettiCount = 50;
+            const confettiShapes = ['round', 'square', 'strip'];
+            const confettiColors = ['blue', 'turquoise', 'light'];
             
-            for (let i = 0; i < confettiCount; i++) {
+            // Confettis (bleus, turquoise) – pluie dense
+            for (let i = 0; i < 120; i++) {
                 const confetti = document.createElement('div');
-                confetti.className = `confetti ${colors[Math.floor(Math.random() * colors.length)]}`;
+                confetti.className = 'confetti ' + confettiColors[i % 3] + ' ' + confettiShapes[i % 3];
                 confetti.style.left = Math.random() * 100 + '%';
-                confetti.style.animationDelay = Math.random() * 0.5 + 's';
-                confetti.style.animationDuration = (Math.random() * 2 + 2) + 's';
-                confettiContainer.appendChild(confetti);
+                confetti.style.animationDelay = Math.random() * 1.2 + 's';
+                confetti.style.animationDuration = (Math.random() * 2 + 3) + 's';
+                confetti.style.transform = 'rotate(' + (Math.random() * 360) + 'deg)';
+                celebrationContainer.appendChild(confetti);
             }
             
-            // Supprimer les confettis après l'animation
+            // Ballons d'eau bleus
+            for (let i = 0; i < 25; i++) {
+                const balloon = document.createElement('div');
+                balloon.className = 'balloon';
+                balloon.style.left = Math.random() * 100 + '%';
+                balloon.style.animationDelay = Math.random() * 0.5 + 's';
+                balloon.style.animationDuration = (Math.random() * 2 + 4) + 's';
+                celebrationContainer.appendChild(balloon);
+            }
+            
+            // Bouées (bleues + quelques orange)
+            for (let i = 0; i < 18; i++) {
+                const floatie = document.createElement('div');
+                floatie.className = 'floatie' + (i % 4 === 0 ? ' orange' : '');
+                floatie.style.left = Math.random() * 100 + '%';
+                floatie.style.animationDelay = Math.random() * 0.8 + 's';
+                floatie.style.animationDuration = (Math.random() * 2 + 5) + 's';
+                celebrationContainer.appendChild(floatie);
+            }
+            
+            // Message de succès (affiché en premier) puis pluie déclenchée
+            const successMsg = document.createElement('div');
+            successMsg.className = 'success-message';
+            successMsg.innerHTML = `
+                <h2>🏊 Plongeon réussi !</h2>
+                <p>Votre demande est bien arrivée.<br>Nous vous répondrons sous 48h.</p>
+                <button type="button" class="btn-discover-projects" onclick="scrollToProjects()">
+                    <i class="fas fa-images mr-2"></i>Découvrir nos réalisations
+                </button>
+            `;
+            document.body.appendChild(successMsg);
+            
+            // Supprimer tout après l'animation (garder le message assez longtemps pour cliquer)
             setTimeout(() => {
-                confettiContainer.remove();
-            }, 3000);
+                successMsg.style.opacity = '0';
+                successMsg.style.transition = 'opacity 0.5s ease-out';
+                setTimeout(() => {
+                    successMsg.remove();
+                    celebrationContainer.remove();
+                }, 500);
+            }, 8500);
+        }
+        
+        // Fonction pour scroller vers la section projets réalisés
+        function scrollToProjects() {
+            // Utiliser l'ID de la section
+            const projectsSection = document.getElementById('projets-realises');
+            
+            if (projectsSection) {
+                // Calculer la position avec offset pour le header fixe
+                const headerOffset = 100;
+                const elementPosition = projectsSection.getBoundingClientRect().top;
+                const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+                
+                // Scroll fluide vers la section
+                window.scrollTo({
+                    top: offsetPosition,
+                    behavior: 'smooth'
+                });
+                
+                // Fermer le message de succès après le scroll
+                setTimeout(() => {
+                    const successMsg = document.querySelector('.success-message');
+                    if (successMsg) {
+                        successMsg.style.opacity = '0';
+                        successMsg.style.transition = 'opacity 0.5s ease-out';
+                        setTimeout(() => {
+                            successMsg.remove();
+                            const celebrationContainer = document.querySelector('.celebration-container');
+                            if (celebrationContainer) {
+                                celebrationContainer.remove();
+                            }
+                        }, 500);
+                    }
+                }, 800);
+            } else {
+                console.warn('⚠️ Section projets non trouvée');
+            }
         }
         
         // Afficher un message d'erreur
