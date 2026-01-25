@@ -505,6 +505,40 @@
         }
         
         /* ============================================
+           GARANTIE DE VISIBILITÉ - TOUTES LES SECTIONS VISIBLES PAR DÉFAUT
+           ============================================ */
+        /* Assurer que toutes les sections principales sont visibles */
+        section,
+        header,
+        #hero-section,
+        #devis,
+        #projets-realises,
+        #stats-section {
+            display: block !important;
+            visibility: visible !important;
+            opacity: 1 !important;
+        }
+        
+        /* Assurer que les images sont visibles */
+        img {
+            display: block !important;
+            max-width: 100% !important;
+            height: auto !important;
+        }
+        
+        /* Assurer que le formulaire est visible */
+        .form-container,
+        #devis {
+            display: block !important;
+            visibility: visible !important;
+        }
+        
+        /* Assurer que la grille des projets est visible */
+        .grid {
+            display: grid !important;
+        }
+        
+        /* ============================================
            RESPONSIVE MOBILE - CORRECTIONS PRIORITAIRES
            Tous les écrans < 768px
            ============================================ */
