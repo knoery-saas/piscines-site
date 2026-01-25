@@ -492,9 +492,17 @@
                 right: 16px !important;
             }
             
-            /* S'assurer que le formulaire reste accessible */
+            /* S'assurer que le formulaire reste accessible - le chat ne doit pas cacher le bouton d'envoi */
             #devis {
                 margin-bottom: 80px;
+            }
+            
+            /* S'assurer que le bouton d'envoi du formulaire n'est pas caché par le chat */
+            .btn-submit,
+            button[onclick*="validateAndSubmit"] {
+                margin-bottom: 100px !important;
+                position: relative !important;
+                z-index: 100 !important;
             }
             
             /* Centrage des éléments sur mobile */
@@ -2065,20 +2073,36 @@ Date: ${new Date().toLocaleString('fr-FR')}
             box.scrollTop = box.scrollHeight;
 
             setTimeout(() => {
-                let r = "C'est noté. Pour vous donner un devis précis sous 48h, le mieux est d'utiliser le formulaire de devis sur la page ou de me laisser votre numéro ici.";
+                let r = "";
+                const userTextLower = userText.toLowerCase();
                 
-                if(userText.includes("prix") || userText.includes("devis") || userText.includes("coût")) {
-                    r = "Un projet complet se situe autour de 20 000€ selon les options. Souhaitez-vous une étude détaillée ?";
-                } else if(userText.includes("bas-rhin") || userText.includes("67")) {
-                    r = "Nous intervenons rapidement dans tout le Bas-Rhin (67). Dites-moi votre besoin.";
-                } else if(userText.includes("construction") || userText.includes("nouvelle")) {
-                    r = "Pour une nouvelle piscine, nous créons des piscines sur mesure adaptées à votre terrain. Quel style vous intéresse ?";
-                } else if(userText.includes("rénovation") || userText.includes("renovation") || userText.includes("liner")) {
-                    r = "Nous réalisons tous types de rénovations : changement de liner, réparation de structure, modernisation. Quel est votre besoin ?";
-                } else if(userText.includes("entretien") || userText.includes("maintenance")) {
-                    r = "Nous proposons des contrats d'entretien annuels ou des interventions ponctuelles. Que préférez-vous ?";
-                } else if(userText.includes("sav") || userText.includes("panne") || userText.includes("dépannage") || userText.includes("entretien")) {
-                    r = "Pour un dépannage urgent ou un contrat d'entretien, appelez-nous au 07 61 32 91 84. Nous intervenons rapidement dans le Bas-Rhin (67).";
+                // Détection des intentions et réponses expertes
+                if(userTextLower.includes("prix") || userTextLower.includes("tarif") || userTextLower.includes("coût") || userTextLower.includes("combien") || userTextLower.includes("devis")) {
+                    r = "Chaque projet de piscine est unique et nécessite une étude personnalisée. Les tarifs varient selon la taille, les options choisies (revêtement, équipements, aménagements) et les spécificités de votre terrain.\n\nPour obtenir une estimation précise et détaillée sous 48h, je vous invite à remplir le formulaire 'Lancer ma demande' en haut de la page. Notre équipe vous proposera un devis adapté à vos besoins.";
+                } else if(userTextLower.includes("bas-rhin") || userTextLower.includes("67") || userTextLower.includes("zone") || userTextLower.includes("intervention") || userTextLower.includes("strasbourg") || userTextLower.includes("haguenau") || userTextLower.includes("saverne")) {
+                    r = "Nous intervenons dans tout le Bas-Rhin (67) : Strasbourg, Haguenau, Saverne, et toutes les communes du département.\n\nNotre équipe se déplace pour réaliser des études techniques sur site et assurer un suivi optimal de votre projet.\n\nPour avancer sur votre projet, n'hésitez pas à utiliser le formulaire 'Lancer ma demande' en haut de la page.";
+                } else if(userTextLower.includes("délai") || userTextLower.includes("delai") || userTextLower.includes("temps") || userTextLower.includes("durée") || userTextLower.includes("duree") || userTextLower.includes("rapide")) {
+                    r = "Nous sommes réactifs ! Dès réception de votre demande via le formulaire, notre équipe technique étudie votre projet et vous répond sous 48h avec une estimation précise.\n\nPour la réalisation, les délais dépendent du type de projet (construction, rénovation, entretien) et de la période. Nous vous fournirons un planning détaillé lors de l'étude technique.\n\nPour obtenir une réponse rapide, remplissez le formulaire 'Lancer ma demande' en haut de la page.";
+                } else if(userTextLower.includes("construction") || userTextLower.includes("nouvelle") || userTextLower.includes("béton") || userTextLower.includes("beton") || userTextLower.includes("installer")) {
+                    r = "Nous sommes spécialisés dans la construction de piscines en béton sur mesure dans le Bas-Rhin. Chaque projet est adapté à votre terrain, vos envies et votre budget.\n\nNous maîtrisons toutes les techniques : piscines enterrées, semi-enterrées, avec revêtement liner ou carrelage, équipements de filtration, chauffage, éclairage LED, etc.\n\nPour discuter de votre projet en détail et obtenir un devis personnalisé, je vous invite à remplir le formulaire 'Lancer ma demande' en haut de la page.";
+                } else if(userTextLower.includes("rénovation") || userTextLower.includes("renovation") || userTextLower.includes("liner") || userTextLower.includes("répar") || userTextLower.includes("repar") || userTextLower.includes("modernis")) {
+                    r = "Nous réalisons tous types de rénovations de piscines : changement de liner, réfection de la structure béton, modernisation des équipements (filtration, chauffage), carrelage, etc.\n\nNotre expertise de 21 ans nous permet d'intervenir sur tous types de piscines existantes pour les remettre à neuf ou les moderniser.\n\nPour évaluer votre projet de rénovation, utilisez le formulaire 'Lancer ma demande' en haut de la page. Nous vous répondrons sous 48h.";
+                } else if(userTextLower.includes("entretien") || userTextLower.includes("maintenance") || userTextLower.includes("contrat")) {
+                    r = "Nous proposons des contrats d'entretien annuels personnalisés ou des interventions ponctuelles selon vos besoins.\n\nNotre service d'entretien couvre : nettoyage, traitement de l'eau, vérification des équipements, hivernage, remise en service, etc.\n\nPour un devis d'entretien adapté à votre piscine, remplissez le formulaire 'Lancer ma demande' en haut de la page.";
+                } else if(userTextLower.includes("sav") || userTextLower.includes("panne") || userTextLower.includes("dépannage") || userTextLower.includes("depannage") || userTextLower.includes("urgence") || userTextLower.includes("problème") || userTextLower.includes("probleme")) {
+                    r = "Pour un dépannage urgent ou une intervention SAV, contactez-nous directement au 07 61 32 91 84. Nous intervenons rapidement dans tout le Bas-Rhin (67).\n\nPour les demandes non urgentes ou les contrats d'entretien, vous pouvez également utiliser le formulaire 'Lancer ma demande' en haut de la page.";
+                } else if(userTextLower.includes("bonjour") || userTextLower.includes("salut") || userTextLower.includes("hello") || userTextLower.includes("bonsoir")) {
+                    r = "Bonjour ! 👋 Je suis l'assistant virtuel des Piscines du Rhin, votre expert pisciniste dans le Bas-Rhin (67).\n\nJe peux vous renseigner sur nos services : construction de piscines en béton, rénovation, entretien et SAV.\n\nComment puis-je vous aider aujourd'hui ?";
+                } else if(userTextLower.includes("merci") || userTextLower.includes("aurevoir") || userTextLower.includes("au revoir")) {
+                    r = "Je vous en prie ! 😊\n\nN'hésitez pas à revenir vers moi si vous avez d'autres questions. Et pour avancer concrètement sur votre projet, pensez à utiliser le formulaire 'Lancer ma demande' en haut de la page pour obtenir un devis sous 48h.\n\nÀ bientôt !";
+                } else {
+                    // Réponse par défaut professionnelle et incitative
+                    r = "Merci pour votre message. En tant qu'expert pisciniste dans le Bas-Rhin, je peux vous renseigner sur la construction, la rénovation et l'entretien de piscines.\n\nPour obtenir une réponse précise et un devis personnalisé sous 48h, je vous invite à remplir le formulaire 'Lancer ma demande' en haut de la page. Notre équipe technique étudiera votre projet et vous répondra rapidement.";
+                }
+                
+                // Ajouter systématiquement l'incitation au formulaire (sauf pour les salutations)
+                if(!userTextLower.includes("bonjour") && !userTextLower.includes("salut") && !userTextLower.includes("hello") && !userTextLower.includes("bonsoir") && !userTextLower.includes("merci") && !userTextLower.includes("aurevoir")) {
+                    // L'incitation est déjà incluse dans les réponses ci-dessus
                 }
 
                 typingBlock.remove();
