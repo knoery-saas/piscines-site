@@ -505,58 +505,22 @@
         }
         
         /* ============================================
-           GARANTIE DE VISIBILITÉ - TOUTES LES SECTIONS VISIBLES PAR DÉFAUT
-           ============================================ */
-        /* Assurer que toutes les sections principales sont visibles */
-        section,
-        header,
-        #hero-section,
-        #devis,
-        #projets-realises,
-        #stats-section {
-            display: block !important;
-            visibility: visible !important;
-            opacity: 1 !important;
-        }
-        
-        /* Assurer que les images sont visibles */
-        img {
-            display: block !important;
-            max-width: 100% !important;
-            height: auto !important;
-        }
-        
-        /* Assurer que le formulaire est visible */
-        .form-container,
-        #devis {
-            display: block !important;
-            visibility: visible !important;
-        }
-        
-        /* Assurer que la grille des projets est visible */
-        .grid {
-            display: grid !important;
-        }
-        
-        /* ============================================
-           RESPONSIVE MOBILE - CORRECTIONS PRIORITAIRES
+           RESPONSIVE MOBILE - SIMPLIFIÉ ET SÉCURISÉ
            Tous les écrans < 768px
            ============================================ */
         @media (max-width: 768px) {
             /* ============================================
-               1. CHATBOT MOBILE - Réduction 20% + Fenêtre optimisée
+               1. CHATBOT MOBILE - 50px comme demandé
                ============================================ */
-            /* Bouton trigger chatbot - Réduit de 20% (64px -> 51px) */
             .chat-trigger-btn {
+                width: 50px !important;
+                height: 50px !important;
                 bottom: 16px !important;
                 right: 16px !important;
-                width: 51px !important;
-                height: 51px !important;
-                z-index: 1000;
             }
             
             .chat-trigger-btn i {
-                font-size: 1rem !important; /* Réduit de 20% */
+                font-size: 1.1rem !important;
             }
             
             /* Fenêtre de chat - Ne dépasse pas de l'écran */
