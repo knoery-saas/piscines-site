@@ -1180,47 +1180,30 @@ COORDONNÉES:
 Date: ${new Date().toLocaleString('fr-FR')}
             `;
             
-            // Préparer les données pour l'API FormSubmit
-            const emailData = {
+            // Initialiser EmailJS avec votre Public Key
+            emailjs.init("8telvjUX6HvdMtK5");
+            
+            // Préparer les paramètres pour EmailJS (toutes les variables nécessaires)
+            const emailParams = {
                 name: formData.name,
                 email: formData.email,
                 phone: formData.phone,
                 city: formData.city,
                 project_type: formData.projectType,
                 dimensions: formData.dimensions,
-                message: formData.message,
-                file_name: formData.file,
-                _subject: `Nouvelle demande de devis - ${formData.projectType}`,
-                _to: 'contact@lespiscinesdurhin.fr',
-                _template: 'box',
-                _captcha: 'false'
+                message: formData.message
             };
             
-            // Envoyer l'email via l'API FormSubmit (envoi automatique sans ouvrir le client email)
-            fetch('https://formsubmit.co/ajax/contact@lespiscinesdurhin.fr', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Accept': 'application/json'
-                },
-                body: JSON.stringify(emailData)
-            })
-            .then(response => {
-                if (response.ok) {
-                    return response.json();
-                }
-                throw new Error('Erreur lors de l\'envoi');
-            })
-            .then(data => {
-                console.log('Email envoyé avec succès!', data);
-                showSuccessMessage();
-                resetForm();
-            })
-            .catch(error => {
-                console.error('Erreur:', error);
-                // Si l'API ne fonctionne pas, essayer avec EmailJS
-                tryEmailJS(formData);
-            });
+            // Envoyer l'email via EmailJS (envoi automatique direct)
+            emailjs.send('service_fg3ra0l', 'template_sx46c1i', emailParams)
+                .then(function(response) {
+                    console.log('✅ Email envoyé avec succès via EmailJS!', response.status, response.text);
+                    showSuccessMessage();
+                    resetForm();
+                }, function(error) {
+                    console.error('❌ Erreur EmailJS:', error);
+                    showErrorMessage();
+                });
         }
         
         // Fonction alternative avec EmailJS (si FormSubmit ne fonctionne pas)
