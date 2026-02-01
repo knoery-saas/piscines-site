@@ -150,11 +150,11 @@
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     
-    <!-- AOS Animation Library -->
-    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <!-- AOS Animation Library (defer = ne bloque pas l’affichage) -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" media="print" onload="this.media='all'">
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js" defer></script>
     
-    <!-- Google Fonts - Plus Jakarta Sans -->
+    <!-- Google Fonts - display=swap déjà présent pour éviter FOIT -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Dancing+Script:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -162,8 +162,8 @@
     <!-- Font Awesome 6.4.0 -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     
-    <!-- EmailJS pour l'envoi d'emails -->
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+    <!-- EmailJS - defer pour envoi formulaire (non critique au premier rendu) -->
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js" defer></script>
 
     <!-- Vercel Web Analytics -->
    <!-- Google tag (gtag.js) -->
@@ -239,14 +239,6 @@
             transform: perspective(1200px) rotateY(-15deg) rotateX(8deg) scale(1.05) translateZ(20px);
             box-shadow: 0 30px 60px rgba(0,0,0,0.5), 0 0 60px rgba(230, 155, 63, 0.25), 0 0 80px rgba(32, 226, 215, 0.15);
         }
-        /* Formulaire - glow néon visible */
-        .form-glow {
-            animation: formGlow 3s ease-in-out infinite;
-        }
-        @keyframes formGlow {
-            0%, 100% { box-shadow: 0 25px 50px rgba(0,0,0,0.5), 0 0 0 rgba(230, 155, 63, 0); }
-            50% { box-shadow: 0 25px 50px rgba(0,0,0,0.5), 0 0 60px rgba(230, 155, 63, 0.2), 0 0 100px rgba(32, 226, 215, 0.1); }
-        }
         /* Points marketing - float marqué */
         .float-hover {
             transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.4s ease;
@@ -257,84 +249,6 @@
         }
         .select-none {
             user-select: none;
-        }
-        
-        /* Bulles 3D dynamiques - effet piscine au chargement */
-        .bubbles-animation {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: 9999;
-            pointer-events: none;
-            overflow: hidden;
-            perspective: 1000px;
-            animation: bubblesFadeOut 4s ease-out forwards;
-        }
-        
-        .bubble {
-            position: absolute;
-            bottom: -80px;
-            border-radius: 50%;
-            transform-style: preserve-3d;
-            background: radial-gradient(ellipse at 30% 30%, rgba(255,255,255,0.8), rgba(32, 226, 215, 0.4) 40%, rgba(45, 156, 219, 0.2));
-            border: 2px solid rgba(255,255,255,0.5);
-            box-shadow: 
-                inset -5px -5px 15px rgba(0,0,0,0.1),
-                inset 5px 5px 15px rgba(255,255,255,0.3),
-                0 0 20px rgba(32, 226, 215, 0.5),
-                0 0 40px rgba(32, 226, 215, 0.2);
-        }
-        
-        .bubble:nth-child(1) { left: 5%; width: 28px; height: 28px; animation: bubbleRise3d 5s ease-in-out infinite; animation-delay: 0s; }
-        .bubble:nth-child(2) { left: 12%; width: 18px; height: 18px; animation: bubbleRise3d 6s ease-in-out infinite; animation-delay: 0.3s; }
-        .bubble:nth-child(3) { left: 22%; width: 35px; height: 35px; animation: bubbleRise3d 4.5s ease-in-out infinite; animation-delay: 0.6s; }
-        .bubble:nth-child(4) { left: 32%; width: 22px; height: 22px; animation: bubbleRise3d 5.5s ease-in-out infinite; animation-delay: 0.1s; }
-        .bubble:nth-child(5) { left: 42%; width: 40px; height: 40px; animation: bubbleRise3d 4s ease-in-out infinite; animation-delay: 0.4s; }
-        .bubble:nth-child(6) { left: 52%; width: 16px; height: 16px; animation: bubbleRise3d 6.5s ease-in-out infinite; animation-delay: 0.8s; }
-        .bubble:nth-child(7) { left: 62%; width: 30px; height: 30px; animation: bubbleRise3d 5.2s ease-in-out infinite; animation-delay: 0.2s; }
-        .bubble:nth-child(8) { left: 72%; width: 24px; height: 24px; animation: bubbleRise3d 5.8s ease-in-out infinite; animation-delay: 0.5s; }
-        .bubble:nth-child(9) { left: 82%; width: 38px; height: 38px; animation: bubbleRise3d 4.2s ease-in-out infinite; animation-delay: 0.7s; }
-        .bubble:nth-child(10) { left: 90%; width: 20px; height: 20px; animation: bubbleRise3d 6s ease-in-out infinite; animation-delay: 0.9s; }
-        .bubble:nth-child(11) { left: 8%; width: 32px; height: 32px; animation: bubbleRise3d 4.8s ease-in-out infinite; animation-delay: 0.15s; }
-        .bubble:nth-child(12) { left: 28%; width: 14px; height: 14px; animation: bubbleRise3d 7s ease-in-out infinite; animation-delay: 0.45s; }
-        .bubble:nth-child(13) { left: 48%; width: 26px; height: 26px; animation: bubbleRise3d 5s ease-in-out infinite; animation-delay: 0.2s; }
-        .bubble:nth-child(14) { left: 68%; width: 20px; height: 20px; animation: bubbleRise3d 6.2s ease-in-out infinite; animation-delay: 0.6s; }
-        .bubble:nth-child(15) { left: 88%; width: 36px; height: 36px; animation: bubbleRise3d 4.4s ease-in-out infinite; animation-delay: 0.35s; }
-        
-        @keyframes bubbleRise3d {
-            0% {
-                bottom: -80px;
-                opacity: 0;
-                transform: translateX(0) translateZ(0) scale(0.5) rotate(0deg);
-            }
-            5% {
-                opacity: 1;
-            }
-            25% {
-                transform: translateX(15px) translateZ(10px) scale(1) rotate(45deg);
-            }
-            50% {
-                transform: translateX(-10px) translateZ(-5px) scale(1.1) rotate(90deg);
-            }
-            75% {
-                transform: translateX(20px) translateZ(15px) scale(1.05) rotate(135deg);
-            }
-            95% {
-                opacity: 0.7;
-            }
-            100% {
-                bottom: 110%;
-                opacity: 0;
-                transform: translateX(-15px) translateZ(20px) scale(1.3) rotate(180deg);
-            }
-        }
-        
-        @keyframes bubblesFadeOut {
-            0% { opacity: 1; }
-            70% { opacity: 1; }
-            100% { opacity: 0; visibility: hidden; }
         }
         
         /* Animation festive pour la soumission du formulaire - Pluie ballons, bouées, confettis */
@@ -998,24 +912,6 @@
 <body class="bg-[#010B13] font-sans text-white antialiased" style="font-family: 'Plus Jakarta Sans', sans-serif;">
             <!-- Barre de progression du scroll -->
             <div id="scroll-progress" class="fixed top-0 left-0 h-1 bg-orange z-[200] transition-all duration-150" style="width: 0%;"></div>
-            <!-- Animation de bulles qui montent au chargement -->
-            <div class="bubbles-animation">
-                <div class="bubble"></div>
-                <div class="bubble"></div>
-                <div class="bubble"></div>
-                <div class="bubble"></div>
-                <div class="bubble"></div>
-                <div class="bubble"></div>
-                <div class="bubble"></div>
-                <div class="bubble"></div>
-                <div class="bubble"></div>
-                <div class="bubble"></div>
-                <div class="bubble"></div>
-                <div class="bubble"></div>
-                <div class="bubble"></div>
-                <div class="bubble"></div>
-                <div class="bubble"></div>
-            </div>
 
     <!-- Header -->
     <header class="fixed w-full z-[100] py-4 px-6 lg:px-10 border-b border-white/5 premium-blur">
@@ -1030,7 +926,7 @@
                 </a>
             </div>
             <div class="bg-white/5 px-4 py-2 rounded-lg text-[10px] font-black text-white uppercase tracking-widest hover:bg-white/10 hover:border-orange/30 border border-transparent transition-all duration-300">
-                Réponse rapide <i class="fas fa-bolt text-orange animate-pulse"></i>
+                Réponse rapide <i class="fas fa-bolt text-orange"></i>
             </div>
         </div>
     </header>
@@ -1042,7 +938,7 @@
                  onerror="this.src='https://images.unsplash.com/photo-1576013551627-0cc20b96c2a7?auto=format&fit=crop&q=80&w=2000'" 
                  class="w-full h-full object-cover opacity-30 parallax-image" 
                  alt="Piscine béton sur mesure Bas-Rhin 67 - Piscines du Rhin Strasbourg Haguenau" 
-                 fetchpriority="high" width="1920" height="1080">
+                 fetchpriority="high" width="1920" height="1080" decoding="async">
             <div class="absolute inset-0 hero-overlay"></div>
         </div>
 
@@ -1053,8 +949,7 @@
             
             <div data-aos="fade-right">
                 <div class="inline-flex items-center gap-2 px-4 py-1.5 bg-orange/10 border border-orange/30 rounded-full mb-6 backdrop-blur-md hover:bg-orange/15 hover:border-orange/50 transition-all duration-300 shadow-lg shadow-orange/20">
-                    <span class="w-2.5 h-2.5 bg-orange rounded-full animate-ping"></span>
-                    <span class="w-2.5 h-2.5 bg-orange rounded-full absolute animate-pulse"></span>
+                    <span class="w-2.5 h-2.5 bg-orange rounded-full flex-shrink-0" aria-hidden="true"></span>
                     <span class="text-xs font-black uppercase tracking-widest text-white">VOTRE EXPERT PISCINE DANS LE BAS-RHIN (67)</span>
                 </div>
                 
@@ -1099,7 +994,7 @@
             </div>
 
             <!-- Colonne Formulaire (Logique Métier + Technique) - VISIBILITÉ OPTIMISÉE -->
-            <div id="devis" class="form-container form-glow border-2 border-white/20 p-8 lg:p-10 rounded-[2.5rem] shadow-2xl relative z-20">
+            <div id="devis" class="form-container border-2 border-white/20 p-8 lg:p-10 rounded-[2.5rem] shadow-2xl relative z-20" style="box-shadow: 0 25px 50px rgba(0,0,0,0.5), 0 0 30px rgba(230, 155, 63, 0.08);">
                 <div class="text-center mb-8">
                     <h3 class="text-3xl font-black uppercase tracking-tighter text-white">Lancer ma demande</h3>
                     <p class="text-orange text-[10px] font-bold uppercase tracking-widest mt-1">Réponse précise garantie sous 48h.</p>
@@ -1133,7 +1028,7 @@
                         <div class="space-y-2 mb-4">
                             <label class="text-[10px] font-black text-gray-300 uppercase tracking-widest ml-2">Quel est votre projet ?</label>
                             <select id="project-type" name="project_type" onchange="updateFormLogic()" class="input-premium w-full p-4 rounded-xl text-xs font-black uppercase cursor-pointer transition-colors" required>
-                                <option value="construction" style="background: #011627; color: #ffffff;">BÉTON</option>
+                                <option value="construction" style="background: #011627; color: #ffffff;">CONSTRUCTION BÉTON / COMPASS POOLS</option>
                                 <option value="renovation" style="background: #011627; color: #ffffff;">RÉNOVATION</option>
                                 <option value="entretien" style="background: #011627; color: #ffffff;">ENTRETIEN / SAV</option>
                             </select>
@@ -1492,14 +1387,19 @@
         updateScrollUI();
 
         // ============================================
-        // INITIALISATION AOS (Animations au scroll)
+        // INITIALISATION AOS (Animations au scroll) - après chargement du script différé
         // ============================================
-        if (typeof AOS !== 'undefined') {
-            AOS.init({ 
-                once: true, 
-                duration: 1000,
-                offset: 50
-            });
+        function initAOS() {
+            if (typeof AOS !== 'undefined') {
+                AOS.init({ once: true, duration: 1000, offset: 50 });
+            } else {
+                requestAnimationFrame(initAOS);
+            }
+        }
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', initAOS);
+        } else {
+            initAOS();
         }
 
         // ============================================
@@ -1821,7 +1721,7 @@
 
             // Mise à jour du placeholder selon le type de projet
             const placeholders = {
-                'construction': 'Dites-nous en plus sur votre projet de nouvelle piscine (équipements, style...)',
+                'construction': 'Dites-nous en plus sur votre projet (béton sur mesure, Compass Pools, équipements, style...)',
                 'renovation': 'Décrivez votre projet de rénovation (changement de liner, rénovation de la structure, modernisation...)',
                 'entretien': 'Précisez vos besoins en entretien (contrat annuel, intervention ponctuelle, type de piscine...)'
             };
@@ -2419,8 +2319,8 @@ Date: ${new Date().toLocaleString('fr-FR')}
                     r = "Nous intervenons dans tout le Bas-Rhin (67) : Strasbourg, Haguenau, Saverne, et toutes les communes du département.\n\nNotre équipe se déplace pour réaliser des études techniques sur site et assurer un suivi optimal de votre projet.\n\nPour avancer sur votre projet, n'hésitez pas à utiliser le formulaire 'Lancer ma demande' en haut de la page.";
                 } else if(userTextLower.includes("délai") || userTextLower.includes("delai") || userTextLower.includes("temps") || userTextLower.includes("durée") || userTextLower.includes("duree") || userTextLower.includes("rapide")) {
                     r = "Nous sommes réactifs ! Dès réception de votre demande via le formulaire, notre équipe technique étudie votre projet et vous répond sous 48h avec une estimation précise.\n\nPour la réalisation, les délais dépendent du type de projet (construction, rénovation, entretien) et de la période. Nous vous fournirons un planning détaillé lors de l'étude technique.\n\nPour obtenir une réponse rapide, remplissez le formulaire 'Lancer ma demande' en haut de la page.";
-                } else if(userTextLower.includes("construction") || userTextLower.includes("nouvelle") || userTextLower.includes("béton") || userTextLower.includes("beton") || userTextLower.includes("installer")) {
-                    r = "Nous sommes spécialisés dans la construction de piscines en béton sur mesure dans le Bas-Rhin. Chaque projet est adapté à votre terrain, vos envies et votre budget.\n\nNous maîtrisons toutes les techniques : piscines enterrées, semi-enterrées, avec revêtement liner ou carrelage, équipements de filtration, chauffage, éclairage LED, etc.\n\nPour discuter de votre projet en détail et obtenir un devis personnalisé, je vous invite à remplir le formulaire 'Lancer ma demande' en haut de la page.";
+                } else if(userTextLower.includes("construction") || userTextLower.includes("nouvelle") || userTextLower.includes("béton") || userTextLower.includes("beton") || userTextLower.includes("compass") || userTextLower.includes("installer")) {
+                    r = "Nous sommes spécialisés dans la construction de piscines en béton sur mesure et Compass Pools dans le Bas-Rhin (coques, Plunge Pool, technologie céramique). Chaque projet est adapté à votre terrain, vos envies et votre budget.\n\nPour discuter de votre projet en détail et obtenir un devis personnalisé, remplissez le formulaire 'Lancer ma demande' en haut de la page (choisissez « Construction béton / Compass Pools »).";
                 } else if(userTextLower.includes("rénovation") || userTextLower.includes("renovation") || userTextLower.includes("liner") || userTextLower.includes("répar") || userTextLower.includes("repar") || userTextLower.includes("modernis")) {
                     r = "Nous réalisons tous types de rénovations de piscines : changement de liner, réfection de la structure béton, modernisation des équipements (filtration, chauffage), carrelage, etc.\n\nNotre expertise de 21 ans nous permet d'intervenir sur tous types de piscines existantes pour les remettre à neuf ou les moderniser.\n\nPour évaluer votre projet de rénovation, utilisez le formulaire 'Lancer ma demande' en haut de la page. Nous vous répondrons sous 48h.";
                 } else if(userTextLower.includes("entretien") || userTextLower.includes("maintenance") || userTextLower.includes("contrat")) {
