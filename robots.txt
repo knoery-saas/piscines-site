@@ -1,0 +1,10 @@
+# Piscines du Rhin - robots.txt
+# https://piscines-site.vercel.app
+
+User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: https://piscines-site.vercel.app/sitemap.xml
+
+# Crawl-delay: NON utilisé (non standard, Google l'ignore)
