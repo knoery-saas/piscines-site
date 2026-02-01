@@ -23,6 +23,7 @@
     <meta name="msvalidate.01" content="26D8F1F405EA9C24E3E6B52791051A69" />
     
     <!-- Preload hero image (LCP) -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' style='stop-color:%23E69B3F'/%3E%3Cstop offset='100%25' style='stop-color:%2320E2D7'/%3E%3C/linearGradient%3E%3C/defs%3E%3Cellipse cx='16' cy='18' rx='12' ry='6' fill='url(%23g)' opacity='0.9'/%3E%3Cellipse cx='16' cy='14' rx='8' ry='4' fill='%2320E2D7' opacity='0.6'/%3E%3C/svg%3E">
     <link rel="preload" as="image" href="assets/55337074-5a47-4443-8482-8d0269fe66c1-a25f61dc-d360-4d30-8ab6-ef2d193b24e8.png">
     
     <!-- Open Graph / Facebook -->
@@ -995,6 +996,8 @@
     </style>
 </head>
 <body class="bg-[#010B13] font-sans text-white antialiased" style="font-family: 'Plus Jakarta Sans', sans-serif;">
+            <!-- Barre de progression du scroll -->
+            <div id="scroll-progress" class="fixed top-0 left-0 h-1 bg-orange z-[200] transition-all duration-150" style="width: 0%;"></div>
             <!-- Animation de bulles qui montent au chargement -->
             <div class="bubbles-animation">
                 <div class="bubble"></div>
@@ -1210,6 +1213,50 @@
         </div>
     </section>
 
+    <!-- Section Témoignages -->
+    <section class="py-20 bg-[#020D17] border-t border-white/5">
+        <div class="container mx-auto px-6">
+            <h2 class="text-center text-3xl md:text-4xl font-black uppercase tracking-widest mb-12 text-white">
+                Ce que disent <span class="text-orange italic">nos clients</span>
+            </h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
+                <div class="bg-white/5 rounded-2xl p-8 border border-white/10 hover:border-orange/30 transition-all" data-aos="fade-up">
+                    <div class="flex gap-1 mb-4">
+                        <i class="fas fa-star text-orange text-sm"></i>
+                        <i class="fas fa-star text-orange text-sm"></i>
+                        <i class="fas fa-star text-orange text-sm"></i>
+                        <i class="fas fa-star text-orange text-sm"></i>
+                        <i class="fas fa-star text-orange text-sm"></i>
+                    </div>
+                    <p class="text-gray-300 text-sm mb-6 italic">"Très professionnels, délai respecté. Notre piscine est magnifique. Je recommande !"</p>
+                    <p class="text-orange font-bold text-xs uppercase">Marie L. — Strasbourg</p>
+                </div>
+                <div class="bg-white/5 rounded-2xl p-8 border border-white/10 hover:border-orange/30 transition-all" data-aos="fade-up" data-aos-delay="100">
+                    <div class="flex gap-1 mb-4">
+                        <i class="fas fa-star text-orange text-sm"></i>
+                        <i class="fas fa-star text-orange text-sm"></i>
+                        <i class="fas fa-star text-orange text-sm"></i>
+                        <i class="fas fa-star text-orange text-sm"></i>
+                        <i class="fas fa-star text-orange text-sm"></i>
+                    </div>
+                    <p class="text-gray-300 text-sm mb-6 italic">"Rénovation de notre liner impeccable. Équipe sérieuse et réactive."</p>
+                    <p class="text-orange font-bold text-xs uppercase">Philippe M. — Haguenau</p>
+                </div>
+                <div class="bg-white/5 rounded-2xl p-8 border border-white/10 hover:border-orange/30 transition-all" data-aos="fade-up" data-aos-delay="200">
+                    <div class="flex gap-1 mb-4">
+                        <i class="fas fa-star text-orange text-sm"></i>
+                        <i class="fas fa-star text-orange text-sm"></i>
+                        <i class="fas fa-star text-orange text-sm"></i>
+                        <i class="fas fa-star text-orange text-sm"></i>
+                        <i class="fas fa-star text-orange text-sm"></i>
+                    </div>
+                    <p class="text-gray-300 text-sm mb-6 italic">"Devis détaillé sous 48h comme promis. Travail soigné de A à Z."</p>
+                    <p class="text-orange font-bold text-xs uppercase">Sandrine K. — Saverne</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <!-- Section Compteurs de Succès (Stats) -->
     <section class="py-16 bg-[#020D17] border-t border-white/5" id="stats-section">
         <div class="container mx-auto px-6">
@@ -1375,6 +1422,11 @@
         </div>
     </footer>
 
+    <!-- Bouton Retour en haut -->
+    <a href="#hero-section" id="btn-back-top" class="fixed bottom-24 left-6 w-12 h-12 bg-orange/90 hover:bg-orange rounded-full flex items-center justify-center shadow-xl z-[999] opacity-0 pointer-events-none transition-all duration-300 hover:scale-110 btn-premium border-2 border-white/20" aria-label="Retour en haut">
+        <i class="fas fa-chevron-up text-navy text-lg"></i>
+    </a>
+
     <!-- Chatbot Widget -->
     <div class="fixed bottom-10 right-10 z-[1000] md:bottom-10 md:right-10">
         <!-- Fenêtre Chat -->
@@ -1410,6 +1462,31 @@
 
     <!-- Scripts -->
     <script>
+        // ============================================
+        // BARRE PROGRESSION SCROLL + BOUTON RETOUR EN HAUT
+        // ============================================
+        const scrollProgress = document.getElementById('scroll-progress');
+        const btnBackTop = document.getElementById('btn-back-top');
+        
+        function updateScrollUI() {
+            const scrollTop = window.scrollY || document.documentElement.scrollTop;
+            const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+            const percent = docHeight > 0 ? Math.min((scrollTop / docHeight) * 100, 100) : 0;
+            
+            if (scrollProgress) scrollProgress.style.width = percent + '%';
+            if (btnBackTop) {
+                if (scrollTop > 400) {
+                    btnBackTop.classList.remove('opacity-0', 'pointer-events-none');
+                    btnBackTop.classList.add('opacity-100');
+                } else {
+                    btnBackTop.classList.add('opacity-0', 'pointer-events-none');
+                    btnBackTop.classList.remove('opacity-100');
+                }
+            }
+        }
+        window.addEventListener('scroll', updateScrollUI, { passive: true });
+        updateScrollUI();
+
         // ============================================
         // INITIALISATION AOS (Animations au scroll)
         // ============================================
