@@ -217,39 +217,42 @@
          * - Couleurs principales : Orange #E69B3F, Bleu #20E2D7, Texte en script clair
          */
         
-        /* Logo + effets 3D / dynamiques */
+        /* Logo - effet 3D marqué au survol */
         .logo-3d {
-            transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+            transition: transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1), filter 0.5s ease;
             transform-style: preserve-3d;
+            transform: perspective(800px) rotateY(0) rotateX(0);
         }
         a:hover .logo-3d {
-            transform: scale(1.05) rotateY(-3deg) rotateX(2deg);
-            filter: drop-shadow(0 8px 20px rgba(230, 155, 63, 0.3));
+            transform: perspective(800px) rotateY(-12deg) rotateX(5deg) scale(1.08);
+            filter: drop-shadow(0 15px 35px rgba(230, 155, 63, 0.5)) drop-shadow(0 0 25px rgba(32, 226, 215, 0.3));
         }
-        /* Cartes projets - effet 3D au survol */
+        /* Cartes projets - effet 3D très visible */
         .projet-card-3d {
             transform-style: preserve-3d;
-            transition: transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.5s ease;
+            perspective: 1200px;
+            transition: transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.6s ease, border-color 0.4s ease;
+            will-change: transform;
         }
         .projet-card-3d:hover {
-            transform: perspective(1000px) rotateY(-5deg) rotateX(3deg) scale(1.02);
-            box-shadow: 0 25px 50px rgba(0,0,0,0.3), 0 0 30px rgba(230, 155, 63, 0.15);
+            transform: perspective(1200px) rotateY(-15deg) rotateX(8deg) scale(1.05) translateZ(20px);
+            box-shadow: 0 30px 60px rgba(0,0,0,0.5), 0 0 60px rgba(230, 155, 63, 0.25), 0 0 80px rgba(32, 226, 215, 0.15);
         }
-        /* Formulaire - glow subtil */
+        /* Formulaire - glow néon visible */
         .form-glow {
-            animation: formGlow 4s ease-in-out infinite;
+            animation: formGlow 3s ease-in-out infinite;
         }
         @keyframes formGlow {
-            0%, 100% { box-shadow: 0 25px 50px rgba(0,0,0,0.4), 0 0 0 rgba(230, 155, 63, 0); }
-            50% { box-shadow: 0 25px 50px rgba(0,0,0,0.4), 0 0 40px rgba(230, 155, 63, 0.08); }
+            0%, 100% { box-shadow: 0 25px 50px rgba(0,0,0,0.5), 0 0 0 rgba(230, 155, 63, 0); }
+            50% { box-shadow: 0 25px 50px rgba(0,0,0,0.5), 0 0 60px rgba(230, 155, 63, 0.2), 0 0 100px rgba(32, 226, 215, 0.1); }
         }
-        /* Points marketing - float subtil */
+        /* Points marketing - float marqué */
         .float-hover {
-            transition: transform 0.4s ease;
+            transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.4s ease;
         }
         .float-hover:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 15px 35px rgba(230, 155, 63, 0.2);
+            transform: translateY(-8px) scale(1.03);
+            box-shadow: 0 20px 45px rgba(230, 155, 63, 0.3), 0 0 30px rgba(32, 226, 215, 0.15);
         }
         .select-none {
             user-select: none;
@@ -951,8 +954,8 @@
             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
         .btn-premium:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 30px rgba(230, 155, 63, 0.4), 0 0 25px rgba(230, 155, 63, 0.4), 0 0 40px rgba(32, 226, 215, 0.15);
+            transform: translateY(-4px) scale(1.02);
+            box-shadow: 0 15px 40px rgba(230, 155, 63, 0.5), 0 0 40px rgba(230, 155, 63, 0.4), 0 0 60px rgba(32, 226, 215, 0.2);
         }
         .btn-submit:hover {
             background: #E69B3F !important;
@@ -1004,13 +1007,12 @@
         <div class="max-w-7xl mx-auto flex justify-between items-center">
             <div class="flex items-center gap-3">
                 <!-- Logo Piscines du Rhin -->
-                <a href="#hero-section" class="flex items-center gap-3 select-none hover:opacity-90 transition-opacity duration-300 flex-shrink-0">
+                <a href="#hero-section" class="flex items-center select-none flex-shrink-0">
                     <img src="assets/logo-piscines-du-rhin-transparent.png" 
                          alt="Piscines du Rhin - Pisciniste Bas-Rhin 67" 
-                         class="h-20 md:h-24 w-auto object-contain logo-3d"
+                         class="h-28 md:h-36 w-auto object-contain logo-3d"
                          loading="eager">
                 </a>
-                <span class="text-[10px] font-bold text-orange/90 uppercase tracking-[0.2em] hidden sm:inline-block">Strasbourg · Bas-Rhin</span>
             </div>
             <div class="bg-white/5 px-4 py-2 rounded-lg text-[10px] font-black text-white uppercase tracking-widest hover:bg-white/10 hover:border-orange/30 border border-transparent transition-all duration-300">
                 Réponse rapide <i class="fas fa-bolt text-orange animate-pulse"></i>
@@ -1334,7 +1336,7 @@
             <div class="flex flex-col items-center gap-6 mb-6">
                 <img src="assets/logo-piscines-du-rhin-transparent.png" 
                      alt="Piscines du Rhin - Pisciniste Bas-Rhin 67" 
-                     class="h-24 w-auto object-contain opacity-90"
+                     class="h-28 w-auto object-contain opacity-90"
                      loading="lazy">
                 <p class="text-gray-400 text-sm font-medium mb-4">Bureau technique</p>
             </div>
@@ -1342,7 +1344,7 @@
             <div class="flex flex-col md:flex-row justify-center items-center gap-4 md:gap-8 text-xs font-bold text-gray-300 uppercase tracking-widest mb-8">
                 <a href="https://www.google.com/maps/search/?api=1&query=Piscines+du+Rhin+Bas-Rhin" target="_blank" rel="noopener noreferrer" class="flex items-center gap-2 text-white hover:text-orange transition-colors cursor-pointer">
                     <i class="fas fa-map-marker-alt text-orange"></i>
-                    <span class="font-black">Strasbourg, Bas-Rhin</span>
+                    <span class="font-black">Adresse du magasin</span>
                 </a>
                 <p class="flex items-center gap-2">
                     <i class="fas fa-id-card text-orange"></i>
