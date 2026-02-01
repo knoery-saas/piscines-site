@@ -26,14 +26,23 @@ Le fichier `vercel.json` configure :
 - ✅ Chatbot assistant intelligent
 - ✅ Animations au scroll (AOS)
 - ✅ Design responsive
-- ✅ Envoi automatique d'emails via FormSubmit API
+- ✅ Envoi automatique d'emails via EmailJS
 - ✅ Compteurs animés
 - ✅ Effet parallaxe
 - ✅ Notifications de preuve sociale
+- ✅ SEO optimisé (meta, Open Graph, Schema.org)
+- ✅ Section FAQ (CRO)
+
+## 📂 Documentation Marketing
+
+Le dossier `docs/marketing-mcp/` contient les guides MCP et marketing pour booster le site :
+- **MEMORY-landing-pages-2026.md** – Bonnes pratiques landing pages
+- **GUIDE-MARKETING.md** – Prompts et templates marketing
+- Voir `docs/marketing-mcp/INDEX.md` pour la liste complète
 
 ## 📧 Envoi d'emails
 
-Les demandes de devis sont envoyées automatiquement à `contact@lespiscinesdurhin.com` via l'API FormSubmit.
+Les demandes de devis sont envoyées automatiquement à `contact@lespiscinesdurhin.fr` via EmailJS.
 
 ## 🎨 Design
 

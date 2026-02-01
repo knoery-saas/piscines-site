@@ -21,3 +21,6 @@ package-lock.json
 
 # Vercel
 .vercel
+
+# Config MCP (peut contenir clés API)
+docs/marketing-mcp/mcp-config.json
