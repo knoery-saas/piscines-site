@@ -54,7 +54,7 @@
                 "telephone": "+33761329184",
                 "email": "contact@lespiscinesdurhin.fr",
                 "image": "https://piscines-site.vercel.app/assets/55337074-5a47-4443-8482-8d0269fe66c1-a25f61dc-d360-4d30-8ab6-ef2d193b24e8.png",
-                "logo": "https://piscines-site.vercel.app/assets/logo-piscines-du-rhin.png",
+                "logo": "https://piscines-site.vercel.app/assets/logo-piscines-du-rhin-transparent.png",
                 "foundingDate": "2003",
                 "slogan": "Votre expert piscine dans le Bas-Rhin (67)",
                 "priceRange": "€€",
@@ -217,11 +217,7 @@
          * - Couleurs principales : Orange #E69B3F, Bleu #20E2D7, Texte en script clair
          */
         
-        /* Logo : fond blanc fusionné avec la couleur du site (navy) */
-        .logo-no-blanc {
-            mix-blend-mode: multiply;
-            filter: brightness(1.15) contrast(1.05);
-        }
+        /* Logo */
         /* Sur fond clair (footer si besoin), on garde le logo lisible */
         .select-none {
             user-select: none;
@@ -977,9 +973,9 @@
             <div class="flex items-center gap-3">
                 <!-- Logo Piscines du Rhin -->
                 <a href="#hero-section" class="flex items-center gap-3 select-none hover:opacity-90 transition-opacity duration-300 flex-shrink-0">
-                    <img src="assets/logo-piscines-du-rhin.png" 
+                    <img src="assets/logo-piscines-du-rhin-transparent.png" 
                          alt="Piscines du Rhin - Pisciniste Bas-Rhin 67" 
-                         class="h-14 md:h-16 w-auto object-contain logo-no-blanc"
+                         class="h-14 md:h-16 w-auto object-contain"
                          loading="eager">
                 </a>
                 <span class="text-[10px] font-bold text-orange uppercase tracking-[0.2em] hidden sm:inline-block">Bas-Rhin (67)</span>
@@ -1304,9 +1300,9 @@
         
         <div class="container mx-auto px-6 relative z-10">
             <div class="flex flex-col items-center gap-6 mb-6">
-                <img src="assets/logo-piscines-du-rhin.png" 
+                <img src="assets/logo-piscines-du-rhin-transparent.png" 
                      alt="Piscines du Rhin - Pisciniste Bas-Rhin 67" 
-                     class="h-16 w-auto object-contain logo-no-blanc opacity-90"
+                     class="h-16 w-auto object-contain opacity-90"
                      loading="lazy">
                 <p class="text-gray-400 text-sm font-medium mb-4">Bureau technique</p>
             </div>
