@@ -217,8 +217,40 @@
          * - Couleurs principales : Orange #E69B3F, Bleu #20E2D7, Texte en script clair
          */
         
-        /* Logo */
-        /* Sur fond clair (footer si besoin), on garde le logo lisible */
+        /* Logo + effets 3D / dynamiques */
+        .logo-3d {
+            transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+            transform-style: preserve-3d;
+        }
+        a:hover .logo-3d {
+            transform: scale(1.05) rotateY(-3deg) rotateX(2deg);
+            filter: drop-shadow(0 8px 20px rgba(230, 155, 63, 0.3));
+        }
+        /* Cartes projets - effet 3D au survol */
+        .projet-card-3d {
+            transform-style: preserve-3d;
+            transition: transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.5s ease;
+        }
+        .projet-card-3d:hover {
+            transform: perspective(1000px) rotateY(-5deg) rotateX(3deg) scale(1.02);
+            box-shadow: 0 25px 50px rgba(0,0,0,0.3), 0 0 30px rgba(230, 155, 63, 0.15);
+        }
+        /* Formulaire - glow subtil */
+        .form-glow {
+            animation: formGlow 4s ease-in-out infinite;
+        }
+        @keyframes formGlow {
+            0%, 100% { box-shadow: 0 25px 50px rgba(0,0,0,0.4), 0 0 0 rgba(230, 155, 63, 0); }
+            50% { box-shadow: 0 25px 50px rgba(0,0,0,0.4), 0 0 40px rgba(230, 155, 63, 0.08); }
+        }
+        /* Points marketing - float subtil */
+        .float-hover {
+            transition: transform 0.4s ease;
+        }
+        .float-hover:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 15px 35px rgba(230, 155, 63, 0.2);
+        }
         .select-none {
             user-select: none;
         }
@@ -920,7 +952,7 @@
         }
         .btn-premium:hover {
             transform: translateY(-2px);
-            box-shadow: 0 10px 30px rgba(230, 155, 63, 0.4), 0 0 20px rgba(230, 155, 63, 0.2);
+            box-shadow: 0 10px 30px rgba(230, 155, 63, 0.4), 0 0 25px rgba(230, 155, 63, 0.4), 0 0 40px rgba(32, 226, 215, 0.15);
         }
         .btn-submit:hover {
             background: #E69B3F !important;
@@ -975,10 +1007,10 @@
                 <a href="#hero-section" class="flex items-center gap-3 select-none hover:opacity-90 transition-opacity duration-300 flex-shrink-0">
                     <img src="assets/logo-piscines-du-rhin-transparent.png" 
                          alt="Piscines du Rhin - Pisciniste Bas-Rhin 67" 
-                         class="h-16 md:h-20 w-auto object-contain"
+                         class="h-20 md:h-24 w-auto object-contain logo-3d"
                          loading="eager">
                 </a>
-                <span class="text-[10px] font-bold text-orange uppercase tracking-[0.2em] hidden sm:inline-block">Bas-Rhin (67)</span>
+                <span class="text-[10px] font-bold text-orange/90 uppercase tracking-[0.2em] hidden sm:inline-block">Strasbourg · Bas-Rhin</span>
             </div>
             <div class="bg-white/5 px-4 py-2 rounded-lg text-[10px] font-black text-white uppercase tracking-widest hover:bg-white/10 hover:border-orange/30 border border-transparent transition-all duration-300">
                 Réponse rapide <i class="fas fa-bolt text-orange animate-pulse"></i>
@@ -1018,28 +1050,28 @@
                 
                 <!-- Points marketing élégants avec animations -->
                 <div class="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-2xl mb-10" data-aos="fade-up" data-aos-delay="200">
-                    <div class="flex flex-col items-center text-center p-4 bg-white/5 rounded-xl border border-white/10 hover:border-orange/50 hover:bg-white/10 hover:scale-105 transition-all duration-300 group cursor-pointer">
+                    <div class="flex flex-col items-center text-center p-4 bg-white/5 rounded-xl border border-white/10 hover:border-orange/50 hover:bg-white/10 float-hover group cursor-pointer">
                         <div class="w-12 h-12 bg-orange/20 rounded-full flex items-center justify-center mb-3 group-hover:bg-orange/30 group-hover:scale-110 transition-all duration-300">
                             <i class="fas fa-tools text-orange text-xl group-hover:rotate-12 transition-transform duration-300"></i>
                         </div>
                         <span class="text-[10px] font-black text-white uppercase tracking-tight leading-tight group-hover:text-orange transition-colors" style="font-family: 'Plus Jakarta Sans', sans-serif;">SAV</span>
                         <span class="text-[10px] text-gray-400 mt-1 group-hover:text-gray-300 transition-colors" style="font-family: 'Plus Jakarta Sans', sans-serif;">Dépannage</span>
                     </div>
-                    <div class="flex flex-col items-center text-center p-4 bg-white/5 rounded-xl border border-white/10 hover:border-orange/50 hover:bg-white/10 hover:scale-105 transition-all duration-300 group cursor-pointer">
+                    <div class="flex flex-col items-center text-center p-4 bg-white/5 rounded-xl border border-white/10 hover:border-orange/50 hover:bg-white/10 float-hover group cursor-pointer">
                         <div class="w-12 h-12 bg-orange/20 rounded-full flex items-center justify-center mb-3 group-hover:bg-orange/30 group-hover:scale-110 transition-all duration-300">
                             <i class="fas fa-swimming-pool text-orange text-base group-hover:scale-110 transition-transform duration-300"></i>
                         </div>
                         <span class="text-[10px] font-black text-white uppercase tracking-tight leading-tight group-hover:text-orange transition-colors" style="font-family: 'Plus Jakarta Sans', sans-serif;">Construction</span>
                         <span class="text-[10px] text-gray-400 mt-1 group-hover:text-gray-300 transition-colors" style="font-family: 'Plus Jakarta Sans', sans-serif;">Béton</span>
                     </div>
-                    <div class="flex flex-col items-center text-center p-4 bg-white/5 rounded-xl border border-white/10 hover:border-orange/50 hover:bg-white/10 hover:scale-105 transition-all duration-300 group cursor-pointer">
+                    <div class="flex flex-col items-center text-center p-4 bg-white/5 rounded-xl border border-white/10 hover:border-orange/50 hover:bg-white/10 float-hover group cursor-pointer">
                         <div class="w-12 h-12 bg-orange/20 rounded-full flex items-center justify-center mb-3 group-hover:bg-orange/30 group-hover:scale-110 transition-all duration-300">
                             <i class="fas fa-sync-alt text-orange text-xl group-hover:rotate-180 transition-transform duration-500"></i>
                         </div>
                         <span class="text-[10px] font-black text-white uppercase tracking-tight leading-tight group-hover:text-orange transition-colors" style="font-family: 'Plus Jakarta Sans', sans-serif;">Rénovation</span>
                         <span class="text-[10px] text-gray-400 mt-1 group-hover:text-gray-300 transition-colors" style="font-family: 'Plus Jakarta Sans', sans-serif;">Modernisation</span>
                     </div>
-                    <div class="flex flex-col items-center text-center p-4 bg-white/5 rounded-xl border border-white/10 hover:border-orange/50 hover:bg-white/10 hover:scale-105 transition-all duration-300 group cursor-pointer">
+                    <div class="flex flex-col items-center text-center p-4 bg-white/5 rounded-xl border border-white/10 hover:border-orange/50 hover:bg-white/10 float-hover group cursor-pointer">
                         <div class="w-12 h-12 bg-orange/20 rounded-full flex items-center justify-center mb-3 group-hover:bg-orange/30 group-hover:scale-110 transition-all duration-300">
                             <i class="fas fa-water text-orange text-xl group-hover:animate-pulse transition-all duration-300"></i>
                         </div>
@@ -1050,7 +1082,7 @@
             </div>
 
             <!-- Colonne Formulaire (Logique Métier + Technique) - VISIBILITÉ OPTIMISÉE -->
-            <div id="devis" class="form-container border-2 border-white/20 p-8 lg:p-10 rounded-[2.5rem] shadow-2xl relative z-20">
+            <div id="devis" class="form-container form-glow border-2 border-white/20 p-8 lg:p-10 rounded-[2.5rem] shadow-2xl relative z-20">
                 <div class="text-center mb-8">
                     <h3 class="text-3xl font-black uppercase tracking-tighter text-white">Lancer ma demande</h3>
                     <p class="text-orange text-[10px] font-bold uppercase tracking-widest mt-1">Réponse précise garantie sous 48h.</p>
@@ -1242,7 +1274,7 @@
             
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
                 <!-- Projet 1 - Strasbourg -->
-                <a href="https://www.lespiscinesdurhin.com/galerie/nos-realisations-3/" target="_blank" rel="noopener noreferrer" class="group relative aspect-[4/3] rounded-[2rem] overflow-hidden border border-white/5 hover:border-orange/50 transition-all block cursor-pointer" data-aos="fade-up" title="Piscine construite par Piscines du Rhin à Strasbourg">
+                <a href="https://www.lespiscinesdurhin.com/galerie/nos-realisations-3/" target="_blank" rel="noopener noreferrer" class="projet-card-3d group relative aspect-[4/3] rounded-[2rem] overflow-hidden border border-white/5 hover:border-orange/50 block cursor-pointer" data-aos="fade-up" title="Piscine construite par Piscines du Rhin à Strasbourg">
                     <div class="relative w-full h-full overflow-hidden">
                         <img src="assets/55337074-5a47-4443-8482-8d0269fe66c1-7a973488-86d5-46e3-af6a-08d191b0fbcb.png" 
                              onerror="this.src='assets/55337074-5a47-4443-8482-8d0269fe66c1-a25f61dc-d360-4d30-8ab6-ef2d193b24e8.png'"
@@ -1256,7 +1288,7 @@
                     </div>
                 </a>
                 <!-- Projet 2 - Haguenau -->
-                <a href="https://www.lespiscinesdurhin.com/galerie/nos-realisations-3/" target="_blank" rel="noopener noreferrer" class="group relative aspect-[4/3] rounded-[2rem] overflow-hidden border border-white/5 hover:border-orange/50 transition-all block cursor-pointer" data-aos="fade-up" data-aos-delay="100" title="Rénovation piscine Haguenau Bas-Rhin - Piscines du Rhin">
+                <a href="https://www.lespiscinesdurhin.com/galerie/nos-realisations-3/" target="_blank" rel="noopener noreferrer" class="projet-card-3d group relative aspect-[4/3] rounded-[2rem] overflow-hidden border border-white/5 hover:border-orange/50 block cursor-pointer" data-aos="fade-up" data-aos-delay="100" title="Rénovation piscine Haguenau Bas-Rhin - Piscines du Rhin">
                     <div class="relative w-full h-full overflow-hidden">
                         <img src="assets/6c5189f8-947a-4149-bcd3-767820712a0d-5d9b63e8-b1f4-4c9c-b6c1-93352005551f.png" 
                              onerror="this.src='assets/c6bab003-6c17-4cf0-a85f-c2e05df9f677-25021f3a-3e43-48d1-971e-0fbe30968b3e.png'"
@@ -1270,7 +1302,7 @@
                     </div>
                 </a>
                 <!-- Projet 3 - Saverne -->
-                <a href="https://www.lespiscinesdurhin.com/galerie/nos-realisations-3/" target="_blank" rel="noopener noreferrer" class="group relative aspect-[4/3] rounded-[2rem] overflow-hidden border border-white/5 hover:border-orange/50 transition-all block cursor-pointer" data-aos="fade-up" data-aos-delay="200" title="Piscine sur mesure Saverne Bas-Rhin - Piscines du Rhin">
+                <a href="https://www.lespiscinesdurhin.com/galerie/nos-realisations-3/" target="_blank" rel="noopener noreferrer" class="projet-card-3d group relative aspect-[4/3] rounded-[2rem] overflow-hidden border border-white/5 hover:border-orange/50 block cursor-pointer" data-aos="fade-up" data-aos-delay="200" title="Piscine sur mesure Saverne Bas-Rhin - Piscines du Rhin">
                     <div class="relative w-full h-full overflow-hidden">
                         <img src="assets/2bdba317-2436-477c-8794-c0a046a09dff_2-6b51be6d-5fa7-4374-8a43-6e8885ea58c4.png" 
                              onerror="this.src='assets/2bdba317-2436-477c-8794-c0a046a09dff-d82e6935-3103-4cc9-aaf2-859e29d3df31.png'"
@@ -1302,7 +1334,7 @@
             <div class="flex flex-col items-center gap-6 mb-6">
                 <img src="assets/logo-piscines-du-rhin-transparent.png" 
                      alt="Piscines du Rhin - Pisciniste Bas-Rhin 67" 
-                     class="h-20 w-auto object-contain opacity-90"
+                     class="h-24 w-auto object-contain opacity-90"
                      loading="lazy">
                 <p class="text-gray-400 text-sm font-medium mb-4">Bureau technique</p>
             </div>
@@ -1310,7 +1342,7 @@
             <div class="flex flex-col md:flex-row justify-center items-center gap-4 md:gap-8 text-xs font-bold text-gray-300 uppercase tracking-widest mb-8">
                 <a href="https://www.google.com/maps/search/?api=1&query=Piscines+du+Rhin+Bas-Rhin" target="_blank" rel="noopener noreferrer" class="flex items-center gap-2 text-white hover:text-orange transition-colors cursor-pointer">
                     <i class="fas fa-map-marker-alt text-orange"></i>
-                    <span class="font-black">Bas-Rhin (67)</span>
+                    <span class="font-black">Strasbourg, Bas-Rhin</span>
                 </a>
                 <p class="flex items-center gap-2">
                     <i class="fas fa-id-card text-orange"></i>
@@ -1343,7 +1375,7 @@
             </div>
             <!-- Zone Messages -->
             <div id="chat-msgs" class="flex-grow p-4 overflow-y-auto flex flex-col bg-gray-50">
-                <!-- Pas de message automatique - l'utilisateur doit écrire en premier -->
+                <!-- Message de bienvenue affiché à l'ouverture -->
             </div>
             <!-- Footer Chat -->
             <div class="p-4 bg-navy border-t border-white/10 flex gap-2">
@@ -1569,6 +1601,16 @@
             
             if (chat && chat.style.display !== 'flex') {
                 chat.style.display = 'flex';
+                
+                // Message de bienvenue à la première ouverture
+                const box = document.getElementById('chat-msgs');
+                if (box && box.children.length === 0) {
+                    const welcome = document.createElement('div');
+                    welcome.className = 'msg msg-ai';
+                    welcome.textContent = 'Bienvenue chez les Piscines du Rhin ! 👋 Je suis votre assistant. Posez-moi vos questions sur les piscines (tarifs, zone, délais, rénovation...).';
+                    box.appendChild(welcome);
+                    box.scrollTop = box.scrollHeight;
+                }
                 
                 // Masquer le badge quand on ouvre le chat
                 const badge = document.getElementById('chat-notification-badge');
