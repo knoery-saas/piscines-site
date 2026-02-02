@@ -907,6 +907,54 @@
             background: #011627;
             color: #ffffff;
         }
+        
+        /* Storytelling Meinau - carousel 3D / glassmorphism */
+        .storytelling-section {
+            perspective: 1400px;
+        }
+        .storytelling-card {
+            transform-style: preserve-3d;
+            perspective: 1400px;
+            transition: transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.5s ease;
+            border: 2px solid rgba(255,255,255,0.1);
+            box-shadow: 0 25px 50px rgba(0,0,0,0.4), 0 0 40px rgba(230, 155, 63, 0.08), 0 0 60px rgba(32, 226, 215, 0.06);
+        }
+        .storytelling-card:hover {
+            transform: rotateY(-2deg) rotateX(1deg) scale(1.01);
+            box-shadow: 0 30px 60px rgba(0,0,0,0.5), 0 0 50px rgba(230, 155, 63, 0.15), 0 0 70px rgba(32, 226, 215, 0.1);
+        }
+        .storytelling-glass {
+            background: rgba(1, 22, 39, 0.85);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255,255,255,0.08);
+        }
+        .storytelling-slide {
+            opacity: 0;
+            transform: translateX(30px) scale(0.98);
+            pointer-events: none;
+            transition: opacity 0.5s ease, transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+        .storytelling-slide.active {
+            opacity: 1;
+            transform: translateX(0) scale(1);
+            pointer-events: auto;
+        }
+        .storytelling-nav-btn {
+            transition: transform 0.25s ease, box-shadow 0.25s ease, background 0.25s ease;
+        }
+        .storytelling-nav-btn:hover {
+            transform: scale(1.08);
+            box-shadow: 0 8px 25px rgba(230, 155, 63, 0.4);
+        }
+        .storytelling-dot {
+            transition: transform 0.25s ease, background 0.25s ease;
+        }
+        .storytelling-dot.active {
+            transform: scale(1.2);
+            background: #E69B3F;
+            box-shadow: 0 0 15px rgba(230, 155, 63, 0.5);
+        }
     </style>
 </head>
 <body class="bg-[#010B13] font-sans text-white antialiased" style="font-family: 'Plus Jakarta Sans', sans-serif;">
@@ -1098,7 +1146,7 @@
                             <button type="button" onclick="prevStep(2)" class="flex-1 bg-white/5 text-white py-4 rounded-2xl font-black text-xs uppercase tracking-widest btn-premium border border-white/10 hover:bg-white/10">
                                 <i class="fas fa-arrow-left mr-2"></i> Retour
                             </button>
-                            <button type="button" onclick="validateAndSubmit();" class="flex-1 bg-orange text-white py-4 rounded-2xl font-black text-sm uppercase tracking-widest btn-premium btn-submit btn-pulse shadow-xl shadow-orange/40 hover:bg-orange/90 hover:text-white transition-all">
+                            <button type="submit" class="flex-1 bg-orange text-white py-4 rounded-2xl font-black text-sm uppercase tracking-widest btn-premium btn-submit btn-pulse shadow-xl shadow-orange/40 hover:bg-orange/90 hover:text-white transition-all">
                                 Envoyer ma demande
                             </button>
                         </div>
@@ -1275,6 +1323,100 @@
                         <p class="text-lg font-black text-white">Piscine sur mesure</p>
                     </div>
                 </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section Storytelling - Projet Meinau (clic Suivant / Précédent) -->
+    <section id="storytelling-meinau" class="py-24 bg-[#010B13] border-t border-white/5 storytelling-section" aria-label="Projet piscine Meinau en images">
+        <div class="container mx-auto px-6">
+            <h2 class="text-center text-4xl font-black uppercase tracking-widest mb-4 text-white" data-aos="fade-up">
+                Un projet en <span class="text-orange italic">images</span>
+            </h2>
+            <p class="text-center text-gray-400 text-sm max-w-2xl mx-auto mb-12" data-aos="fade-up" data-aos-delay="100">Projet Strasbourg-Meinau : du terrain à la mise en eau. Cliquez sur Suivant pour découvrir les étapes.</p>
+            
+            <div class="max-w-4xl mx-auto">
+                <div class="storytelling-card rounded-[2rem] overflow-hidden storytelling-glass p-4 md:p-6">
+                    <div class="relative aspect-[16/10] md:aspect-[2/1] rounded-2xl overflow-hidden bg-navy">
+                        <img id="storytelling-img" src="assets/terrain-meinau.jpg" alt="Terrain avant travaux - Projet Meinau Strasbourg" class="absolute inset-0 w-full h-full object-cover transition-opacity duration-500" loading="lazy" onerror="this.style.background='linear-gradient(135deg,#011627,#0d2137)';this.onerror=null;">
+                        <div class="absolute inset-0 bg-gradient-to-t from-navy/90 via-transparent to-transparent pointer-events-none"></div>
+                        <div class="absolute bottom-0 left-0 right-0 p-6 text-white">
+                            <span id="storytelling-step" class="text-orange text-xs font-black uppercase tracking-widest">Étape 1 / 4</span>
+                            <h3 id="storytelling-title" class="text-xl md:text-2xl font-black mt-1">Terrain Meinau</h3>
+                            <p id="storytelling-desc" class="text-sm text-gray-300 mt-1 opacity-90">Avant travaux – préparation du chantier</p>
+                        </div>
+                    </div>
+                    
+                    <div class="flex flex-wrap items-center justify-between gap-4 mt-6">
+                        <button type="button" id="storytelling-prev" class="storytelling-nav-btn flex items-center gap-2 px-6 py-3 rounded-xl bg-white/10 border border-white/20 text-white font-bold text-sm uppercase tracking-widest hover:bg-orange hover:border-orange hover:text-navy disabled:opacity-40 disabled:pointer-events-none" aria-label="Photo précédente">
+                            <i class="fas fa-chevron-left"></i> Précédent
+                        </button>
+                        <div class="flex gap-2" id="storytelling-dots" aria-label="Étapes du projet">
+                            <button type="button" class="storytelling-dot w-3 h-3 rounded-full bg-orange active" data-index="0" aria-label="Étape 1"></button>
+                            <button type="button" class="storytelling-dot w-3 h-3 rounded-full bg-white/40" data-index="1" aria-label="Étape 2"></button>
+                            <button type="button" class="storytelling-dot w-3 h-3 rounded-full bg-white/40" data-index="2" aria-label="Étape 3"></button>
+                            <button type="button" class="storytelling-dot w-3 h-3 rounded-full bg-white/40" data-index="3" aria-label="Étape 4"></button>
+                        </div>
+                        <button type="button" id="storytelling-next" class="storytelling-nav-btn flex items-center gap-2 px-6 py-3 rounded-xl bg-orange border-2 border-orange text-navy font-black text-sm uppercase tracking-widest hover:bg-orange/90 hover:scale-105 shadow-lg shadow-orange/30" aria-label="Photo suivante">
+                            Suivant <i class="fas fa-chevron-right"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section Filtration & locaux techniques - illustration SAV -->
+    <section id="filtration-sav" class="py-24 bg-[#020D17] border-t border-white/5" aria-label="Filtration et SAV piscine">
+        <div class="container mx-auto px-6">
+            <h2 class="text-center text-4xl font-black uppercase tracking-widest mb-4 text-white" data-aos="fade-up">
+                Filtration & <span class="text-orange italic">SAV</span>
+            </h2>
+            <p class="text-center text-gray-400 text-sm max-w-2xl mx-auto mb-12" data-aos="fade-up" data-aos-delay="100">Locaux techniques, filtres à sable, cartouches, électrolyseurs : nous intervenons pour l’entretien et le dépannage de votre installation dans tout le Bas-Rhin.</p>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
+                <div class="projet-card-3d group relative rounded-[2rem] overflow-hidden border border-white/5 hover:border-orange/50 bg-white/5 backdrop-blur-sm" data-aos="fade-up">
+                    <div class="relative aspect-[4/3] overflow-hidden">
+                        <img src="assets/local-technique-filtre-sable.jpg" 
+                             alt="Local technique standard avec filtre à sable - SAV piscine Bas-Rhin" 
+                             class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" 
+                             loading="lazy" width="600" height="450" onerror="this.style.background='linear-gradient(135deg,#011627,#0d2137)'">
+                        <div class="absolute inset-0 bg-gradient-to-t from-navy to-transparent pointer-events-none"></div>
+                        <div class="absolute bottom-0 left-0 right-0 p-6 text-white z-10">
+                            <p class="text-xs font-black text-orange uppercase tracking-widest">Filtration</p>
+                            <p class="text-lg font-black mt-1">Filtre à sable</p>
+                            <p class="text-sm text-gray-300 mt-1">Local technique standard</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="projet-card-3d group relative rounded-[2rem] overflow-hidden border border-white/5 hover:border-orange/50 bg-white/5 backdrop-blur-sm" data-aos="fade-up" data-aos-delay="100">
+                    <div class="relative aspect-[4/3] overflow-hidden">
+                        <img src="assets/local-technique-filtre-cartouches-electrolyseur.jpg" 
+                             alt="Local technique filtre à cartouches et électrolyseur - SAV piscine 67" 
+                             class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" 
+                             loading="lazy" width="600" height="450" onerror="this.style.background='linear-gradient(135deg,#011627,#0d2137)'">
+                        <div class="absolute inset-0 bg-gradient-to-t from-navy to-transparent pointer-events-none"></div>
+                        <div class="absolute bottom-0 left-0 right-0 p-6 text-white z-10">
+                            <p class="text-xs font-black text-orange uppercase tracking-widest">Filtration</p>
+                            <p class="text-lg font-black mt-1">Cartouches & électrolyseur</p>
+                            <p class="text-sm text-gray-300 mt-1">Traitement de l’eau</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="projet-card-3d group relative rounded-[2rem] overflow-hidden border border-white/5 hover:border-orange/50 bg-white/5 backdrop-blur-sm" data-aos="fade-up" data-aos-delay="200">
+                    <div class="relative aspect-[4/3] overflow-hidden">
+                        <img src="assets/local-technique-filtre-sable-electrolyseur.jpg" 
+                             alt="Local technique filtre à sable et électrolyseur - Dépannage piscine Strasbourg" 
+                             class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" 
+                             loading="lazy" width="600" height="450" onerror="this.style.background='linear-gradient(135deg,#011627,#0d2137)'">
+                        <div class="absolute inset-0 bg-gradient-to-t from-navy to-transparent pointer-events-none"></div>
+                        <div class="absolute bottom-0 left-0 right-0 p-6 text-white z-10">
+                            <p class="text-xs font-black text-orange uppercase tracking-widest">SAV & Dépannage</p>
+                            <p class="text-lg font-black mt-1">Sable + électrolyseur</p>
+                            <p class="text-sm text-gray-300 mt-1">Installation complète</p>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
@@ -1735,9 +1877,56 @@
         });
 
         // ============================================
+        // STORYTELLING MEINAU - Carousel Suivant / Précédent
+        // ============================================
+        (function() {
+            var storytellingData = [
+                { img: 'assets/terrain-meinau.jpg', step: 'Étape 1 / 4', title: 'Terrain Meinau', desc: 'Avant travaux – préparation du chantier' },
+                { img: 'assets/preparation-bassin-pvc-arme-meinau.jpg', step: 'Étape 2 / 4', title: 'Préparation du bassin', desc: 'Avant pose PVC armé – Meinau' },
+                { img: 'assets/bassin-final-meinau.jpg', step: 'Étape 3 / 4', title: 'Bassin final Meinau', desc: 'Piscine terminée – structure et finitions' },
+                { img: 'assets/mise-en-eau-meinau.jpg', step: 'Étape 4 / 4', title: 'Mise en eau Meinau', desc: 'Mise en eau – projet livré' }
+            ];
+            var currentStory = 0;
+            function goToStory(index) {
+                if (index < 0) index = storytellingData.length - 1;
+                if (index >= storytellingData.length) index = 0;
+                currentStory = index;
+                var d = storytellingData[currentStory];
+                var imgEl = document.getElementById('storytelling-img');
+                var stepEl = document.getElementById('storytelling-step');
+                var titleEl = document.getElementById('storytelling-title');
+                var descEl = document.getElementById('storytelling-desc');
+                if (imgEl) { imgEl.style.opacity = '0'; setTimeout(function() { imgEl.src = d.img; imgEl.alt = d.title + ' - Projet Meinau'; imgEl.style.opacity = '1'; }, 200); }
+                if (stepEl) stepEl.textContent = d.step;
+                if (titleEl) titleEl.textContent = d.title;
+                if (descEl) descEl.textContent = d.desc;
+                document.querySelectorAll('#storytelling-dots .storytelling-dot').forEach(function(dot, i) {
+                    dot.classList.toggle('active', i === currentStory);
+                    dot.classList.toggle('bg-orange', i === currentStory);
+                    dot.classList.toggle('bg-white/40', i !== currentStory);
+                });
+                var prevBtn = document.getElementById('storytelling-prev');
+                var nextBtn = document.getElementById('storytelling-next');
+                if (prevBtn) prevBtn.disabled = false;
+                if (nextBtn) nextBtn.disabled = false;
+            }
+            document.addEventListener('DOMContentLoaded', function() {
+                var prevBtn = document.getElementById('storytelling-prev');
+                var nextBtn = document.getElementById('storytelling-next');
+                var dotsContainer = document.getElementById('storytelling-dots');
+                if (prevBtn) prevBtn.addEventListener('click', function() { goToStory(currentStory - 1); });
+                if (nextBtn) nextBtn.addEventListener('click', function() { goToStory(currentStory + 1); });
+                if (dotsContainer) dotsContainer.querySelectorAll('.storytelling-dot').forEach(function(dot) {
+                    dot.addEventListener('click', function() { goToStory(parseInt(this.getAttribute('data-index'), 10)); });
+                });
+            });
+        })();
+
+        // ============================================
         // 6. VALIDATION ET SOUMISSION DU FORMULAIRE
         // ============================================
         function validateAndSubmit() {
+            try {
             console.log('🔵 validateAndSubmit appelé');
             const form = document.getElementById('devis-form');
             if (!form) {
@@ -1751,6 +1940,8 @@
             // Supprimer tous les messages d'erreur existants
             document.querySelectorAll('.error-message').forEach(msg => msg.remove());
             document.querySelectorAll('.error').forEach(field => field.classList.remove('error'));
+            const banner = document.getElementById('form-error-banner');
+            if (banner) banner.remove();
             
             console.log('🔵 Validation des champs...');
 
@@ -1832,14 +2023,28 @@
                 sendEmailAutomatic(formData);
             } else {
                 console.log('❌ Validation échouée');
+                // Message visible en haut du formulaire (toujours visible sur mobile)
+                const formContainer = document.getElementById('devis');
+                if (formContainer && !document.getElementById('form-error-banner')) {
+                    const errBanner = document.createElement('div');
+                    errBanner.id = 'form-error-banner';
+                    errBanner.setAttribute('role', 'alert');
+                    errBanner.className = 'mb-4 p-4 rounded-xl bg-red-500/20 border border-red-500/50 text-red-200 text-sm font-bold';
+                    errBanner.textContent = '⚠️ Veuillez remplir tous les champs obligatoires : nom, adresse et email.';
+                    formContainer.insertBefore(errBanner, formContainer.firstChild);
+                }
                 // Scroll vers le premier champ en erreur
                 const firstError = form.querySelector('.error');
                 if (firstError) {
                     firstError.scrollIntoView({ behavior: 'smooth', block: 'center' });
                     setTimeout(() => firstError.focus(), 300);
-                } else {
-                    alert('⚠️ Veuillez remplir tous les champs obligatoires correctement');
                 }
+                alert('⚠️ Veuillez remplir tous les champs obligatoires (nom, adresse, email).');
+                return;
+            }
+            } catch (e) {
+                console.error('❌ Erreur validateAndSubmit:', e);
+                alert('❌ Une erreur s\'est produite. Veuillez réessayer ou nous contacter au 07 61 32 91 84.');
             }
         }
 
@@ -1979,7 +2184,7 @@
             console.log('📧 sendEmailAutomatic appelé avec:', formData);
             
             // Afficher un message de chargement IMMÉDIATEMENT
-            const submitBtn = document.querySelector('button[type="button"][onclick*="validateAndSubmit"]') || document.querySelector('.btn-submit');
+            const submitBtn = document.querySelector('#devis-form button[type="submit"]') || document.querySelector('.btn-submit');
             if (!submitBtn) {
                 console.error('❌ Bouton submit non trouvé');
                 showErrorMessage();

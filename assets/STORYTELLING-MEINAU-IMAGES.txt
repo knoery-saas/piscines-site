@@ -1,0 +1,13 @@
+Images à placer dans ce dossier (assets/) pour le site Piscines du Rhin.
+
+── STORYTELLING MEINAU (section "Un projet en images") ──
+  Terrain MEINAU.jpg                     →  terrain-meinau.jpg
+  Preparation du bassin avangt pose...   →  preparation-bassin-pvc-arme-meinau.jpg
+  Bassin final Meinau.jpg                →  bassin-final-meinau.jpg
+  Mise en eau Meinau.jpg                 →  mise-en-eau-meinau.jpg
+Ordre : 1 Terrain → 2 Préparation bassin PVC armé → 3 Bassin final → 4 Mise en eau.
+
+── FILTRATION & SAV (section "Filtration & SAV") ──
+  Local technique standart avec filtre à sable.jpg                    →  local-technique-filtre-sable.jpg
+  Local technique avec filtre à cartouches et Electrolyseur.JPG      →  local-technique-filtre-cartouches-electrolyseur.jpg
+  Local Technique avec un filtre à sable et un électrolyseur.jpg     →  local-technique-filtre-sable-electrolyseur.jpg
