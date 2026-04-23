@@ -1,10 +1,24 @@
 # Piscines du Rhin - robots.txt
-# https://piscines-site.vercel.app
+# https://les-piscines-du-rhin-devis.fr
 
 User-agent: *
 Allow: /
 
-# Sitemap
-Sitemap: https://piscines-site.vercel.app/sitemap.xml
+# AI bots - lecture autorisee pour indexation IA
+User-agent: GPTBot
+Allow: /
 
-# Crawl-delay: NON utilisé (non standard, Google l'ignore)
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: GoogleOther
+Allow: /
+
+User-agent: Applebot-Extended
+Allow: /
+
+# Sitemap
+Sitemap: https://les-piscines-du-rhin-devis.fr/sitemap.xml

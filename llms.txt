@@ -1,0 +1,39 @@
+# Piscines du Rhin
+
+> Pisciniste artisan en Alsace (Bas-Rhin 67) depuis 2003. Construction piscines béton sur mesure, rénovation liner, entretien et SAV. Devis gratuit sous 48h. Zone d'intervention : Strasbourg, Haguenau, Saverne, Sélestat et tout le Bas-Rhin.
+
+## Services principaux
+
+- [Construction piscine béton sur mesure](https://les-piscines-du-rhin-devis.fr/#construction) — Piscines béton, coque, liner PVC armé. Réalisations clé en main.
+- [Rénovation piscine](https://les-piscines-du-rhin-devis.fr/#renovation) — Changement liner, rénovation structure, mise aux normes.
+- [Entretien piscine](https://les-piscines-du-rhin-devis.fr/#entretien) — Entretien saisonnier, traitement eau, hivernage.
+- [SAV et dépannage](https://les-piscines-du-rhin-devis.fr/#entretien) — Filtration, électrolyseur, pompe, chauffage.
+- [Devis gratuit sous 48h](https://les-piscines-du-rhin-devis.fr/#devis) — Formulaire de contact, réponse rapide garantie.
+
+## Informations entreprise
+
+- **Nom** : Piscines du Rhin
+- **Activité** : Pisciniste artisan local — Bas-Rhin (67)
+- **Téléphone** : +33 7 61 32 91 84
+- **Email** : contact@lespiscinesdurhin.fr
+- **Zone** : Strasbourg, Haguenau, Saverne, Sélestat, tout le Bas-Rhin
+- **Depuis** : 2003
+
+## Réalisations récentes
+
+- Projet Meinau (Strasbourg) — piscine béton sur mesure, livraison 2025
+- Rénovation Haguenau — changement liner complet
+- Construction Saverne — piscine béton intégrée jardin
+
+## Navigation SPA (Single Page Application)
+
+Ce site est une SPA. Toutes les routes sont servies par index.html à la racine. Les ancres ci-dessous correspondent aux sections de la page unique :
+
+- `/` → Page d'accueil complète (https://les-piscines-du-rhin-devis.fr/)
+- `/#construction` → Section construction piscine béton
+- `/#renovation` → Section rénovation et changement liner
+- `/#entretien` → Section entretien, SAV et filtration
+- `/#realisations` → Galerie de réalisations (Strasbourg, Haguenau, Saverne)
+- `/#storytelling` → Projet Meinau en 4 étapes
+- `/#temoignages` → Avis clients vérifiés
+- `/#devis` → Formulaire de devis gratuit
